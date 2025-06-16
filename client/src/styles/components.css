@@ -1,0 +1,863 @@
+/* Haven Word Church - Component-Specific Styles */
+
+/* ========================================
+   HEADER & NAVIGATION COMPONENTS
+   ======================================== */
+
+/* Main Header */
+.header {
+  @apply sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300;
+}
+
+[data-theme="dark"] .header {
+  @apply bg-gray-900/95 border-gray-800;
+}
+
+.header.scrolled {
+  @apply shadow-lg bg-white/98;
+}
+
+[data-theme="dark"] .header.scrolled {
+  @apply bg-gray-900/98;
+}
+
+/* Logo Component */
+.logo {
+  @apply flex items-center space-x-3 font-bold text-xl text-primary;
+}
+
+.logo-image {
+  @apply h-10 w-auto sm:h-12 object-contain;
+}
+
+.logo-text {
+  @apply hidden sm:block font-accent text-2xl font-bold text-primary;
+}
+
+/* Navigation Menu */
+.nav-menu {
+  @apply hidden lg:flex items-center space-x-8;
+}
+
+.nav-menu-item {
+  @apply relative group;
+}
+
+.nav-menu-link {
+  @apply nav-link text-base font-medium py-2 transition-all duration-200;
+}
+
+.nav-menu-link::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0.125rem; /* h-0.5 */
+  background-color: var(--color-primary);
+  transition-property: all;
+  transition-duration: 300ms;
+  content: '';
+}
+
+.nav-menu-link:hover::after,
+.nav-menu-link.active::after {
+  width: 100%;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  @apply absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 opacity-0 invisible transform scale-95 transition-all duration-200 origin-top;
+}
+
+[data-theme="dark"] .dropdown-menu {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.nav-menu-item:hover .dropdown-menu {
+  @apply opacity-100 visible scale-100;
+}
+
+.dropdown-item {
+  @apply block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors duration-150;
+}
+
+[data-theme="dark"] .dropdown-item {
+  @apply text-gray-200 hover:bg-gray-700;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  @apply lg:hidden fixed inset-x-0 top-0 z-50 bg-white shadow-xl transform -translate-y-full transition-transform duration-300 ease-in-out;
+}
+
+[data-theme="dark"] .mobile-menu {
+  @apply bg-gray-900;
+}
+
+.mobile-menu.open {
+  @apply translate-y-0;
+}
+
+.mobile-menu-item {
+  @apply border-b border-gray-100 last:border-b-0;
+}
+
+[data-theme="dark"] .mobile-menu-item {
+  @apply border-gray-800;
+}
+
+.mobile-menu-link {
+  @apply block px-6 py-4 text-base font-medium text-gray-900 hover:bg-gray-50 hover:text-primary transition-colors duration-150;
+}
+
+[data-theme="dark"] .mobile-menu-link {
+  @apply text-gray-100 hover:bg-gray-800;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  @apply lg:hidden flex items-center justify-center w-10 h-10 rounded-md text-gray-700 hover:bg-gray-100 transition-colors duration-150;
+}
+
+[data-theme="dark"] .mobile-menu-toggle {
+  @apply text-gray-200 hover:bg-gray-800;
+}
+
+/* ========================================
+   HERO SECTION COMPONENTS
+   ======================================== */
+
+/* Main Hero */
+.hero {
+  @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+}
+
+.hero-background {
+  @apply absolute inset-0 z-0;
+}
+
+.hero-background-image {
+  @apply w-full h-full object-cover;
+}
+
+.hero-overlay {
+  @apply absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-secondary/80 z-10;
+}
+
+.hero-content {
+  @apply relative z-20 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto;
+}
+
+.hero-title {
+  @apply font-accent text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-slide-in-up;
+}
+
+.hero-subtitle {
+  @apply text-lg sm:text-xl md:text-2xl font-light leading-relaxed mb-8 text-white/90 animate-slide-in-up;
+  animation-delay: 0.2s;
+}
+
+.hero-cta {
+  @apply flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-in-up;
+  animation-delay: 0.4s;
+}
+
+/* Secondary Hero (for inner pages) */
+.hero-secondary {
+  @apply relative py-20 md:py-32 bg-gradient-to-r from-primary to-primary-dark text-white text-center;
+}
+
+.hero-secondary-title {
+  @apply font-accent text-3xl md:text-4xl lg:text-5xl font-bold mb-4;
+}
+
+.hero-secondary-breadcrumb {
+  @apply flex items-center justify-center space-x-2 text-white/80;
+}
+
+.breadcrumb-separator {
+  @apply text-white/60;
+}
+
+/* ========================================
+   SECTION COMPONENTS
+   ======================================== */
+
+/* Section Headers */
+.section-header {
+  @apply text-center mb-12 md:mb-16;
+}
+
+.section-subtitle {
+  @apply text-secondary font-medium text-sm uppercase tracking-wider mb-3;
+}
+
+.section-title {
+  @apply heading-secondary mb-4;
+}
+
+.section-description {
+  @apply text-subtitle max-w-2xl mx-auto;
+}
+
+/* Statistics Section */
+.stats-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-8 text-center;
+}
+
+.stat-item {
+  @apply space-y-2;
+}
+
+.stat-number {
+  @apply text-3xl md:text-4xl font-bold text-primary font-secondary;
+}
+
+.stat-label {
+  @apply text-gray-600 font-medium;
+}
+
+[data-theme="dark"] .stat-label {
+  @apply text-gray-400;
+}
+
+/* Feature Grid */
+.feature-grid {
+  @apply grid md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.feature-item {
+  @apply text-center p-6 rounded-xl hover:shadow-lg transition-shadow duration-300;
+}
+
+.feature-icon {
+  @apply w-16 h-16 mx-auto mb-4 p-4 bg-primary-light rounded-full text-primary;
+}
+
+.feature-title {
+  @apply text-xl font-semibold mb-3 text-gray-900;
+}
+
+[data-theme="dark"] .feature-title {
+  @apply text-gray-100;
+}
+
+.feature-description {
+  @apply text-gray-600 leading-relaxed;
+}
+
+[data-theme="dark"] .feature-description {
+  @apply text-gray-400;
+}
+
+/* ========================================
+   CARD COMPONENTS
+   ======================================== */
+
+/* Event Card */
+.event-card {
+  @apply card group cursor-pointer;
+}
+
+.event-card:hover {
+  @apply shadow-xl transform -translate-y-1;
+}
+
+.event-card-image {
+  @apply w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300;
+}
+
+.event-card-content {
+  @apply p-6;
+}
+
+.event-card-date {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-secondary-light text-orange-800 mb-3;
+}
+
+.event-card-title {
+  @apply text-xl font-semibold mb-2 text-gray-900 group-hover:text-primary transition-colors duration-200;
+}
+
+[data-theme="dark"] .event-card-title {
+  @apply text-gray-100;
+}
+
+.event-card-description {
+  @apply text-gray-600 text-sm line-clamp-3 mb-4;
+}
+
+[data-theme="dark"] .event-card-description {
+  @apply text-gray-400;
+}
+
+.event-card-meta {
+  @apply flex items-center justify-between text-sm text-gray-500;
+}
+
+[data-theme="dark"] .event-card-meta {
+  @apply text-gray-500;
+}
+
+/* Sermon Card */
+.sermon-card {
+  @apply card group;
+}
+
+.sermon-card-content {
+  @apply p-6;
+}
+
+.sermon-card-series {
+  @apply text-secondary text-sm font-medium mb-2;
+}
+
+.sermon-card-title {
+  @apply text-xl font-semibold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-200;
+}
+
+[data-theme="dark"] .sermon-card-title {
+  @apply text-gray-100;
+}
+
+.sermon-card-speaker {
+  @apply text-gray-600 text-sm mb-3;
+}
+
+[data-theme="dark"] .sermon-card-speaker {
+  @apply text-gray-400;
+}
+
+.sermon-card-actions {
+  @apply flex items-center space-x-4;
+}
+
+.sermon-action-btn {
+  @apply flex items-center space-x-2 text-sm text-primary hover:text-primary-dark transition-colors duration-200;
+}
+
+/* Ministry Card */
+.ministry-card {
+  @apply card text-center p-8 group hover:border-primary/20;
+}
+
+.ministry-card-icon {
+  @apply w-20 h-20 mx-auto mb-6 p-5 bg-gradient-to-br from-primary to-secondary rounded-full text-white;
+}
+
+.ministry-card-title {
+  @apply text-2xl font-semibold mb-4 text-gray-900;
+}
+
+[data-theme="dark"] .ministry-card-title {
+  @apply text-gray-100;
+}
+
+.ministry-card-description {
+  @apply text-gray-600 mb-6;
+}
+
+[data-theme="dark"] .ministry-card-description {
+  @apply text-gray-400;
+}
+
+/* Team Member Card */
+.team-card {
+  @apply card text-center group overflow-visible;
+}
+
+.team-card-image {
+  @apply w-32 h-32 mx-auto rounded-full object-cover border-4 border-white shadow-lg -mt-16 group-hover:scale-105 transition-transform duration-300;
+}
+
+.team-card-content {
+  @apply p-6 pt-4;
+}
+
+.team-card-name {
+  @apply text-xl font-semibold mb-1 text-gray-900;
+}
+
+[data-theme="dark"] .team-card-name {
+  @apply text-gray-100;
+}
+
+.team-card-role {
+  @apply text-secondary font-medium mb-3;
+}
+
+.team-card-bio {
+  @apply text-gray-600 text-sm mb-4;
+}
+
+[data-theme="dark"] .team-card-bio {
+  @apply text-gray-400;
+}
+
+.team-card-social {
+  @apply flex justify-center space-x-3;
+}
+
+.team-social-link {
+  @apply w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors duration-200;
+}
+
+[data-theme="dark"] .team-social-link {
+  @apply bg-gray-700 text-gray-400;
+}
+
+/* ========================================
+   FORM COMPONENTS
+   ======================================== */
+
+/* Contact Form */
+.contact-form {
+  @apply space-y-6;
+}
+
+.form-row {
+  @apply grid md:grid-cols-2 gap-6;
+}
+
+.floating-label-group {
+  @apply relative;
+}
+
+.floating-label-input {
+  @apply peer block w-full px-4 pt-6 pb-2 border border-gray-300 rounded-lg bg-transparent placeholder-transparent focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-200;
+}
+
+[data-theme="dark"] .floating-label-input {
+  @apply bg-gray-700 border-gray-600 text-white;
+}
+
+.floating-label {
+  @apply absolute left-4 top-2 text-xs text-gray-500 transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:text-xs peer-focus:top-2 peer-focus:text-primary;
+}
+
+[data-theme="dark"] .floating-label {
+  @apply text-gray-400;
+}
+
+/* Newsletter Signup */
+.newsletter-form {
+  @apply flex flex-col sm:flex-row gap-3 max-w-md mx-auto;
+}
+
+.newsletter-input {
+  @apply flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+}
+
+[data-theme="dark"] .newsletter-input {
+  @apply bg-gray-700 border-gray-600 text-white;
+}
+
+/* ========================================
+   TESTIMONIAL COMPONENTS
+   ======================================== */
+
+.testimonial-grid {
+  @apply grid md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.testimonial-card {
+  @apply card p-8 relative;
+}
+
+.testimonial-quote {
+  @apply text-4xl text-primary/20 absolute top-4 left-6 font-serif;
+}
+
+.testimonial-content {
+  @apply relative mt-6 mb-6 text-gray-700 italic leading-relaxed;
+}
+
+[data-theme="dark"] .testimonial-content {
+  @apply text-gray-300;
+}
+
+.testimonial-author {
+  @apply flex items-center space-x-4;
+}
+
+.testimonial-avatar {
+  @apply w-12 h-12 rounded-full object-cover border-2 border-primary/20;
+}
+
+.testimonial-info {
+  @apply flex-1;
+}
+
+.testimonial-name {
+  @apply font-semibold text-gray-900;
+}
+
+[data-theme="dark"] .testimonial-name {
+  @apply text-gray-100;
+}
+
+.testimonial-role {
+  @apply text-sm text-gray-600;
+}
+
+[data-theme="dark"] .testimonial-role {
+  @apply text-gray-400;
+}
+
+/* ========================================
+   BLOG COMPONENTS
+   ======================================== */
+
+.blog-grid {
+  @apply grid md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.blog-card {
+  @apply card group cursor-pointer;
+}
+
+.blog-card:hover {
+  @apply shadow-xl transform -translate-y-1;
+}
+
+.blog-card-image {
+  @apply w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300;
+}
+
+.blog-card-content {
+  @apply p-6;
+}
+
+.blog-card-category {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-light text-primary mb-3;
+}
+
+.blog-card-title {
+  @apply text-xl font-semibold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-200 line-clamp-2;
+}
+
+[data-theme="dark"] .blog-card-title {
+  @apply text-gray-100;
+}
+
+.blog-card-excerpt {
+  @apply text-gray-600 text-sm line-clamp-3 mb-4;
+}
+
+[data-theme="dark"] .blog-card-excerpt {
+  @apply text-gray-400;
+}
+
+.blog-card-meta {
+  @apply flex items-center justify-between text-sm text-gray-500;
+}
+
+[data-theme="dark"] .blog-card-meta {
+  @apply text-gray-500;
+}
+
+.blog-card-author {
+  @apply flex items-center space-x-2;
+}
+
+.blog-author-avatar {
+  @apply w-6 h-6 rounded-full object-cover;
+}
+
+/* ========================================
+   GALLERY COMPONENTS
+   ======================================== */
+
+.gallery-grid {
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+.gallery-item {
+  @apply relative group cursor-pointer overflow-hidden rounded-lg;
+}
+
+.gallery-image {
+  @apply w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500;
+}
+
+.gallery-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+}
+
+.gallery-content {
+  @apply absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300;
+}
+
+.gallery-title {
+  @apply font-semibold mb-1;
+}
+
+.gallery-description {
+  @apply text-sm text-white/80;
+}
+
+/* ========================================
+   CALENDAR COMPONENTS
+   ======================================== */
+
+.calendar-grid {
+  @apply grid grid-cols-7 gap-1 bg-gray-100 p-1 rounded-lg;
+}
+
+[data-theme="dark"] .calendar-grid {
+  @apply bg-gray-800;
+}
+
+.calendar-header {
+  @apply text-center py-3 font-semibold text-gray-700 bg-gray-50 text-sm;
+}
+
+[data-theme="dark"] .calendar-header {
+  @apply text-gray-300 bg-gray-700;
+}
+
+.calendar-day {
+  @apply aspect-square flex items-center justify-center bg-white text-sm cursor-pointer hover:bg-gray-50 transition-colors duration-150;
+}
+
+[data-theme="dark"] .calendar-day {
+  @apply bg-gray-900 hover:bg-gray-800 text-gray-200;
+}
+
+.calendar-day.today {
+  @apply bg-primary text-white font-semibold;
+}
+
+.calendar-day.has-event {
+  @apply bg-secondary-light text-orange-800 font-medium;
+}
+
+.calendar-day.other-month {
+  @apply text-gray-400 bg-gray-50;
+}
+
+[data-theme="dark"] .calendar-day.other-month {
+  @apply text-gray-600 bg-gray-800;
+}
+
+/* ========================================
+   FOOTER COMPONENTS
+   ======================================== */
+
+.footer {
+  @apply bg-gray-900 text-white;
+}
+
+.footer-main {
+  @apply py-16;
+}
+
+.footer-grid {
+  @apply grid md:grid-cols-2 lg:grid-cols-4 gap-8;
+}
+
+.footer-section {
+  @apply space-y-4;
+}
+
+.footer-title {
+  @apply text-lg font-semibold mb-4 text-white;
+}
+
+.footer-link {
+  @apply block text-gray-300 hover:text-white transition-colors duration-200 py-1;
+}
+
+.footer-social {
+  @apply flex space-x-4;
+}
+
+.footer-social-link {
+  @apply w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition-colors duration-200;
+}
+
+.footer-bottom {
+  @apply border-t border-gray-800 py-6 text-center text-gray-400;
+}
+
+/* ========================================
+   MODAL COMPONENTS
+   ======================================== */
+
+.modal-overlay {
+  @apply fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fade-in;
+}
+
+.modal-content {
+  @apply bg-white rounded-xl max-w-md w-full p-6 animate-scale-in;
+}
+
+[data-theme="dark"] .modal-content {
+  @apply bg-gray-800;
+}
+
+.modal-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.modal-title {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+[data-theme="dark"] .modal-title {
+  @apply text-gray-100;
+}
+
+.modal-close {
+  @apply w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors duration-150;
+}
+
+[data-theme="dark"] .modal-close {
+  @apply bg-gray-700 text-gray-400 hover:bg-gray-600;
+}
+
+.modal-body {
+  @apply text-gray-700 mb-6;
+}
+
+[data-theme="dark"] .modal-body {
+  @apply text-gray-300;
+}
+
+.modal-actions {
+  @apply flex space-x-3 justify-end;
+}
+
+/* ========================================
+   LOADING & SKELETON COMPONENTS
+   ======================================== */
+
+.skeleton-card {
+  @apply card p-6 animate-pulse;
+}
+
+.skeleton-line {
+  @apply loading-pulse h-4 mb-3 rounded;
+}
+
+.skeleton-line.short {
+  @apply w-3/4;
+}
+
+.skeleton-line.medium {
+  @apply w-1/2;
+}
+
+.skeleton-circle {
+  @apply loading-pulse w-12 h-12 rounded-full;
+}
+
+.skeleton-image {
+  @apply loading-pulse w-full h-48 rounded-lg;
+}
+
+/* Loading Spinner Variants */
+.spinner-sm {
+  @apply loading-spinner w-4 h-4;
+}
+
+.spinner-md {
+  @apply loading-spinner w-6 h-6;
+}
+
+.spinner-lg {
+  @apply loading-spinner w-8 h-8;
+}
+
+.spinner-xl {
+  @apply loading-spinner w-12 h-12;
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+/* Mobile-first responsive visibility */
+.mobile-only {
+  @apply block sm:hidden;
+}
+
+.tablet-up {
+  @apply hidden sm:block;
+}
+
+.desktop-up {
+  @apply hidden lg:block;
+}
+
+/* Responsive text alignment */
+.text-center-mobile {
+  @apply text-center sm:text-left;
+}
+
+/* Responsive spacing */
+.space-mobile {
+  @apply space-y-4 sm:space-y-0 sm:space-x-4;
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  .header,
+  .footer,
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-page-break {
+    page-break-before: always;
+  }
+
+  .print-no-break {
+    page-break-inside: avoid;
+  }
+
+  body {
+    color: #000;
+    background-color: #fff;
+  }
+
+  .card {
+    border-width: 1px;
+    border-color: #D1D5DB; /* Tailwind gray-300 */
+  }
+}
+
+/* ========================================
+   LINE CLAMP UTILITIES
+   ======================================== */
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

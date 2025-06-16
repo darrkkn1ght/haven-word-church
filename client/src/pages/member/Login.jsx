@@ -1,0 +1,534 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { 
+  Eye, 
+  EyeOff, 
+  Mail, 
+  Lock, 
+  User,
+  Phone,
+  Calendar,
+  Shield,
+  AlertCircle,
+  CheckCircle,
+  ArrowRight,
+  Heart,
+  Cross,
+  Users
+} from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
+import SEOHead from '../../components/SEOHead';
+import LoadingSpinner from '../../components/LoadingSpinner';
+
+/**
+ * Login Page Component
+ * Handles member authentication, registration, and password reset
+ * Features: Login/Register tabs, form validation, responsive design
+ */
+const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login, register, resetPassword, loading, user } = useAuth();
+
+  // State management
+  const [activeTab, setActiveTab] = useState('login');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    dateOfBirth: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      const from = location.state?.from?.pathname || '/member/dashboard';
+      navigate(from, { replace: true });
+    }
+  }, [user, navigate, location]);
+
+  /**
+   * Handle input changes with validation
+   */
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear specific error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  /**
+   * Validate form data
+   */
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (activeTab === 'register' && formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters long';
+    }
+
+    // Register-specific validations
+    if (activeTab === 'register') {
+      if (!formData.firstName) {
+        newErrors.firstName = 'First name is required';
+      }
+      if (!formData.lastName) {
+        newErrors.lastName = 'Last name is required';
+      }
+      if (!formData.phone) {
+        newErrors.phone = 'Phone number is required';
+      } else if (!/^\+?[\d\s-()]+$/.test(formData.phone)) {
+        newErrors.phone = 'Please enter a valid phone number';
+      }
+      if (!formData.confirmPassword) {
+        newErrors.confirmPassword = 'Please confirm your password';
+      } else if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = 'Passwords do not match';
+      }
+      if (!formData.dateOfBirth) {
+        newErrors.dateOfBirth = 'Date of birth is required';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /**
+   * Handle form submission
+   */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage('');
+
+    try {
+      if (activeTab === 'login') {
+        await login(formData.email, formData.password);
+        setMessage('Login successful! Redirecting...');
+        setMessageType('success');
+        
+        // Redirect after successful login
+        setTimeout(() => {
+          const from = location.state?.from?.pathname || '/member/dashboard';
+          navigate(from, { replace: true });
+        }, 1500);
+      } else {
+        await register({
+          email: formData.email,
+          password: formData.password,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+          dateOfBirth: formData.dateOfBirth
+        });
+        setMessage('Registration successful! Please check your email to verify your account.');
+        setMessageType('success');
+        
+        // Switch to login tab after successful registration
+        setTimeout(() => {
+          setActiveTab('login');
+          setFormData(prev => ({
+            ...prev,
+            firstName: '',
+            lastName: '',
+            phone: '',
+            dateOfBirth: '',
+            confirmPassword: ''
+          }));
+        }, 2000);
+      }
+    } catch (error) {
+      setMessage(error.message || 'An error occurred. Please try again.');
+      setMessageType('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  /**
+   * Handle password reset
+   */
+  const handlePasswordReset = async () => {
+    if (!formData.email) {
+      setMessage('Please enter your email address first');
+      setMessageType('error');
+      return;
+    }
+
+    try {
+      await resetPassword(formData.email);
+      setMessage('Password reset link sent to your email');
+      setMessageType('success');
+    } catch (error) {
+      setMessage(error.message || 'Failed to send reset email');
+      setMessageType('error');
+    }
+  };
+
+  /**
+   * Switch between login and register tabs
+   */
+  const switchTab = (tab) => {
+    setActiveTab(tab);
+    setErrors({});
+    setMessage('');
+    setFormData({
+      email: '',
+      password: '',
+      confirmPassword: '',
+      firstName: '',
+      lastName: '',
+      phone: '',
+      dateOfBirth: ''
+    });
+  };
+
+  return (
+    <>
+      <SEOHead
+        title={`${activeTab === 'login' ? 'Member Login' : 'Member Registration'} - Haven Word Church`}
+        description={`${activeTab === 'login' ? 'Sign in to your member account' : 'Join our church community'} at Haven Word Church. Access member resources, track attendance, and stay connected.`}
+        keywords="church login, member portal, Haven Word Church, church registration, member access"
+      />
+
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+                <Cross className="w-8 h-8 text-white" />
+              </div>
+            </div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Welcome to Haven Word Church
+            </h1>
+            <p className="text-gray-600">
+              {activeTab === 'login' ? 'Sign in to your member account' : 'Join our church family'}
+            </p>
+          </div>
+
+          {/* Tab Navigation */}
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div className="flex mb-6">
+              <button
+                onClick={() => switchTab('login')}
+                className={`flex-1 py-2 px-4 text-center font-medium rounded-l-lg transition-colors ${
+                  activeTab === 'login'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => switchTab('register')}
+                className={`flex-1 py-2 px-4 text-center font-medium rounded-r-lg transition-colors ${
+                  activeTab === 'register'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Register
+              </button>
+            </div>
+
+            {/* Message Display */}
+            {message && (
+              <div className={`mb-4 p-3 rounded-lg flex items-center ${
+                messageType === 'success' 
+                  ? 'bg-green-50 text-green-700 border border-green-200'
+                  : 'bg-red-50 text-red-700 border border-red-200'
+              }`}>
+                {messageType === 'success' ? (
+                  <CheckCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+                ) : (
+                  <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+                )}
+                <span className="text-sm">{message}</span>
+              </div>
+            )}
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Register Fields */}
+              {activeTab === 'register' && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        First Name
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <input
+                          type="text"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                            errors.firstName ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="John"
+                        />
+                      </div>
+                      {errors.firstName && (
+                        <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Last Name
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                        <input
+                          type="text"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                            errors.lastName ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="Doe"
+                        />
+                      </div>
+                      {errors.lastName && (
+                        <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone Number
+                    </label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                          errors.phone ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder="+234 XXX XXX XXXX"
+                      />
+                    </div>
+                    {errors.phone && (
+                      <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Date of Birth
+                    </label>
+                    <div className="relative">
+                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <input
+                        type="date"
+                        name="dateOfBirth"
+                        value={formData.dateOfBirth}
+                        onChange={handleInputChange}
+                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                          errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      />
+                    </div>
+                    {errors.dateOfBirth && (
+                      <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth}</p>
+                    )}
+                  </div>
+                </>
+              )}
+
+              {/* Email Field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.email ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="john@example.com"
+                  />
+                </div>
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
+              </div>
+
+              {/* Password Field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      errors.password ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder={activeTab === 'register' ? 'At least 8 characters' : 'Enter your password'}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                )}
+              </div>
+
+              {/* Confirm Password Field (Register only) */}
+              {activeTab === 'register' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Confirm Password
+                  </label>
+                  <div className="relative">
+                    <Shield className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      placeholder="Confirm your password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                  {errors.confirmPassword && (
+                    <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+                  )}
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting || loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center"
+              >
+                {isSubmitting || loading ? (
+                  <LoadingSpinner size="sm" color="white" />
+                ) : (
+                  <>
+                    {activeTab === 'login' ? 'Sign In' : 'Create Account'}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </button>
+
+              {/* Forgot Password (Login only) */}
+              {activeTab === 'login' && (
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={handlePasswordReset}
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Forgot your password?
+                  </button>
+                </div>
+              )}
+            </form>
+          </div>
+
+          {/* Church Info */}
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="text-center">
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Join Our Church Family
+              </h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Experience God's love, grow in faith, and connect with a community that cares.
+              </p>
+              <div className="flex items-center justify-center text-sm text-gray-500">
+                <Users className="w-4 h-4 mr-2" />
+                <span>Over 1,000 members strong</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Back to Home */}
+          <div className="text-center mt-6">
+            <Link
+              to="/"
+              className="text-blue-600 hover:text-blue-700 font-medium text-sm"
+            >
+              ← Back to Home
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Login;

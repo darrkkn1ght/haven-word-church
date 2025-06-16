@@ -1,0 +1,35 @@
+{
+  "name": "haven-word-church",
+  "version": "1.0.0",
+  "description": "Full stack web application for Haven Word Church",
+  "main": "server/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "install-all": "npm run install-server && npm run install-client",
+    "start": "cd server && npm start",
+    "heroku-postbuild": "npm run install-all && npm run build"
+  },
+  "keywords": [
+    "church",
+    "ministry",
+    "react",
+    "node",
+    "express",
+    "mongodb",
+    "full-stack"
+  ],
+  "author": "Haven Word Church",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
