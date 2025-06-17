@@ -379,7 +379,7 @@ const canAccessAttendance = async (req, res, next) => {
  * @access  Private (Admin, Usher)
  */
 router.post('/', 
-  auth, 
+  auth.protect, 
   requireAdminOrUsher, 
   validateCreateAttendance, 
   createAttendance
@@ -391,7 +391,7 @@ router.post('/',
  * @access  Private (Admin, Usher)
  */
 router.post('/bulk', 
-  auth, 
+  auth.protect, 
   requireAdminOrUsher, 
   validateBulkAttendance, 
   bulkCreateAttendance
@@ -403,7 +403,7 @@ router.post('/bulk',
  * @access  Private (Admin, Usher)
  */
 router.get('/stats', 
-  auth, 
+  auth.protect, 
   requireAdminOrUsher, 
   validateAttendanceStats, 
   getAttendanceStats
@@ -415,7 +415,7 @@ router.get('/stats',
  * @access  Private (Admin, Usher, Owner)
  */
 router.get('/member/:userId', 
-  auth, 
+  auth.protect, 
   canAccessAttendance, 
   validateMemberAttendanceHistory, 
   getMemberAttendanceHistory
@@ -427,7 +427,7 @@ router.get('/member/:userId',
  * @access  Private (Admin, Usher)
  */
 router.get('/', 
-  auth, 
+  auth.protect, 
   requireAdminOrUsher, 
   validateGetAllAttendance, 
   getAllAttendance
@@ -439,7 +439,7 @@ router.get('/',
  * @access  Private (Admin, Usher, Owner)
  */
 router.get('/:id', 
-  auth, 
+  auth.protect, 
   canAccessAttendance, 
   validateGetAttendanceById, 
   getAttendanceById
@@ -451,7 +451,7 @@ router.get('/:id',
  * @access  Private (Admin, Usher)
  */
 router.put('/:id', 
-  auth, 
+  auth.protect, 
   requireAdminOrUsher, 
   validateUpdateAttendance, 
   updateAttendance
@@ -463,7 +463,7 @@ router.put('/:id',
  * @access  Private (Admin, Usher, Owner)
  */
 router.patch('/:id/checkout', 
-  auth, 
+  auth.protect, 
   canAccessAttendance, 
   validateGetAttendanceById, 
   checkOut
@@ -475,7 +475,7 @@ router.patch('/:id/checkout',
  * @access  Private (Admin only)
  */
 router.delete('/:id', 
-  auth, 
+  auth.protect, 
   requireAdmin, 
   validateGetAttendanceById, 
   deleteAttendance

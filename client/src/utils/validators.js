@@ -575,7 +575,7 @@ export const getFirstError = (errors) => {
 };
 
 // Export all validators
-export default {
+const validators = {
   // Basic validators
   required,
   minLength,
@@ -619,3 +619,28 @@ export default {
   hasErrors,
   getFirstError,
 };
+
+export default validators;
+
+export function validateRequired(value) {
+  return value !== undefined && value !== null && value !== '';
+}
+
+export function validateLength(value, min, max) {
+  return value && value.length >= min && value.length <= max;
+}
+
+export function validateEmail(value) {
+  return /.+@.+\..+/.test(value);
+}
+
+export function validatePhone(value) {
+  return /^\+?\d{10,15}$/.test(value);
+}
+
+export function validatePasswordSimple(password) {
+  // Example: at least 8 chars, 1 number, 1 letter
+  return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+}
+
+export { validatePassword } from './helpers';

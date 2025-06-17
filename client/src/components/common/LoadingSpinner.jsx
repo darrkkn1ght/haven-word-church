@@ -207,4 +207,5 @@ export const LoadingTable = ({ rows = 5, cols = 4, className = '' }) => (
   </div>
 );
 
+export { LoadingSpinner };
 export default LoadingSpinner;

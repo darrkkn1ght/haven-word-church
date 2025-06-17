@@ -98,7 +98,7 @@ const authReducer = (state, action) => {
 };
 
 // Create contexts
-const AuthContext = createContext();
+export const AuthContext = createContext();
 const AuthDispatchContext = createContext();
 
 // AuthProvider component

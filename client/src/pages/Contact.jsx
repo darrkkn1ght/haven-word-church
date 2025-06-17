@@ -183,7 +183,7 @@ const Contact = () => {
         <meta name="keywords" content="Haven Word Church contact, Ibadan church, church location, service times, pastor contact" />
       </Helmet>
 
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
           <div className="container mx-auto px-4">
@@ -239,7 +239,7 @@ const Contact = () => {
         )}
 
         {/* Contact Information Grid */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Get In Touch</h2>
@@ -252,7 +252,7 @@ const Contact = () => {
               {contactInfo.map((info, index) => {
                 const IconComponent = info.icon;
                 return (
-                  <div key={index} className="bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
+                  <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
                     <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="w-8 h-8 text-blue-600" />
                     </div>

@@ -72,6 +72,18 @@ export const ROLE_PERMISSIONS = {
   ],
 };
 
+export const ROLES = {
+  ADMIN: 'admin',
+  USER: 'user',
+  GUEST: 'guest',
+};
+
+export const AUTH_STATUS = {
+  LOGGED_IN: 'logged_in',
+  LOGGED_OUT: 'logged_out',
+  PENDING: 'pending',
+};
+
 // Event Types
 export const EVENT_TYPES = {
   SUNDAY_SERVICE: 'sunday_service',
@@ -227,7 +239,7 @@ export const THEME_COLORS = {
 // Validation Rules
 export const VALIDATION_RULES = {
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  PHONE: /^[\+]?[1-9][\d]{0,15}$/,
+  PHONE: /^\+?[1-9][\d]{0,15}$/,
   PASSWORD_MIN_LENGTH: 8,
   NAME_MIN_LENGTH: 2,
   MESSAGE_MIN_LENGTH: 10,
@@ -308,7 +320,18 @@ export const SUCCESS_MESSAGES = {
   DONATION_SUCCESS: 'Thank you for your generous donation!',
 };
 
-export default {
+export const STORAGE_KEYS = {
+  TOKEN: 'token',
+  USER: 'user',
+};
+
+export const API_ENDPOINTS = {
+  LOGIN: '/auth/login',
+  REGISTER: '/auth/register',
+  // Add more endpoints as needed
+};
+
+const constants = {
   APP_CONFIG,
   API_CONFIG,
   AUTH_CONFIG,
@@ -334,4 +357,8 @@ export default {
   FEATURES,
   ERROR_MESSAGES,
   SUCCESS_MESSAGES,
+  STORAGE_KEYS,
+  API_ENDPOINTS,
 };
+
+export default constants;

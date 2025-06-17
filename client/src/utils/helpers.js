@@ -1,4 +1,4 @@
-import { format, parseISO, isValid, formatDistanceToNow, isBefore, isAfter, addDays, startOfDay, endOfDay } from 'date-fns';
+import { format, parseISO, isValid, formatDistanceToNow, isBefore, isAfter } from 'date-fns';
 import { DATE_FORMATS, VALIDATION_RULES } from './constants';
 
 // ====================
@@ -116,6 +116,36 @@ export const getDaysUntil = (date) => {
     return 0;
   }
 };
+
+/**
+ * Format time for display
+ * @param {string|Date} date - Date to format
+ * @returns {string} Formatted time
+ */
+export function formatTime(date) {
+  // TODO: Implement real formatting
+  return String(date);
+}
+
+/**
+ * Format duration for display
+ * @param {number} duration - Duration in minutes
+ * @returns {string} Formatted duration
+ */
+export function formatDuration(duration) {
+  // TODO: Implement real formatting
+  return String(duration) + ' min';
+}
+
+/**
+ * Format currency for display
+ * @param {number} value - Value to format
+ * @returns {string} Formatted currency
+ */
+export function formatCurrency(value) {
+  // TODO: Implement real formatting
+  return '$' + Number(value).toFixed(2);
+}
 
 // ====================
 // STRING HELPERS
@@ -553,7 +583,7 @@ export const getViewportSize = () => {
 };
 
 // Export all helpers as default object
-export default {
+const helpers = {
   // Date helpers
   formatDate,
   formatDateTime,
@@ -601,4 +631,9 @@ export default {
   copyToClipboard,
   scrollToElement,
   getViewportSize,
+  formatTime,
+  formatDuration,
+  formatCurrency,
 };
+
+export default helpers;

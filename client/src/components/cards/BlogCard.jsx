@@ -256,12 +256,16 @@ const BlogCard = ({
               ) : (
                 <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center mr-3">
                   <span className="text-xs font-medium text-primary-600">
-                    {author.charAt(0).toUpperCase()}
+                    {typeof author === 'string' && author.length > 0
+                      ? author.charAt(0).toUpperCase()
+                      : (author && typeof author.name === 'string' && author.name.length > 0
+                        ? author.name.charAt(0).toUpperCase()
+                        : 'H')}
                   </span>
                 </div>
               )}
               <div>
-                <p className="text-sm font-medium text-gray-900">{author}</p>
+                <p className="text-sm font-medium text-gray-900">{typeof author === 'string' ? author : (author && typeof author.name === 'string' ? author.name : 'Haven Word Church')}</p>
               </div>
             </div>
           )}

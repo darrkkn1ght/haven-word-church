@@ -142,7 +142,7 @@ const About = () => {
         keywords="Haven Word Church, about us, church history, leadership, mission, vision, Ibadan church, Nigeria"
       />
       
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <Header />
         
         {/* Hero Section */}
@@ -162,15 +162,15 @@ const About = () => {
         </section>
 
         {/* Church Story */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
                     Our Story
                   </h2>
-                  <div className="prose prose-lg text-gray-600">
+                  <div className="prose prose-lg text-gray-600 dark:text-gray-300">
                     <p className="mb-6">
                       Haven Word Church began as a vision in the hearts of Pastor Emmanuel and 
                       Sarah Adebayo in 2010. Having served in ministry for several years, they 
@@ -193,17 +193,17 @@ const About = () => {
                 </div>
                 
                 <div className="space-y-6">
-                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-8 text-center">
+                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-lg p-8 text-center">
                     <div className="text-4xl font-bold text-blue-600 mb-2">2010</div>
-                    <div className="text-gray-700">Church Founded</div>
+                    <div className="text-gray-700 dark:text-gray-300">Church Founded</div>
                   </div>
-                  <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-8 text-center">
+                  <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 rounded-lg p-8 text-center">
                     <div className="text-4xl font-bold text-purple-600 mb-2">800+</div>
-                    <div className="text-gray-700">Active Members</div>
+                    <div className="text-gray-700 dark:text-gray-300">Active Members</div>
                   </div>
-                  <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-lg p-8 text-center">
+                  <div className="bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-lg p-8 text-center">
                     <div className="text-4xl font-bold text-green-600 mb-2">50+</div>
-                    <div className="text-gray-700">Ministry Programs</div>
+                    <div className="text-gray-700 dark:text-gray-300">Ministry Programs</div>
                   </div>
                 </div>
               </div>
@@ -212,32 +212,32 @@ const About = () => {
         </section>
 
         {/* Mission, Vision, Values */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               {/* Mission & Vision */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                <div className="bg-white rounded-lg p-8 shadow-lg">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl">🎯</span>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900">Our Mission</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Our Mission</h3>
                   </div>
-                  <p className="text-gray-600 text-center leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-center leading-relaxed">
                     To create a haven where people encounter God's word, experience His love, 
                     and are equipped to transform their communities through the power of the Gospel.
                   </p>
                 </div>
                 
-                <div className="bg-white rounded-lg p-8 shadow-lg">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl">👁️</span>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900">Our Vision</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Our Vision</h3>
                   </div>
-                  <p className="text-gray-600 text-center leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-center leading-relaxed">
                     To be a thriving, multi-generational church community that impacts Ibadan 
                     and beyond with the transformative love of Jesus Christ.
                   </p>
@@ -246,22 +246,22 @@ const About = () => {
 
               {/* Core Values */}
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   Our Core Values
                 </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                   These values guide everything we do and shape our church culture
                 </p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {coreValues.map((value, index) => (
-                  <div key={index} className="bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow">
+                  <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow">
                     <div className="text-center mb-4">
                       <div className="text-3xl mb-2">{value.icon}</div>
-                      <h4 className="text-xl font-semibold text-gray-900">{value.title}</h4>
+                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white">{value.title}</h4>
                     </div>
-                    <p className="text-gray-600 text-center">{value.description}</p>
+                    <p className="text-gray-600 dark:text-gray-300 text-center">{value.description}</p>
                   </div>
                 ))}
               </div>
@@ -270,14 +270,14 @@ const About = () => {
         </section>
 
         {/* Leadership Team */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   Our Leadership Team
                 </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                   Meet the dedicated leaders who shepherd our church family with wisdom, 
                   love, and biblical guidance
                 </p>
@@ -287,24 +287,24 @@ const About = () => {
                 {leadershipTeam.map((leader) => (
                   <div 
                     key={leader.id} 
-                    className="bg-gray-50 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                    className="bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
                     onClick={() => handleLeaderClick(leader)}
                   >
-                    <div className="aspect-w-3 aspect-h-4 bg-gradient-to-b from-blue-100 to-purple-100">
-                      <div className="flex items-center justify-center text-gray-400">
+                    <div className="aspect-w-3 aspect-h-4 bg-gradient-to-b from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900">
+                      <div className="flex items-center justify-center text-gray-400 dark:text-gray-500">
                         <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                         </svg>
                       </div>
                     </div>
                     <div className="p-6 text-center">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                         {leader.name}
                       </h3>
-                      <p className="text-blue-600 font-medium mb-3">
+                      <p className="text-blue-600 dark:text-blue-300 font-medium mb-3">
                         {leader.position}
                       </p>
-                      <p className="text-gray-600 text-sm line-clamp-3">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
                         {leader.bio}
                       </p>
                       <div className="mt-4">
@@ -321,26 +321,26 @@ const About = () => {
         </section>
 
         {/* Statement of Faith */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   What We Believe
                 </h2>
-                <p className="text-lg text-gray-600">
+                <p className="text-lg text-gray-600 dark:text-gray-300">
                   Our statement of faith reflects our biblical convictions and theological foundation
                 </p>
               </div>
               
-              <div className="bg-white rounded-lg shadow-lg p-8">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
                 <div className="space-y-6">
                   {statementOfFaith.map((belief, index) => (
                     <div key={index} className="flex items-start">
-                      <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                        <span className="text-blue-600 font-semibold text-sm">{index + 1}</span>
+                      <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mr-4">
+                        <span className="text-blue-600 dark:text-blue-300 font-semibold text-sm">{index + 1}</span>
                       </div>
-                      <p className="text-gray-700 leading-relaxed">{belief}</p>
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{belief}</p>
                     </div>
                   ))}
                 </div>
@@ -350,29 +350,29 @@ const About = () => {
         </section>
 
         {/* Location & Facilities */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                   Our Location & Facilities
                 </h2>
-                <p className="text-lg text-gray-600">
+                <p className="text-lg text-gray-600 dark:text-gray-300">
                   Visit us at our beautiful church facility in the heart of Ibadan
                 </p>
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div>
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-6">Find Us Here</h3>
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Find Us Here</h3>
                   <div className="space-y-4 mb-8">
                     <div className="flex items-start">
                       <div className="flex-shrink-0 w-6 h-6 text-blue-600 mr-3 mt-1">
                         📍
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">Address</p>
-                        <p className="text-gray-600">
+                        <p className="font-medium text-gray-900 dark:text-white">Address</p>
+                        <p className="text-gray-600 dark:text-gray-300">
                           Haven Word Church Complex<br />
                           123 Ring Road, Ibadan<br />
                           Oyo State, Nigeria
@@ -384,8 +384,8 @@ const About = () => {
                         📞
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">Phone</p>
-                        <p className="text-gray-600">+234 802 123 4567</p>
+                        <p className="font-medium text-gray-900 dark:text-white">Phone</p>
+                        <p className="text-gray-600 dark:text-gray-300">+234 802 123 4567</p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -393,14 +393,14 @@ const About = () => {
                         ✉️
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">Email</p>
-                        <p className="text-gray-600">info@havenwordchurch.org</p>
+                        <p className="font-medium text-gray-900 dark:text-white">Email</p>
+                        <p className="text-gray-600 dark:text-gray-300">info@havenwordchurch.org</p>
                       </div>
                     </div>
                   </div>
                   
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Our Facilities</h4>
-                  <ul className="space-y-2 text-gray-600">
+                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Our Facilities</h4>
+                  <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
                       Main Sanctuary (seating for 1,000)
@@ -429,8 +429,8 @@ const About = () => {
                 </div>
                 
                 <div>
-                  <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-                    <div className="text-center text-gray-500">
+                  <div className="bg-gray-200 dark:bg-gray-800 rounded-lg h-96 flex items-center justify-center">
+                    <div className="text-center text-gray-500 dark:text-gray-300">
                       <svg className="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                       </svg>
@@ -461,7 +461,7 @@ const About = () => {
                   <Button 
                     variant="primary" 
                     size="lg"
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:text-white"
                   >
                     Join Us Sunday
                   </Button>
@@ -470,7 +470,7 @@ const About = () => {
                   variant="outline" 
                   size="lg"
                   onClick={() => setIsContactOpen(true)}
-                  className="border-white text-white hover:bg-white hover:text-gray-900"
+                  className="border-white text-white hover:bg-white hover:text-gray-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-white"
                 >
                   Get in Touch
                 </Button>

@@ -252,4 +252,25 @@ export const apiUtils = {
   },
 };
 
+export function sendContactMessage(data) {
+  // TODO: Implement real API call
+  return Promise.resolve({ success: true });
+}
+
+export function getEventDetails(id) {
+  // TODO: Implement real API call
+  return Promise.resolve({ id });
+}
+
+export function submitRSVP(data) {
+  // TODO: Implement real API call
+  return Promise.resolve({ success: true });
+}
+
+export const memberService = {
+  // TODO: Implement real member service methods
+};
+
+export { api };
+
 export default api;

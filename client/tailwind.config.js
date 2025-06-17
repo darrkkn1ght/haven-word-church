@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html",
@@ -55,6 +56,7 @@ module.exports = {
         serif: ['Georgia', 'serif'],
         display: ['Poppins', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
+        accent: ['Poppins', 'sans-serif'], // Added for font-accent
       },
       fontSize: {
         'xs': '0.75rem',
@@ -102,6 +104,7 @@ module.exports = {
         'slide-down': 'slideDown 0.4s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
         'pulse-soft': 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'slide-in-up': 'slide-in-up 0.7s cubic-bezier(0.4, 0, 0.2, 1) both',
       },
       keyframes: {
         fadeIn: {
@@ -132,6 +135,10 @@ module.exports = {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.8' },
         },
+        'slide-in-up': {
+          '0%': { transform: 'translateY(40px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       },
       backdropBlur: {
         xs: '2px',
@@ -143,6 +150,9 @@ module.exports = {
         'lg': '1024px',
         'xl': '1280px',
         '2xl': '1536px',
+      },
+      ringColor: {
+        primary: '#003DA5', // Added for ring-primary
       },
     },
   },

@@ -47,261 +47,128 @@ const Ministries = () => {
     { value: 'fellowship', label: 'Fellowship Groups', icon: UserCheck }
   ];
 
-  // Mock ministry data (would come from API in real implementation)
+  // Mission group data (real ministries)
   const mockMinistries = [
     {
       id: 1,
-      title: 'Children\'s Church',
+      title: 'Haven Teens and Children Mission',
       category: 'children',
-      description: 'Nurturing young hearts with God\'s love through interactive lessons, games, and worship.',
-      fullDescription: 'Our Children\'s Church ministry is dedicated to creating a safe, fun, and engaging environment where children aged 3-12 can learn about God\'s love. We use age-appropriate teaching methods, interactive games, crafts, and worship songs to help children understand biblical principles and develop a personal relationship with Jesus Christ.',
+      tags: ['children', 'teens'],
+      description: 'Helping teens and children grow in Christ through fun, interactive activities.',
+      fullDescription: 'Helping teens and children grow in Christ through fun, interactive activities. We provide a safe and engaging environment for spiritual growth and friendship.',
       image: '/api/placeholder/600/400',
-      leader: 'Sister Funmi Adebayo',
+      leader: '',
       contact: {
-        phone: '+234 803 456 7890',
-        email: 'childrens.ministry@havenword.org'
+        phone: '',
+        email: ''
       },
-      meetingTime: 'Sundays, 10:00 AM',
-      location: 'Children\'s Wing',
-      ageGroup: '3-12 years',
-      members: 85,
+      meetingTime: '',
+      location: '',
+      ageGroup: 'Children & Teens',
+      members: null,
       activities: [
-        'Interactive Bible Stories',
-        'Worship Songs & Dance',
-        'Arts & Crafts',
-        'Scripture Memory Games',
-        'Character Building Lessons'
+        'Bible Stories',
+        'Worship Songs',
+        'Games',
+        'Arts & Crafts'
       ],
-      upcomingEvents: [
-        {
-          title: 'Children\'s Fun Day',
-          date: '2024-07-15',
-          description: 'Games, food, and fellowship for all children'
-        }
-      ]
+      upcomingEvents: []
     },
     {
       id: 2,
-      title: 'Youth Ministry',
-      category: 'children',
-      description: 'Empowering teenagers and young adults to live purposeful lives anchored in Christ.',
-      fullDescription: 'Our Youth Ministry serves teenagers and young adults aged 13-25, providing mentorship, discipleship, and opportunities for spiritual growth. We focus on addressing real-life challenges while building strong Christian character and leadership skills.',
+      title: 'Church Planting Mission',
+      category: 'outreach',
+      tags: ['outreach', 'all ages'],
+      description: 'Spreading the gospel through new church plants and outreach efforts.',
+      fullDescription: 'Spreading the gospel through new church plants and outreach efforts. We are passionate about reaching new communities for Christ.',
       image: '/api/placeholder/600/400',
-      leader: 'Pastor Kemi Johnson',
+      leader: '',
       contact: {
-        phone: '+234 805 678 9012',
-        email: 'youth@havenword.org'
+        phone: '',
+        email: ''
       },
-      meetingTime: 'Saturdays, 4:00 PM',
-      location: 'Youth Center',
-      ageGroup: '13-25 years',
-      members: 120,
+      meetingTime: '',
+      location: '',
+      ageGroup: 'All ages',
+      members: null,
       activities: [
-        'Youth Service',
-        'Bible Study Groups',
-        'Leadership Training',
+        'Evangelism',
         'Community Service',
-        'Career Counseling',
-        'Sports & Recreation'
+        'Discipleship Training'
       ],
-      upcomingEvents: [
-        {
-          title: 'Youth Conference 2024',
-          date: '2024-08-10',
-          description: 'Three-day intensive program for spiritual growth'
-        }
-      ]
+      upcomingEvents: []
     },
     {
       id: 3,
-      title: 'Praise & Worship Team',
-      category: 'worship',
-      description: 'Leading the congregation in spirit-filled worship through music and song.',
-      fullDescription: 'Our Praise & Worship Ministry is committed to creating an atmosphere where God\'s presence is tangibly felt through music. We combine contemporary and traditional Nigerian gospel music to minister to hearts and usher the congregation into God\'s presence.',
+      title: 'Flames Mission',
+      category: 'youth',
+      tags: ['youth', 'teens'],
+      description: 'Raising a generation of passionate, on-fire youths for Christ.',
+      fullDescription: 'Raising a generation of passionate, on-fire youths for Christ. We empower young people to lead and serve with zeal.',
       image: '/api/placeholder/600/400',
-      leader: 'Minister David Okoro',
+      leader: '',
       contact: {
-        phone: '+234 807 890 1234',
-        email: 'worship@havenword.org'
+        phone: '',
+        email: ''
       },
-      meetingTime: 'Wednesdays, 6:00 PM (Practice)',
-      location: 'Main Sanctuary',
-      ageGroup: 'All ages',
-      members: 45,
+      meetingTime: '',
+      location: '',
+      ageGroup: 'Teens & Youth',
+      members: null,
       activities: [
-        'Sunday Worship Leading',
-        'Weekly Rehearsals',
-        'Special Events Ministry',
-        'Music Training Classes',
-        'Recording Ministry'
+        'Youth Services',
+        'Prayer Meetings',
+        'Leadership Training'
       ],
-      upcomingEvents: [
-        {
-          title: 'Worship Night',
-          date: '2024-07-20',
-          description: 'An evening of praise and worship'
-        }
-      ]
+      upcomingEvents: []
     },
     {
       id: 4,
-      title: 'Women\'s Fellowship',
+      title: 'Campus Fellowship Mission',
       category: 'fellowship',
-      description: 'Building sisterhood and spiritual growth among women of all ages.',
-      fullDescription: 'The Women\'s Fellowship Ministry provides a platform for women to grow spiritually, support each other, and impact their communities. We focus on biblical womanhood, family life, and empowering women to fulfill their God-given purposes.',
+      tags: ['students', 'young adults'],
+      description: 'Bringing Christ to the campuses and empowering students.',
+      fullDescription: 'Bringing Christ to the campuses and empowering students. We foster spiritual growth and mentorship for students and young adults.',
       image: '/api/placeholder/600/400',
-      leader: 'Deaconess Grace Okafor',
+      leader: '',
       contact: {
-        phone: '+234 809 012 3456',
-        email: 'women@havenword.org'
+        phone: '',
+        email: ''
       },
-      meetingTime: '2nd Saturday monthly, 10:00 AM',
-      location: 'Fellowship Hall',
-      ageGroup: 'Adult women',
-      members: 150,
+      meetingTime: '',
+      location: '',
+      ageGroup: 'Students & Young Adults',
+      members: null,
       activities: [
-        'Monthly Fellowship Meetings',
-        'Bible Study Groups',
-        'Prayer Meetings',
-        'Community Outreach',
-        'Skills Development Programs',
-        'Marriage & Family Seminars'
+        'Campus Bible Study',
+        'Worship Nights',
+        'Mentorship'
       ],
-      upcomingEvents: [
-        {
-          title: 'Women\'s Conference',
-          date: '2024-09-14',
-          description: 'Annual conference for spiritual empowerment'
-        }
-      ]
+      upcomingEvents: []
     },
     {
       id: 5,
-      title: 'Men\'s Fellowship',
-      category: 'fellowship',
-      description: 'Equipping men to be godly leaders in their homes and communities.',
-      fullDescription: 'The Men\'s Fellowship Ministry focuses on developing godly men who will lead their families and communities with integrity. We provide mentorship, accountability, and practical teaching on biblical manhood.',
-      image: '/api/placeholder/600/400',
-      leader: 'Elder Samuel Ade',
-      contact: {
-        phone: '+234 811 234 5678',
-        email: 'men@havenword.org'
-      },
-      meetingTime: '1st Saturday monthly, 6:00 AM',
-      location: 'Conference Room',
-      ageGroup: 'Adult men',
-      members: 95,
-      activities: [
-        'Monthly Fellowship Breakfast',
-        'Bible Study & Discussion',
-        'Leadership Development',
-        'Community Service Projects',
-        'Sports & Recreation',
-        'Fatherhood Training'
-      ],
-      upcomingEvents: [
-        {
-          title: 'Men\'s Retreat',
-          date: '2024-08-25',
-          description: 'Weekend retreat for spiritual renewal'
-        }
-      ]
-    },
-    {
-      id: 6,
-      title: 'Evangelism Team',
+      title: 'Anagkazo Mission',
       category: 'outreach',
-      description: 'Sharing the Gospel and reaching the lost in our community and beyond.',
-      fullDescription: 'Our Evangelism Ministry is passionate about fulfilling the Great Commission by reaching out to the lost with the Gospel of Jesus Christ. We engage in street evangelism, hospital visits, prison ministry, and community outreach programs.',
+      tags: ['evangelism', 'all ages'],
+      description: 'A mission focused on aggressive evangelism and soul winning.',
+      fullDescription: 'A mission focused on aggressive evangelism and soul winning. We are committed to reaching the lost through various outreach events.',
       image: '/api/placeholder/600/400',
-      leader: 'Evangelist Mary Taiwo',
+      leader: '',
       contact: {
-        phone: '+234 813 456 7890',
-        email: 'evangelism@havenword.org'
+        phone: '',
+        email: ''
       },
-      meetingTime: 'Saturdays, 2:00 PM',
-      location: 'Various locations',
+      meetingTime: '',
+      location: '',
       ageGroup: 'All ages',
-      members: 60,
+      members: null,
       activities: [
-        'Street Evangelism',
-        'Hospital Visitations',
-        'Prison Ministry',
-        'Campus Outreach',
-        'Community Programs',
-        'Tract Distribution'
+        'Street Preaching',
+        'Gospel Campaigns',
+        'Outreach Events'
       ],
-      upcomingEvents: [
-        {
-          title: 'Community Outreach',
-          date: '2024-07-28',
-          description: 'Medical mission and evangelism in Ogunpa'
-        }
-      ]
-    },
-    {
-      id: 7,
-      title: 'Bible Study Groups',
-      category: 'discipleship',
-      description: 'Growing deeper in God\'s Word through systematic study and fellowship.',
-      fullDescription: 'Our Bible Study Ministry provides structured learning opportunities for believers to grow in their understanding of Scripture. We offer various study groups covering different books of the Bible, topical studies, and new believer classes.',
-      image: '/api/placeholder/600/400',
-      leader: 'Pastor Daniel Olumide',
-      contact: {
-        phone: '+234 815 678 9012',
-        email: 'biblestudy@havenword.org'
-      },
-      meetingTime: 'Wednesdays, 7:00 PM',
-      location: 'Multiple Classrooms',
-      ageGroup: 'All levels',
-      members: 200,
-      activities: [
-        'Weekly Bible Studies',
-        'Book Studies',
-        'Topical Studies',
-        'New Believer Classes',
-        'Leadership Training',
-        'Scripture Memorization'
-      ],
-      upcomingEvents: [
-        {
-          title: 'Bible Study Rally',
-          date: '2024-08-05',
-          description: 'Special combined session with guest teacher'
-        }
-      ]
-    },
-    {
-      id: 8,
-      title: 'Choir Ministry',
-      category: 'worship',
-      description: 'Ministering through harmonious voices lifted in praise to God.',
-      fullDescription: 'The Choir Ministry consists of dedicated singers who minister through song during worship services and special events. We focus on both traditional hymns and contemporary Nigerian gospel music, bringing diversity and richness to our worship experience.',
-      image: '/api/placeholder/600/400',
-      leader: 'Choirmaster Ruth Ogbonna',
-      contact: {
-        phone: '+234 817 890 1234',
-        email: 'choir@havenword.org'
-      },
-      meetingTime: 'Thursdays, 7:00 PM',
-      location: 'Music Room',
-      ageGroup: 'All ages',
-      members: 35,
-      activities: [
-        'Sunday Worship Ministry',
-        'Special Events Performance',
-        'Choir Rehearsals',
-        'Voice Training',
-        'Music Theory Classes',
-        'Recording Projects'
-      ],
-      upcomingEvents: [
-        {
-          title: 'Choir Anniversary',
-          date: '2024-09-01',
-          description: 'Celebrating 10 years of musical ministry'
-        }
-      ]
+      upcomingEvents: []
     }
   ];
 
@@ -398,7 +265,7 @@ const Ministries = () => {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Phone className="h-5 w-5 text-gray-500" />
-                  <a href={`tel:${ministry.contact.phone}`} className="text-blue-600 hover:underline">
+                  <a href={`tel:${ministry.contact.phone}`} className="text-blue-600 dark:text-blue-400 hover:underline">
                     {ministry.contact.phone}
                   </a>
                 </div>
@@ -464,7 +331,7 @@ const Ministries = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         <Helmet>
           <title>Ministries - Haven Word Church</title>
           <meta name="description" content="Discover the various ministries at Haven Word Church and find your place to serve and grow." />
@@ -529,7 +396,7 @@ const Ministries = () => {
       </section>
 
       {/* Search and Filter Section */}
-      <section className="py-8 bg-white shadow-sm">
+      <section className="py-8 bg-white dark:bg-gray-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
             {/* Search Bar */}
@@ -540,7 +407,7 @@ const Ministries = () => {
                 placeholder="Search ministries..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
               />
             </div>
 
@@ -564,9 +431,9 @@ const Ministries = () => {
                       key={category.value}
                       onClick={() => setSelectedCategory(category.value)}
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
-                        selectedCategory === category.value
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                      selectedCategory === category.value
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -580,7 +447,7 @@ const Ministries = () => {
 
           {/* Results Count */}
           <div className="mt-4 text-center lg:text-left">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Showing {filteredMinistries.length} of {ministries.length} ministries
               {searchTerm && ` for "${searchTerm}"`}
             </p>
@@ -594,8 +461,8 @@ const Ministries = () => {
           {filteredMinistries.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-gray-400 text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">No ministries found</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">No ministries found</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Try adjusting your search terms or category filter.
               </p>
               <button
@@ -620,29 +487,6 @@ const Ministries = () => {
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
-      <section className="bg-blue-600 text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Get Involved?
-          </h2>
-          <p className="text-xl mb-8">
-            God has equipped every believer with unique gifts and talents. 
-            Discover how you can use yours to serve Him and bless others at Haven Word Church.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2 justify-center">
-              <UserCheck className="h-5 w-5" />
-              Take Gifts Assessment
-            </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors flex items-center gap-2 justify-center">
-              <Phone className="h-5 w-5" />
-              Speak with Pastor
-            </button>
-          </div>
         </div>
       </section>
 

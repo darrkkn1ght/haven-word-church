@@ -13,7 +13,7 @@ const {
   updateGoalStatus,
   getMinistryStats
 } = require('../controllers/ministryController');
-const { protect, adminOnly, adminOrLeader } = require('../middleware/auth');
+const { protect, adminOnly, leadersOnly } = require('../middleware/auth');
 
 /**
  * Ministry Routes for Haven Word Church
@@ -121,7 +121,7 @@ router.delete('/:id', protect, adminOnly, deleteMinistry);
  * @params  id - Ministry ID
  * @body    { count: number }
  */
-router.patch('/:id/members', protect, adminOrLeader, updateMemberCount);
+router.patch('/:id/members', protect, leadersOnly, updateMemberCount);
 
 /**
  * @route   POST /api/ministries/:id/activities
@@ -130,7 +130,7 @@ router.patch('/:id/members', protect, adminOrLeader, updateMemberCount);
  * @params  id - Ministry ID
  * @body    { title, description, date, location }
  */
-router.post('/:id/activities', protect, adminOrLeader, addActivity);
+router.post('/:id/activities', protect, leadersOnly, addActivity);
 
 /**
  * @route   PATCH /api/ministries/:id/goals/:goalId
@@ -139,7 +139,7 @@ router.post('/:id/activities', protect, adminOrLeader, addActivity);
  * @params  id - Ministry ID, goalId - Goal ID
  * @body    { status: 'not-started'|'in-progress'|'completed'|'on-hold' }
  */
-router.patch('/:id/goals/:goalId', protect, adminOrLeader, updateGoalStatus);
+router.patch('/:id/goals/:goalId', protect, leadersOnly, updateGoalStatus);
 
 /**
  * @route   GET /api/ministries/:identifier

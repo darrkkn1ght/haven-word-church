@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/common/SEOHead';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import Calendar from '../components/ui/Calendar';
@@ -12,7 +10,6 @@ import ContactForm from '../components/forms/ContactForm';
 import RSVPForm from '../components/forms/RSVPForm';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { useApi } from '../hooks/useApi';
-import { formatDate } from '../utils/helpers';
 
 const Home = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -25,7 +22,6 @@ const Home = () => {
   // API calls for dynamic content
   const { data: upcomingEvents, loading: eventsLoading } = useApi('/api/events/upcoming?limit=3');
   const { data: recentSermons, loading: sermonsLoading } = useApi('/api/sermons/recent?limit=3');
-  const { data: featuredMinistry, loading: ministryLoading } = useApi('/api/ministries/featured');
 
   // Mock data for demonstration (remove when API is ready)
   const mockUpcomingEvents = [
@@ -36,7 +32,7 @@ const Home = () => {
       time: '10:00 AM',
       location: 'Main Sanctuary',
       description: 'Join us for worship, fellowship, and the Word of God.',
-      image: '/images/sunday-service.jpg',
+      // image: '/images/sunday-service.jpg',
       category: 'service'
     },
     {
@@ -46,7 +42,7 @@ const Home = () => {
       time: '6:00 PM',
       location: 'Youth Hall',
       description: 'An evening of praise, games, and fellowship for young adults.',
-      image: '/images/youth-fellowship.jpg',
+      // image: '/images/youth-fellowship.jpg',
       category: 'youth'
     },
     {
@@ -56,7 +52,7 @@ const Home = () => {
       time: '2:00 PM',
       location: 'Ibadan Central Market',
       description: 'Reaching out to our community with love and support.',
-      image: '/images/outreach.jpg',
+      // image: '/images/outreach.jpg',
       category: 'outreach'
     }
   ];
@@ -70,7 +66,7 @@ const Home = () => {
       duration: '45 min',
       description: 'Understanding what it means to truly walk by faith and not by sight.',
       audioUrl: '/sermons/walking-in-faith.mp3',
-      image: '/images/sermon1.jpg',
+      // image: '/images/sermon1.jpg',
       series: 'Faith Series'
     },
     {
@@ -81,7 +77,7 @@ const Home = () => {
       duration: '38 min',
       description: 'Discovering the transformative power of consistent prayer.',
       audioUrl: '/sermons/power-of-prayer.mp3',
-      image: '/images/sermon2.jpg',
+      // image: '/images/sermon2.jpg',
       series: 'Prayer Life'
     },
     {
@@ -92,17 +88,16 @@ const Home = () => {
       duration: '42 min',
       description: 'Practical ways to show Christ\'s love to those around us.',
       audioUrl: '/sermons/love-your-neighbor.mp3',
-      image: '/images/sermon3.jpg',
+      // image: '/images/sermon3.jpg',
       series: 'Love in Action'
     }
   ];
 
   const serviceSchedule = [
-    { day: 'Sunday', service: 'Morning Service', time: '10:00 AM' },
-    { day: 'Tuesday', service: 'Bible Study', time: '6:00 PM' },
-    { day: 'Thursday', service: 'Prayer Meeting', time: '6:00 PM' },
-    { day: 'Friday', service: 'Youth Service', time: '6:00 PM' },
-    { day: 'Saturday', service: 'Workers Meeting', time: '4:00 PM' }
+    { day: 'Sunday', service: 'First Service', time: '7:30 AM' },
+    { day: 'Sunday', service: 'Second Service', time: '10:00 AM' },
+    { day: 'Wednesday', service: 'Midweek Service', time: '5:30 PM' },
+    { day: 'Friday', service: 'Cell Meetings', time: '5:30 PM' }
   ];
 
   const handleEventRSVP = (event) => {
@@ -131,80 +126,77 @@ const Home = () => {
         keywords="church, Ibadan, worship, fellowship, Christianity, Nigeria, spiritual growth"
       />
       
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-blue-900 to-purple-900 text-white py-20 overflow-hidden">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="absolute inset-0 bg-church-pattern opacity-10"></div>
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Welcome to<br />
-                <span className="text-yellow-400">Haven Word Church</span>
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 opacity-90">
-                Your Spiritual Home in the Heart of Ibadan
-              </p>
-              <p className="text-lg mb-10 max-w-2xl mx-auto opacity-80">
-                Experience God's love, grow in faith, and connect with a community 
-                that cares. Join us as we journey together in worship, fellowship, and service.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  variant="primary" 
-                  size="lg"
-                  onClick={() => setIsRSVPOpen(true)}
-                  className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
-                >
-                  Join Us This Sunday
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  size="lg"
-                  onClick={() => setIsCalendarOpen(true)}
-                  className="border-white text-white hover:bg-white hover:text-gray-900"
-                >
-                  View Calendar
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  onClick={() => setIsContactOpen(true)}
-                  className="border-white text-white hover:bg-white hover:text-gray-900"
-                >
-                  Contact Us
-                </Button>
-              </div>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+        {/* Hero Section - Refined for Haven Word Church Theme */}
+        <section className="relative bg-primary-500 dark:bg-primary-700 text-white py-20 pt-36 overflow-hidden">
+          {/* Wave separator at bottom */}
+          <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
+            <svg viewBox="0 0 1440 100" className="w-full h-16" preserveAspectRatio="none">
+              <path fill="#fff" d="M0,0 C480,100 960,0 1440,100 L1440,100 L0,100 Z"></path>
+            </svg>
+          </div>
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <img src="/logo.jpeg" alt="Haven Word Church Logo" className="mx-auto mb-6 h-20 w-20 rounded-full shadow-lg object-contain" style={{ maxHeight: 80 }} />
+            <h1 className="font-accent text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+              Welcome to <span className="text-secondary-500">Haven Word Church</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 font-sans opacity-90">
+              Your Spiritual Home in the Heart of Ibadan
+            </p>
+            <p className="text-lg mb-10 max-w-2xl mx-auto font-sans opacity-80">
+              Experience God's love, grow in faith, and connect with a community that cares. Join us as we journey together in worship, fellowship, and service.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                variant="primary" 
+                size="lg"
+                onClick={() => setIsRSVPOpen(true)}
+                className="bg-secondary-500 text-white rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-secondary-600 transition border-2 border-secondary-500"
+              >
+                Join Us This Sunday
+              </Button>
+              <Button 
+                variant="secondary" 
+                size="lg"
+                onClick={() => setIsCalendarOpen(true)}
+                className="bg-primary-100 text-primary-700 border-2 border-primary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-primary-200 hover:text-primary-900 transition dark:bg-primary-900 dark:text-primary-100 dark:border-primary-700 dark:hover:bg-primary-800 dark:hover:text-primary-50"
+              >
+                View Calendar
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => setIsContactOpen(true)}
+                className="bg-white text-secondary-500 border-2 border-secondary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-secondary-50 transition dark:bg-gray-900 dark:text-secondary-300 dark:border-secondary-700 dark:hover:bg-gray-800"
+              >
+                Contact Us
+              </Button>
             </div>
           </div>
         </section>
 
         {/* Service Schedule */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Join Us for Worship
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Come as you are and experience the presence of God with us
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {serviceSchedule.map((schedule, index) => (
-                <div key={index} className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg text-center hover:shadow-lg transition-shadow">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <div key={index} className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900 dark:to-purple-900 p-6 rounded-lg text-center hover:shadow-lg transition-shadow">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     {schedule.day}
                   </h3>
-                  <p className="text-lg text-blue-600 font-medium mb-1">
+                  <p className="text-lg text-blue-600 dark:text-blue-300 font-medium mb-1">
                     {schedule.service}
                   </p>
-                  <p className="text-gray-600 text-lg">
+                  <p className="text-gray-600 dark:text-gray-300 text-lg">
                     {schedule.time}
                   </p>
                 </div>
@@ -214,13 +206,13 @@ const Home = () => {
         </section>
 
         {/* Upcoming Events */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Upcoming Events
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Stay connected with our church community through these upcoming events
               </p>
             </div>
@@ -252,13 +244,13 @@ const Home = () => {
         </section>
 
         {/* Ministry Spotlight */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Ministry Spotlight
               </h2>
-              <p className="text-lg text-gray-600 mb-12">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-12">
                 Discover how you can serve and grow in our vibrant ministry community
               </p>
               
@@ -275,14 +267,14 @@ const Home = () => {
                   <Button 
                     variant="secondary" 
                     size="lg"
-                    className="bg-white text-blue-600 hover:bg-gray-100"
+                    className="bg-white text-blue-600 hover:bg-gray-100 dark:bg-gray-900 dark:text-blue-300 dark:hover:bg-gray-800"
                   >
                     Learn More
                   </Button>
                   <Button 
                     variant="outline" 
                     size="lg"
-                    className="border-white text-white hover:bg-white hover:text-blue-600"
+                    className="border-white text-white hover:bg-white hover:text-blue-600 dark:border-gray-700 dark:text-blue-200 dark:hover:bg-gray-800 dark:hover:text-white"
                   >
                     Join Ministry
                   </Button>
@@ -293,13 +285,13 @@ const Home = () => {
         </section>
 
         {/* Recent Sermons */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 Recent Sermons
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                 Grow in your faith with these inspiring messages from our pastors
               </p>
             </div>
@@ -327,15 +319,15 @@ const Home = () => {
         </section>
 
         {/* Community Impact */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
                     Making a Difference in Ibadan
                   </h2>
-                  <p className="text-lg text-gray-600 mb-6">
+                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
                     At Haven Word Church, we believe in being the hands and feet of Jesus 
                     in our local community. Through our various outreach programs, we've 
                     been blessed to impact thousands of lives across Ibadan and Oyo State.
@@ -344,19 +336,19 @@ const Home = () => {
                   <div className="grid grid-cols-2 gap-6 mb-8">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
-                      <div className="text-gray-600">Families Helped</div>
+                      <div className="text-gray-600 dark:text-gray-300">Families Helped</div>
                     </div>
                     <div className="text-center">
                       <div className="text-3xl font-bold text-purple-600 mb-2">50+</div>
-                      <div className="text-gray-600">Outreach Events</div>
+                      <div className="text-gray-600 dark:text-gray-300">Outreach Events</div>
                     </div>
                     <div className="text-center">
                       <div className="text-3xl font-bold text-green-600 mb-2">1000+</div>
-                      <div className="text-gray-600">Lives Touched</div>
+                      <div className="text-gray-600 dark:text-gray-300">Lives Touched</div>
                     </div>
                     <div className="text-center">
                       <div className="text-3xl font-bold text-orange-600 mb-2">25+</div>
-                      <div className="text-gray-600">Partner Organizations</div>
+                      <div className="text-gray-600 dark:text-gray-300">Partner Organizations</div>
                     </div>
                   </div>
                   
@@ -366,8 +358,8 @@ const Home = () => {
                 </div>
                 
                 <div className="relative">
-                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-8 h-96 flex items-center justify-center">
-                    <div className="text-center text-gray-500">
+                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-lg p-8 h-96 flex items-center justify-center">
+                    <div className="text-center text-gray-500 dark:text-gray-300">
                       <svg className="w-24 h-24 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                       </svg>
@@ -398,14 +390,14 @@ const Home = () => {
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="flex-1 px-4 py-3 rounded-lg text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="flex-1 px-4 py-3 rounded-lg text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:bg-gray-900 dark:text-white"
                     required
                   />
                   <Button 
                     type="submit"
                     variant="primary"
                     size="lg"
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:text-white"
                   >
                     Subscribe
                   </Button>
@@ -420,8 +412,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
-        <Footer />
 
         {/* Modals */}
         <Modal

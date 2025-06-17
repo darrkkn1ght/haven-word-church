@@ -89,7 +89,8 @@ const SermonCard = ({
   const formatSermonDate = (dateString) => {
     if (!dateString) return '';
     try {
-      return formatDate(dateString, { includeYear: true, format: 'medium' });
+      // Use a valid format string from DATE_FORMATS
+      return formatDate(dateString, 'MMM dd, yyyy');
     } catch (error) {
       console.warn('Invalid date format:', dateString);
       return dateString;

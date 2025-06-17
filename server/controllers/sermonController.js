@@ -1,5 +1,6 @@
 const Sermon = require('../models/Sermon');
 const { validationResult } = require('express-validator');
+const getTelegramSermons = require('./getTelegramSermons');
 
 /**
  * Sermon Controller for Haven Word Church
@@ -509,7 +510,6 @@ const downloadSermonMedia = async (req, res) => {
     if (!sermon || sermon.status !== 'published') {
       return res.status(404).json({
         success: false,
-        message: 'Sermon not found'
       });
     }
 
@@ -609,5 +609,6 @@ module.exports = {
   getSermonsBySeries,
   getSermonSeries,
   downloadSermonMedia,
-  toggleSermonLike
+  toggleSermonLike,
+  getTelegramSermons
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNotification } from '../../contexts/NotificationContext';
+import { useAuth } from '../../context/AuthContext';
+import { useNotification } from '../../context/NotificationContext';
 import { memberService } from '../../services/api';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import SEOHead from '../../components/common/SEOHead';

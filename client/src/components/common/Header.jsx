@@ -26,11 +26,11 @@ const Header = () => {
     { name: 'Contact', path: '/contact' }
   ];
 
-  // Member navigation items
+  // Member navigation items (match App.jsx routes)
   const memberNavItems = [
-    { name: 'Dashboard', path: '/member/dashboard' },
-    { name: 'Profile', path: '/member/profile' },
-    { name: 'Attendance', path: '/member/attendance' }
+    { name: 'Dashboard', path: '/dashboard' },
+    { name: 'Profile', path: '/profile' },
+    { name: 'Attendance', path: '/attendance' } // If this route exists
   ];
 
   // Handle scroll effect
@@ -84,17 +84,20 @@ const Header = () => {
         <div className="flex justify-between items-center h-16 lg:h-20">
           
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 flex flex-col items-start">
             <Link 
               to="/" 
               className="flex items-center space-x-3 group"
               aria-label="Haven Word Church - Home"
             >
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-                <span className="text-white font-bold text-lg lg:text-xl">HW</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-lg lg:text-xl font-bold text-gray-900 dark:text-white">
+              <img
+                src="/logo.jpeg"
+                alt="Haven Word Church Logo"
+                className="h-10 w-auto lg:h-12 max-h-[50px] object-contain transition-transform duration-200 group-hover:scale-105 rounded-lg shadow-soft"
+                style={{ maxHeight: 50 }}
+              />
+              <div className="hidden sm:block ml-2">
+                <h1 className="text-lg lg:text-xl font-bold text-primary-500 dark:text-white font-accent tracking-tight">
                   Haven Word
                 </h1>
                 <p className="text-xs lg:text-sm text-gray-600 dark:text-gray-300 -mt-1">
@@ -177,7 +180,7 @@ const Header = () => {
               </div>
             ) : (
               <Link
-                to="/member/login"
+                to="/login"
                 className="hidden lg:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
               >
                 Member Login
@@ -252,7 +255,7 @@ const Header = () => {
                   </>
                 ) : (
                   <Link
-                    to="/member/login"
+                    to="/login"
                     className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 text-center"
                   >
                     Member Login

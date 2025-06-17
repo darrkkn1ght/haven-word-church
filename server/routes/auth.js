@@ -195,14 +195,14 @@ router.post('/verify-email', tokenValidation, handleValidationErrors, verifyEmai
  * @desc    Get current user profile
  * @access  Private
  */
-router.get('/me', auth, getMe);
+router.get('/me', auth.protect, getMe);
 
 /**
  * @route   PUT /api/auth/profile
  * @desc    Update user profile
  * @access  Private
  */
-router.put('/profile', auth, [
+router.put('/profile', auth.protect, [
   body('firstName')
     .optional()
     .trim()
@@ -254,21 +254,21 @@ router.put('/profile', auth, [
  * @desc    Change user password
  * @access  Private
  */
-router.put('/password', auth, changePasswordValidation, handleValidationErrors, changePassword);
+router.put('/password', auth.protect, changePasswordValidation, handleValidationErrors, changePassword);
 
 /**
  * @route   POST /api/auth/resend-verification
  * @desc    Resend email verification
  * @access  Private
  */
-router.post('/resend-verification', auth, resendVerification);
+router.post('/resend-verification', auth.protect, resendVerification);
 
 /**
  * @route   POST /api/auth/logout
  * @desc    Logout user
  * @access  Private
  */
-router.post('/logout', auth, logout);
+router.post('/logout', auth.protect, logout);
 
 // =============================================================================
 // ROUTE TESTING ENDPOINTS (Development only)
@@ -294,7 +294,7 @@ if (process.env.NODE_ENV === 'development') {
    * @desc    Test protected route
    * @access  Private
    */
-  router.get('/protected-test', auth, (req, res) => {
+  router.get('/protected-test', auth.protect, (req, res) => {
     res.json({
       success: true,
       message: 'Protected route is working!',

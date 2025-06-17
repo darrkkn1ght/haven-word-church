@@ -11,8 +11,8 @@ import { ThemeProvider } from './context/ThemeContext';
 import { useAuth } from './hooks/useAuth';
 
 // Layout Components (to be created)
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import LoadingSpinner from './components/common/LoadingSpinner';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import ScrollToTop from './components/common/ScrollToTop';
@@ -33,7 +33,7 @@ import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 
 // Auth Pages
-import Login from './pages/auth/Login';
+import Login from './pages/member/Login';
 import Register from './pages/auth/Register';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
@@ -96,7 +96,7 @@ const queryClient = new QueryClient({
  * Handles authentication and role-based access control
  */
 const ProtectedRoute = ({ children, requireRole = null, requireAuth = true }) => {
-  const { user, isAuthenticated, isLoading, hasRole } = useAuth();
+  const { isAuthenticated, isLoading, hasRole } = useAuth();
 
   // Show loading spinner while checking authentication
   if (isLoading) {

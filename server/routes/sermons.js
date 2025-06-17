@@ -315,17 +315,17 @@ router.get('/:identifier', getSermon);
 
 // Protected Member Routes
 // Like/unlike sermon
-router.post('/:id/like', auth, likeValidationRules, toggleSermonLike);
+router.post('/:id/like', auth.protect, likeValidationRules, toggleSermonLike);
 
 // Admin/Staff Routes
 // Create new sermon
-router.post('/', auth, requireAdminOrStaff, sermonValidationRules, createSermon);
+router.post('/', auth.protect, requireAdminOrStaff, sermonValidationRules, createSermon);
 
 // Update existing sermon
-router.put('/:id', auth, requireAdminOrStaff, sermonValidationRules, updateSermon);
+router.put('/:id', auth.protect, requireAdminOrStaff, sermonValidationRules, updateSermon);
 
 // Admin Only Routes
 // Delete sermon
-router.delete('/:id', auth, requireAdmin, deleteSermon);
+router.delete('/:id', auth.protect, requireAdmin, deleteSermon);
 
 module.exports = router;

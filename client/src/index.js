@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import AppWithHelmetProvider from './AppWithHelmetProvider';
 import App from './App';
 
 // Import global styles first
@@ -38,10 +39,12 @@ const initializeApp = () => {
   // Create React root using the new React 18 createRoot API
   const root = createRoot(container);
 
-  // Render the application
+  // Render the application with HelmetProvider
   root.render(
     <React.StrictMode>
-      <App />
+      <AppWithHelmetProvider>
+        <App />
+      </AppWithHelmetProvider>
     </React.StrictMode>
   );
 
@@ -262,13 +265,7 @@ const setupAccessibility = () => {
   document.body.insertBefore(skipLink, document.body.firstChild);
 
   // Set up focus management for single-page app
-  let lastFocusedElement = null;
-  
-  // Store the last focused element before route changes
-  window.addEventListener('beforeunload', () => {
-    lastFocusedElement = document.activeElement;
-  });
-  
+
   // Manage focus on route changes (will be triggered by router)
   window.addEventListener('routechange', () => {
     const mainContent = document.getElementById('main-content');

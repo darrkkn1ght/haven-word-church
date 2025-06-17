@@ -3,7 +3,7 @@ import { Calendar, Clock, MapPin, Users, Filter, Search, ChevronLeft, ChevronRig
 import SEOHead from '../components/SEOHead';
 import EventCard from '../components/cards/EventCard';
 import RSVPForm from '../components/forms/RSVPForm';
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 /**
  * Events Page Component
@@ -288,7 +288,7 @@ const Events = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <SEOHead 
         title="Events - Haven Word Church"
         description="Join us for upcoming church events, worship services, fellowship activities, and community outreach programs at Haven Word Church, Ibadan."
@@ -324,7 +324,7 @@ const Events = () => {
       </section>
 
       {/* Filters and Search */}
-      <section className="bg-white shadow-sm border-b">
+      <section className="bg-white dark:bg-gray-900 shadow-sm border-b dark:border-gray-800">
         <div className="container mx-auto px-4 py-6">
           {/* Search Bar */}
           <div className="mb-6">
@@ -335,7 +335,7 @@ const Events = () => {
                 placeholder="Search events..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all dark:bg-gray-800 dark:text-white"
               />
             </div>
           </div>
@@ -347,7 +347,7 @@ const Events = () => {
               className={`px-4 py-2 rounded-full font-medium transition-all ${
                 activeFilter === 'upcoming'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
               }`}
             >
               <Filter className="w-4 h-4 inline-block mr-2" />
@@ -358,7 +358,7 @@ const Events = () => {
               className={`px-4 py-2 rounded-full font-medium transition-all ${
                 activeFilter === 'worship'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
               }`}
             >
               Worship
@@ -368,7 +368,7 @@ const Events = () => {
               className={`px-4 py-2 rounded-full font-medium transition-all ${
                 activeFilter === 'fellowship'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
               }`}
             >
               Fellowship
@@ -378,7 +378,7 @@ const Events = () => {
               className={`px-4 py-2 rounded-full font-medium transition-all ${
                 activeFilter === 'youth'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
               }`}
             >
               Youth
@@ -388,7 +388,7 @@ const Events = () => {
               className={`px-4 py-2 rounded-full font-medium transition-all ${
                 activeFilter === 'outreach'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
               }`}
             >
               Outreach
@@ -398,7 +398,7 @@ const Events = () => {
               className={`px-4 py-2 rounded-full font-medium transition-all ${
                 activeFilter === 'past'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
               }`}
             >
               Past Events
@@ -412,7 +412,7 @@ const Events = () => {
         <div className="container mx-auto px-4">
           {/* Results Summary */}
           <div className="mb-8 text-center">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Showing {currentEvents.length} of {filteredEvents.length} events
               {searchTerm && ` for "${searchTerm}"`}
             </p>
@@ -432,11 +432,11 @@ const Events = () => {
             </div>
           ) : (
             <div className="text-center py-16">
-              <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">
+              <Calendar className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">
                 No Events Found
               </h3>
-              <p className="text-gray-500 mb-4">
+              <p className="text-gray-500 dark:text-gray-400 mb-4">
                 {searchTerm 
                   ? `No events match your search for "${searchTerm}"`
                   : 'No events available for the selected filter'
@@ -445,7 +445,7 @@ const Events = () => {
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="text-blue-600 hover:text-blue-700 font-medium"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
                 >
                   Clear search
                 </button>
@@ -459,7 +459,7 @@ const Events = () => {
               <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="p-2 rounded-lg border border-gray-300 dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -471,7 +471,7 @@ const Events = () => {
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${
                     currentPage === index + 1
                       ? 'bg-blue-600 text-white'
-                      : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                      : 'border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                   }`}
                 >
                   {index + 1}
@@ -481,7 +481,7 @@ const Events = () => {
               <button
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="p-2 rounded-lg border border-gray-300 dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -491,19 +491,19 @@ const Events = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-blue-50 py-16">
+      <section className="bg-blue-50 dark:bg-blue-900 py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Stay Connected
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
             Don't miss out on any of our events. Subscribe to our newsletter or follow us on social media for the latest updates.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
               Subscribe to Newsletter
             </button>
-            <button className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-medium hover:bg-blue-600 hover:text-white transition-colors">
+            <button className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-medium hover:bg-blue-600 hover:text-white transition-colors dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-800 dark:hover:text-white">
               View Calendar
             </button>
           </div>
@@ -513,21 +513,21 @@ const Events = () => {
       {/* RSVP Modal */}
       {showRSVPModal && selectedEvent && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 RSVP for {selectedEvent.title}
               </h3>
-              <div className="mb-4 p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-2 text-gray-600 mb-2">
+              <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-2">
                   <Calendar className="w-4 h-4" />
                   <span>{formatDate(selectedEvent.date)}</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600 mb-2">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-2">
                   <Clock className="w-4 h-4" />
                   <span>{selectedEvent.time} - {selectedEvent.endTime}</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                   <MapPin className="w-4 h-4" />
                   <span>{selectedEvent.location}</span>
                 </div>

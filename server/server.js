@@ -8,7 +8,7 @@ const path = require('path');
 require('dotenv').config();
 
 // Import database connection
-const connectDB = require('./config/database');
+const { connectDB } = require('./config/database');
 
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');

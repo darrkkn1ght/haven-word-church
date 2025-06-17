@@ -261,23 +261,23 @@ router.get('/:identifier', getEvent);
 
 // Protected Member Routes
 // Register for an event
-router.post('/:id/register', auth, registerForEvent);
+router.post('/:id/register', auth.protect, registerForEvent);
 
 // Unregister from an event
-router.delete('/:id/register', auth, unregisterFromEvent);
+router.delete('/:id/register', auth.protect, unregisterFromEvent);
 
 // Admin/Staff Routes
 // Create new event
-router.post('/', auth, requireAdminOrStaff, eventValidationRules, createEvent);
+router.post('/', auth.protect, requireAdminOrStaff, eventValidationRules, createEvent);
 
 // Update existing event
-router.put('/:id', auth, requireAdminOrStaff, eventValidationRules, updateEvent);
+router.put('/:id', auth.protect, requireAdminOrStaff, eventValidationRules, updateEvent);
 
 // Get event attendees (Admin/Staff only)
-router.get('/:id/attendees', auth, requireAdminOrStaff, getEventAttendees);
+router.get('/:id/attendees', auth.protect, requireAdminOrStaff, getEventAttendees);
 
 // Admin Only Routes
 // Delete event
-router.delete('/:id', auth, requireAdmin, deleteEvent);
+router.delete('/:id', auth.protect, requireAdmin, deleteEvent);
 
 module.exports = router;

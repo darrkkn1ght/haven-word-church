@@ -84,7 +84,8 @@ const MinistryCard = ({
   // Destructure ministry properties with defaults
   const {
     id,
-    name = 'Unnamed Ministry',
+    title,
+    name,
     description = '',
     image,
     leader = {},
@@ -96,10 +97,12 @@ const MinistryCard = ({
     isActive = true,
     established
   } = ministry || {};
+  // Prefer title, then name, then fallback
+  const displayName = title && title.trim() ? title : (name && name.trim() ? name : 'Unnamed Ministry');
 
   // Determine card classes based on variant
   const getCardClasses = () => {
-    const baseClasses = 'bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden transition-all duration-300';
+    const baseClasses = 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300';
     
     const variantClasses = {
       default: 'hover:shadow-md hover:border-primary-200',
@@ -173,7 +176,7 @@ const MinistryCard = ({
       onClick={handleCardClick}
       role={onClick ? 'button' : 'article'}
       tabIndex={onClick ? 0 : -1}
-      aria-label={`${name} ministry information`}
+      aria-label={`${displayName || 'Ministry'} ministry information`}
     >
       {/* Header with Image */}
       {image && (
@@ -214,8 +217,8 @@ const MinistryCard = ({
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="text-lg font-semibold text-gray-900">
-                {name}
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {displayName || 'Ministry'}
               </h3>
               {!isActive && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
@@ -258,12 +261,12 @@ const MinistryCard = ({
         {/* Activities */}
         {showActivities && activities && activities.length > 0 && (
           <div className="mb-4">
-            <h4 className="text-sm font-medium text-gray-900 mb-2">Activities:</h4>
+            <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Activities:</h4>
             <div className="flex flex-wrap gap-1">
               {activities.slice(0, 3).map((activity, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-700"
+                  className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300"
                 >
                   {activity}
                 </span>
@@ -279,7 +282,7 @@ const MinistryCard = ({
 
         {/* Schedule */}
         {showSchedule && schedule && Object.keys(schedule).length > 0 && (
-          <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+          <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
             <div className="flex items-center mb-2">
               <svg
                 className="w-4 h-4 text-gray-500 mr-2"
@@ -295,17 +298,17 @@ const MinistryCard = ({
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              <span className="text-sm font-medium text-gray-900">Schedule</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">Schedule</span>
             </div>
             
             {formatSchedule() && (
-              <p className="text-sm text-gray-600 mb-1">
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
                 {formatSchedule()}
               </p>
             )}
             
             {schedule.location && (
-              <div className="flex items-center text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                 <svg
                   className="w-3 h-3 mr-1"
                   fill="none"
@@ -334,7 +337,7 @@ const MinistryCard = ({
 
         {/* Leader Info */}
         {showLeader && leader && leader.name && (
-          <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+          <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 {leader.image ? (
@@ -352,11 +355,11 @@ const MinistryCard = ({
                   </div>
                 )}
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">
                     {leader.name}
                   </p>
                   {leader.title && (
-                    <p className="text-xs text-gray-600">
+                    <p className="text-xs text-gray-600 dark:text-gray-300">
                       {leader.title}
                     </p>
                   )}
@@ -366,7 +369,7 @@ const MinistryCard = ({
               {(leader.phone || leader.email) && (
                 <button
                   onClick={handleContact}
-                  className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                  className="text-xs text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-400 font-medium"
                   aria-label={`Contact ${leader.name}`}
                 >
                   Contact
@@ -378,11 +381,11 @@ const MinistryCard = ({
 
         {/* Action Buttons */}
         {isActive && showJoinButton && (
-          <div className="flex gap-2 pt-4 border-t border-gray-100">
+          <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
             <button
               onClick={handleJoin}
               className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-              aria-label={`Join ${name} ministry`}
+              aria-label={`Join ${displayName || 'Ministry'} ministry`}
             >
               Join Ministry
             </button>
@@ -390,8 +393,8 @@ const MinistryCard = ({
             {onClick && (
               <button
                 onClick={handleCardClick}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                aria-label={`Learn more about ${name}`}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                aria-label={`Learn more about ${displayName || 'Ministry'}`}
               >
                 Learn More
               </button>
@@ -401,8 +404,8 @@ const MinistryCard = ({
 
         {/* Established Date */}
         {established && (
-          <div className="mt-3 pt-3 border-t border-gray-100">
-            <p className="text-xs text-gray-500 text-center">
+          <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
               Established {formatDate(established)}
             </p>
           </div>

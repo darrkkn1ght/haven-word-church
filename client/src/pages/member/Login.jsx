@@ -16,9 +16,9 @@ import {
   Cross,
   Users
 } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import SEOHead from '../../components/SEOHead';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 /**
  * Login Page Component
@@ -231,7 +231,7 @@ const Login = () => {
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                <Cross className="w-8 h-8 text-white" />
+                <img src="/logo.jpeg" alt="Haven Word Church Logo" className="w-12 h-12 object-contain rounded-full bg-white" />
               </div>
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">

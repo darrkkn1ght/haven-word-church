@@ -5,9 +5,7 @@ import {
   Users,
   BookOpen,
   Heart,
-  Clock,
   TrendingUp,
-  Award,
   Bell,
   Settings,
   User,
@@ -15,15 +13,13 @@ import {
   Eye,
   Download,
   Share2,
-  Plus,
   MessageCircle,
-  Target,
   Gift
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
-import { useAuth } from '../../contexts/AuthContext';
-import { memberService } from '../../services/api';
+// import { useAuth } from '../../context/AuthContext';
+// import { memberService } from '../../services/api';
 import { formatDate, formatCurrency } from '../../utils/helpers';
 
 /**
@@ -32,13 +28,13 @@ import { formatDate, formatCurrency } from '../../utils/helpers';
  * upcoming events, giving history, and spiritual growth tracking
  */
 const Dashboard = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [dashboardData, setDashboardData] = useState(null);
   const [error, setError] = useState(null);
 
   // Sample dashboard data for development
-  const sampleDashboardData = {
+  const sampleDashboardData = React.useMemo(() => ({
     member: {
       name: 'John Adebayo',
       membershipDate: '2022-03-15',
@@ -150,17 +146,10 @@ const Dashboard = () => {
         dailyDevotional: true
       }
     }
-  };
+  }), []);
 
   // Fetch dashboard data on component mount
-  useEffect(() => {
-    fetchDashboardData();
-  }, []);
-
-  /**
-   * Fetch member dashboard data from API
-   */
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = React.useCallback(async () => {
     try {
       setLoading(true);
       // Uncomment when API is ready
@@ -176,7 +165,11 @@ const Dashboard = () => {
       setError('Failed to load dashboard data. Please try again later.');
       setLoading(false);
     }
-  };
+  }, [sampleDashboardData]);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
 
   /**
    * Mark notification as read

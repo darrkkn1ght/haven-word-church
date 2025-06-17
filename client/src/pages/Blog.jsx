@@ -264,7 +264,7 @@ const Blog = () => {
         <meta name="keywords" content="Christian blog, faith articles, spiritual growth, Nigerian church, biblical wisdom" />
       </Helmet>
 
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
           <div className="container mx-auto px-4">
@@ -293,10 +293,10 @@ const Blog = () => {
 
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
-          <section className="py-16 bg-white">
+          <section className="py-16 bg-white dark:bg-gray-900">
             <div className="container mx-auto px-4">
               <div className="flex items-center justify-between mb-12">
-                <h2 className="text-3xl font-bold text-gray-900">Featured Articles</h2>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Articles</h2>
                 <div className="w-20 h-1 bg-blue-600"></div>
               </div>
               
@@ -314,12 +314,12 @@ const Blog = () => {
         )}
 
         {/* Filters Section */}
-        <section className="py-8 bg-gray-100 border-b">
+        <section className="py-8 bg-gray-100 dark:bg-gray-900 border-b dark:border-gray-800">
           <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               {/* Category Filters */}
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-sm font-medium text-gray-700 mr-2">Categories:</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Categories:</span>
                 {categories.map((category) => (
                   <button
                     key={category}
@@ -327,7 +327,7 @@ const Blog = () => {
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       selectedCategory === category
                         ? 'bg-blue-600 text-white'
-                        : 'bg-white text-gray-700 hover:bg-gray-200'
+                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                     }`}
                   >
                     {category === 'all' ? 'All' : category}
@@ -339,7 +339,7 @@ const Blog = () => {
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border hover:bg-gray-50 transition-colors lg:hidden"
+                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors lg:hidden"
                 >
                   <Filter className="w-4 h-4" />
                   Filters
@@ -348,13 +348,13 @@ const Blog = () => {
                 {(searchTerm || selectedCategory !== 'all' || selectedTag) && (
                   <button
                     onClick={clearFilters}
-                    className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-sm"
                   >
                     Clear Filters
                   </button>
                 )}
                 
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
                   {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''} found
                 </span>
               </div>
@@ -363,7 +363,7 @@ const Blog = () => {
             {/* Tag Filters */}
             <div className={`mt-6 ${showFilters ? 'block' : 'hidden lg:block'}`}>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-sm font-medium text-gray-700 mr-2">Tags:</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
                 {allTags.map((tag) => (
                   <button
                     key={tag}
@@ -371,7 +371,7 @@ const Blog = () => {
                     className={`px-3 py-1 rounded-full text-sm transition-colors ${
                       selectedTag === tag
                         ? 'bg-purple-600 text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-200 border'
+                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-700'
                     }`}
                   >
                     <Tag className="w-3 h-3 inline mr-1" />
@@ -436,8 +436,8 @@ const Blog = () => {
               <div className="text-center py-16">
                 <div className="max-w-md mx-auto">
                   <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No articles found</h3>
-                  <p className="text-gray-600 mb-6">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">
                     Try adjusting your search terms or filters to find what you're looking for.
                   </p>
                   <button

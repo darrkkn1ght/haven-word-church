@@ -177,7 +177,16 @@ export function ThemeProvider({ children }) {
    * Toggle between light and dark themes
    */
   const toggleTheme = () => {
+    // Always disable systemPreference when toggling manually
+    const newTheme = state.theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+    console.log('Toggling theme. New theme:', newTheme);
     dispatch({ type: THEME_ACTIONS.TOGGLE_THEME });
+    // Also update localStorage immediately to prevent stuck state
+    savePreferences({
+      ...state,
+      theme: newTheme,
+      systemPreference: false
+    });
   };
 
   /**
@@ -239,12 +248,14 @@ export function ThemeProvider({ children }) {
 
   // Effect to apply theme to document
   useEffect(() => {
-    const root = document.documentElement;
-    
-    // Apply theme class
+    const root = typeof document !== 'undefined' ? document.documentElement : null;
+    if (!root) return;
+    // Apply theme as data-theme attribute for CSS compatibility
+    console.log('Setting data-theme attribute to:', state.theme);
+    root.setAttribute('data-theme', state.theme);
+    // Optionally, keep the class for other uses
     root.classList.remove(THEMES.LIGHT, THEMES.DARK);
     root.classList.add(state.theme);
-    
     // Apply font size
     root.classList.remove('text-sm', 'text-base', 'text-lg');
     const fontSizeClass = {
@@ -253,14 +264,12 @@ export function ThemeProvider({ children }) {
       large: 'text-lg'
     };
     root.classList.add(fontSizeClass[state.fontSize]);
-    
     // Apply accessibility preferences
     if (state.reducedMotion) {
       root.classList.add('reduce-motion');
     } else {
       root.classList.remove('reduce-motion');
     }
-    
     if (state.highContrast) {
       root.classList.add('high-contrast');
     } else {
