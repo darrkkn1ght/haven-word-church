@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#3b82f6">
+  
+  <!-- Viewport and Mobile Optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="msapplication-TileColor" content="#3b82f6">
+  <meta name="msapplication-config" content="%PUBLIC_URL%/browserconfig.xml">
+  
+  <!-- Basic SEO Meta Tags -->
+  <meta name="description" content="Haven Word Church - A community of faith, hope, and love. Join us for worship services, ministries, and spiritual growth in Ibadan, Nigeria." />
+  <meta name="keywords" content="church, christian, worship, ministry, faith, community, Ibadan, Nigeria, Haven Word Church, sermons, bible study" />
+  <meta name="author" content="Haven Word Church" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://havenwordchurch.org/" />
+  <meta property="og:title" content="Haven Word Church - Faith, Hope & Love Community" />
+  <meta property="og:description" content="Join our vibrant church community in Ibadan. Experience God's love through worship, fellowship, and spiritual growth." />
+  <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Haven Word Church" />
+  <meta property="og:locale" content="en_NG" />
+  
+  <!-- Twitter Card -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://havenwordchurch.org/" />
+  <meta property="twitter:title" content="Haven Word Church - Faith, Hope & Love Community" />
+  <meta property="twitter:description" content="Join our vibrant church community in Ibadan. Experience God's love through worship, fellowship, and spiritual growth." />
+  <meta property="twitter:image" content="%PUBLIC_URL%/twitter-image.jpg" />
+  <meta property="twitter:creator" content="@HavenWordChurch" />
+  
+  <!-- Structured Data for Local Business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    "name": "Haven Word Church",
+    "description": "A vibrant Christian church community in Ibadan, Nigeria, dedicated to spreading God's love through worship, fellowship, and service.",
+    "url": "https://havenwordchurch.org",
+    "logo": "https://havenwordchurch.org/havenword.jpeg",
+    "image": "https://havenwordchurch.org/og-image.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Church Street",
+      "addressLocality": "Ibadan",
+      "addressRegion": "Oyo State",
+      "postalCode": "200001",
+      "addressCountry": "NG"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 7.3775,
+      "longitude": 3.9470
+    },
+    "telephone": "+234-XXX-XXX-XXXX",
+    "email": "info@havenwordchurch.org",
+    "sameAs": [
+      "https://facebook.com/havenwordchurch",
+      "https://instagram.com/havenwordchurch",
+      "https://twitter.com/havenwordchurch",
+      "https://youtube.com/havenwordchurch"
+    ],
+    "openingHours": [
+      "Su 08:00-12:00",
+      "We 18:00-20:00",
+      "Fr 18:00-21:00"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Church Services & Programs",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Sunday Worship Service",
+            "description": "Weekly worship service with sermon, music, and fellowship"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bible Study",
+            "description": "Weekly Bible study sessions for spiritual growth"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Youth Ministry",
+            "description": "Programs and activities for young people"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  
+  <!-- Preconnect to external domains for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  
+  <!-- DNS Prefetch for external resources -->
+  <link rel="dns-prefetch" href="//youtube.com">
+  <link rel="dns-prefetch" href="//facebook.com">
+  <link rel="dns-prefetch" href="//instagram.com">
+  
+  <!-- Critical CSS (inline small critical styles) -->
+  <style>
+    /* Critical loading styles */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease-out;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Prevent flash of unstyled content */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #ffffff;
+    }
+    
+    /* Hide content until React loads */
+    #root:empty {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      min-height: 100vh;
+    }
+    
+    /* Accessibility improvements */
+    @media (prefers-reduced-motion: reduce) {
+      .loading-spinner {
+        animation: none;
+      }
+      
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+  
+  <!-- Title -->
+  <title>Haven Word Church - Faith, Hope & Love Community</title>
+</head>
+
+<body>
+  <!-- No JavaScript fallback -->
+  <noscript>
+    <div style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    ">
+      <div>
+        <h1 style="color: #3b82f6; margin-bottom: 20px;">Haven Word Church</h1>
+        <p style="color: #6b7280; margin-bottom: 20px;">
+          This website requires JavaScript to function properly. 
+          Please enable JavaScript in your browser settings and refresh the page.
+        </p>
+        <p style="color: #9ca3af; font-size: 14px;">
+          If you continue to experience issues, please contact us at:
+          <br><strong>info@havenwordchurch.org</strong>
+        </p>
+      </div>
+    </div>
+  </noscript>
+  
+  <!-- Loading screen (will be hidden when React loads) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <!-- React App Root -->
+  <div id="root"></div>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    // Register service worker for PWA functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('%PUBLIC_URL%/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+    
+    // Hide loading screen when React loads
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+          loadingScreen.style.opacity = '0';
+          setTimeout(function() {
+            loadingScreen.style.display = 'none';
+          }, 300);
+        }
+      }, 1000);
+    });
+    
+    // Performance monitoring
+    window.addEventListener('load', function() {
+      // Log page load performance
+      if (window.performance && window.performance.timing) {
+        const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+        console.log('Page load time:', loadTime + 'ms');
+      }
+    });
+  </script>
+  
+  <!-- Microsoft Clarity (Optional Analytics) -->
+  <!--
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "YOUR_PROJECT_ID");
+  </script>
+  -->
+</body>
+</html>
