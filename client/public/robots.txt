@@ -1,0 +1,78 @@
+# Haven Word Church - Robots.txt
+# https://havenwordchurch.org/robots.txt
+
+User-agent: *
+Allow: /
+
+# Allow all public pages
+Allow: /about
+Allow: /events
+Allow: /sermons
+Allow: /ministries
+Allow: /blog
+Allow: /contact
+Allow: /live
+
+# Disallow member-only areas
+Disallow: /member/
+Disallow: /admin/
+Disallow: /api/
+
+# Disallow sensitive files
+Disallow: /.env
+Disallow: /config/
+Disallow: /*.json$
+Disallow: /src/
+
+# Allow search engines to index images
+Allow: /images/
+Allow: /assets/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Block specific bots that might be harmful
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Allow Google, Bing, and other major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Crawl delay for courtesy (1 second)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://havenwordchurch.org/sitemap.xml
+Sitemap: https://havenwordchurch.org/sitemap-news.xml
+Sitemap: https://havenwordchurch.org/sitemap-images.xml
+
+# Host specification (preferred domain)
+Host: havenwordchurch.org
