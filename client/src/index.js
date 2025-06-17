@@ -8,7 +8,7 @@ import './styles/globals.css';
 import './index.css';
 
 // Performance monitoring and error reporting (optional)
-import { reportWebVitals } from './utils/reportWebVitals';
+import reportWebVitals from './utils/reportWebVitals';
 
 /**
  * Haven Word Church - React Application Entry Point
