@@ -232,18 +232,19 @@ const Dashboard = () => {
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-gray-300 rounded-full overflow-hidden">
+                <div className="w-16 h-16 bg-gray-300 rounded-full overflow-hidden relative">
                   <img
                     src={member.avatar}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover absolute inset-0"
                     onError={(e) => {
                       e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
+                      const fallback = e.target.parentNode.querySelector('.avatar-fallback');
+                      if (fallback) fallback.style.display = 'flex';
                     }}
                   />
-                  <div className="w-full h-full bg-blue-600 flex items-center justify-center text-white text-xl font-bold" style={{display: 'none'}}>
-                    {member.name.split(' ').map(n => n[0]).join('')}
+                  <div className="avatar-fallback w-full h-full bg-blue-600 flex items-center justify-center text-white text-xl font-bold absolute inset-0" style={{display: 'none'}}>
+                    {member.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                   </div>
                 </div>
                 <div>

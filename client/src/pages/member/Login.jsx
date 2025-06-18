@@ -47,11 +47,12 @@ const Login = () => {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showRedirectSpinner, setShowRedirectSpinner] = useState(false);
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      const from = location.state?.from?.pathname || '/member/dashboard';
+      const from = location.state?.from?.pathname || '/dashboard';
       navigate(from, { replace: true });
     }
   }, [user, navigate, location]);
@@ -140,10 +141,10 @@ const Login = () => {
         await login(formData.email, formData.password);
         setMessage('Login successful! Redirecting...');
         setMessageType('success');
-        
+        setShowRedirectSpinner(true);
         // Redirect after successful login
         setTimeout(() => {
-          const from = location.state?.from?.pathname || '/member/dashboard';
+          const from = location.state?.from?.pathname || '/dashboard';
           navigate(from, { replace: true });
         }, 1500);
       } else {
@@ -216,6 +217,14 @@ const Login = () => {
       dateOfBirth: ''
     });
   };
+
+  if (showRedirectSpinner) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner size="lg" text={message || "Redirecting to your dashboard..."} />
+      </div>
+    );
+  }
 
   return (
     <>
