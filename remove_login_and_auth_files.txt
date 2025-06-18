@@ -1,0 +1,19 @@
+# Files to delete for removing login/auth features
+
+# Frontend
+client/src/pages/member/Login.jsx
+client/src/pages/auth/Register.jsx
+client/src/pages/auth/ForgotPassword.jsx
+client/src/pages/auth/ResetPassword.jsx
+client/src/pages/auth/VerifyEmail.jsx
+client/src/components/forms/LoginForm.jsx
+client/src/services/authService.js
+client/src/context/AuthContext.jsx
+client/src/hooks/useAuth.js
+
+# Backend
+server/routes/auth.js
+server/controllers/authController.js
+server/models/User.js
+server/middleware/auth.js
+server/utils/generateToken.js

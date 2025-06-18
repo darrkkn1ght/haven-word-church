@@ -13,7 +13,7 @@ const {
   updateGoalStatus,
   getMinistryStats
 } = require('../controllers/ministryController');
-const { protect, adminOnly, leadersOnly } = require('../middleware/auth');
+// const { protect, adminOnly, leadersOnly } = require('../middleware/auth');
 
 /**
  * Ministry Routes for Haven Word Church
@@ -85,7 +85,7 @@ router.get('/category/:category', getMinistriesByCategory);
  * @desc    Get ministry statistics and analytics
  * @access  Private (Admin only)
  */
-router.get('/stats', protect, adminOnly, getMinistryStats);
+router.get('/stats', getMinistryStats);
 
 /**
  * @route   POST /api/ministries
@@ -93,7 +93,7 @@ router.get('/stats', protect, adminOnly, getMinistryStats);
  * @access  Private (Admin only)
  * @body    Ministry object with all required fields
  */
-router.post('/', protect, adminOnly, createMinistry);
+router.post('/', createMinistry);
 
 /**
  * @route   PUT /api/ministries/:id
@@ -102,7 +102,7 @@ router.post('/', protect, adminOnly, createMinistry);
  * @params  id - Ministry ID
  * @body    Updated ministry fields
  */
-router.put('/:id', protect, adminOnly, updateMinistry);
+router.put('/:id', updateMinistry);
 
 /**
  * @route   DELETE /api/ministries/:id
@@ -110,7 +110,7 @@ router.put('/:id', protect, adminOnly, updateMinistry);
  * @access  Private (Admin only)
  * @params  id - Ministry ID
  */
-router.delete('/:id', protect, adminOnly, deleteMinistry);
+router.delete('/:id', deleteMinistry);
 
 // Admin/Leader routes - require authentication and admin or leader privileges
 
@@ -121,7 +121,7 @@ router.delete('/:id', protect, adminOnly, deleteMinistry);
  * @params  id - Ministry ID
  * @body    { count: number }
  */
-router.patch('/:id/members', protect, leadersOnly, updateMemberCount);
+router.patch('/:id/members', updateMemberCount);
 
 /**
  * @route   POST /api/ministries/:id/activities
@@ -130,7 +130,7 @@ router.patch('/:id/members', protect, leadersOnly, updateMemberCount);
  * @params  id - Ministry ID
  * @body    { title, description, date, location }
  */
-router.post('/:id/activities', protect, leadersOnly, addActivity);
+router.post('/:id/activities', addActivity);
 
 /**
  * @route   PATCH /api/ministries/:id/goals/:goalId
@@ -139,7 +139,7 @@ router.post('/:id/activities', protect, leadersOnly, addActivity);
  * @params  id - Ministry ID, goalId - Goal ID
  * @body    { status: 'not-started'|'in-progress'|'completed'|'on-hold' }
  */
-router.patch('/:id/goals/:goalId', protect, leadersOnly, updateGoalStatus);
+router.patch('/:id/goals/:goalId', updateGoalStatus);
 
 /**
  * @route   GET /api/ministries/:identifier

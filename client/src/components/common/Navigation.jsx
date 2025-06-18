@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+// import { useAuth } from '../../hooks/useAuth';
 
 /**
  * Navigation Component
@@ -17,7 +17,7 @@ const Navigation = ({
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  // (Removed: user and useAuth)
   
   // Auto-generate breadcrumb from current path if no items provided
   const generateBreadcrumbs = () => {

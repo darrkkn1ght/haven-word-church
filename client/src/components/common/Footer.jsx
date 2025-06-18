@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { MINISTRIES_LIST } from '../../utils/constants';
+// import { useAuth } from '../../hooks/useAuth';
 
 /**
  * Footer Component
@@ -9,7 +10,7 @@ import { useAuth } from '../../hooks/useAuth';
  * Includes Nigerian context and accessibility features
  */
 const Footer = () => {
-  const { user } = useAuth();
+  // (Removed: user and useAuth)
   const currentYear = new Date().getFullYear();
 
   // Quick navigation links
@@ -22,21 +23,10 @@ const Footer = () => {
     { name: 'Contact', path: '/contact' }
   ];
 
-  // Member links (shown only when logged in)
-  const memberLinks = [
-    { name: 'Dashboard', path: '/member/dashboard' },
-    { name: 'Profile', path: '/member/profile' },
-    { name: 'Attendance', path: '/member/attendance' }
-  ];
+  // (Removed: memberLinks)
 
-  // Ministry links
-  const ministryLinks = [
-    { name: 'Youth Ministry', path: '/ministries#youth' },
-    { name: 'Women Fellowship', path: '/ministries#women' },
-    { name: 'Men Fellowship', path: '/ministries#men' },
-    { name: 'Children Church', path: '/ministries#children' },
-    { name: 'Choir Ministry', path: '/ministries#choir' }
-  ];
+  // Ministries List (imported from constants)
+// (import moved to top)
 
   // Social media links
   const socialLinks = [
@@ -140,13 +130,13 @@ const Footer = () => {
             <div>
               <h4 className="text-lg font-semibold mb-6">Our Ministries</h4>
               <ul className="space-y-3">
-                {ministryLinks.map((ministry) => (
-                  <li key={ministry.name}>
+                {MINISTRIES_LIST.map((ministry) => (
+                  <li key={ministry.id}>
                     <Link
-                      to={ministry.path}
+                      to={`/ministries#${ministry.id}`}
                       className="text-gray-300 hover:text-blue-400 transition-colors duration-200 block"
                     >
-                      {ministry.name}
+                      {ministry.title}
                     </Link>
                   </li>
                 ))}
@@ -211,23 +201,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Member Links Section (Only shown when logged in) */}
-          {user && (
-            <div className="mt-12 pt-8 border-t border-gray-800">
-              <h4 className="text-lg font-semibold mb-4">Member Portal</h4>
-              <div className="flex flex-wrap gap-4">
-                {memberLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.path}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm font-medium transition-colors duration-200"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* (Removed: Member Links Section) */}
         </div>
 
         {/* Bottom Bar */}

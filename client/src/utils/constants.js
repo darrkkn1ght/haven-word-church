@@ -1,5 +1,12 @@
 // Application Constants for Haven Word Church
 
+// Storage Keys
+export const STORAGE_KEYS = {
+  AUTH_TOKEN: 'auth_token',
+  USER_PREFERENCES: 'user_preferences',
+  RECENT_SEARCHES: 'recent_searches',
+};
+
 // App Configuration
 export const APP_CONFIG = {
   NAME: 'Haven Word Church',
@@ -14,74 +21,6 @@ export const API_CONFIG = {
   TIMEOUT: 10000,
   RETRY_ATTEMPTS: 3,
   RETRY_DELAY: 1000,
-};
-
-// Authentication
-export const AUTH_CONFIG = {
-  TOKEN_KEY: 'token',
-  USER_KEY: 'user',
-  REFRESH_TOKEN_KEY: 'refreshToken',
-  TOKEN_EXPIRY_BUFFER: 300000, // 5 minutes in milliseconds
-  MAX_LOGIN_ATTEMPTS: 5,
-  LOCKOUT_DURATION: 900000, // 15 minutes in milliseconds
-};
-
-// User Roles
-export const USER_ROLES = {
-  ADMIN: 'admin',
-  PASTOR: 'pastor',
-  LEADER: 'leader',
-  MEMBER: 'member',
-  VISITOR: 'visitor',
-};
-
-export const ROLE_PERMISSIONS = {
-  [USER_ROLES.ADMIN]: [
-    'manage_users',
-    'manage_events',
-    'manage_sermons',
-    'manage_blog',
-    'manage_ministries',
-    'view_analytics',
-    'manage_donations',
-    'manage_settings',
-  ],
-  [USER_ROLES.PASTOR]: [
-    'manage_sermons',
-    'manage_events',
-    'view_members',
-    'manage_prayer_requests',
-    'view_analytics',
-  ],
-  [USER_ROLES.LEADER]: [
-    'create_events',
-    'view_members',
-    'manage_ministry_events',
-    'view_prayer_requests',
-  ],
-  [USER_ROLES.MEMBER]: [
-    'view_content',
-    'register_events',
-    'submit_prayer_requests',
-    'access_member_area',
-  ],
-  [USER_ROLES.VISITOR]: [
-    'view_public_content',
-    'contact_church',
-    'register_account',
-  ],
-};
-
-export const ROLES = {
-  ADMIN: 'admin',
-  USER: 'user',
-  GUEST: 'guest',
-};
-
-export const AUTH_STATUS = {
-  LOGGED_IN: 'logged_in',
-  LOGGED_OUT: 'logged_out',
-  PENDING: 'pending',
 };
 
 // Event Types
@@ -288,31 +227,23 @@ export const FEATURES = {
   ONLINE_GIVING: process.env.REACT_APP_ENABLE_ONLINE_GIVING === 'true',
   EVENT_REGISTRATION: process.env.REACT_APP_ENABLE_EVENT_REGISTRATION === 'true',
   PRAYER_REQUESTS: process.env.REACT_APP_ENABLE_PRAYER_REQUESTS === 'true',
-  MEMBER_PORTAL: true,
   BLOG: true,
   NEWSLETTER: true,
   NOTIFICATIONS: true,
 };
 
-// Error Messages
+// Error Messages (authentication-related removed)
 export const ERROR_MESSAGES = {
   NETWORK_ERROR: 'Network error. Please check your connection and try again.',
-  UNAUTHORIZED: 'You are not authorized to perform this action.',
-  FORBIDDEN: 'Access denied. You do not have permission to view this content.',
   NOT_FOUND: 'The requested resource was not found.',
   VALIDATION_ERROR: 'Please check your input and try again.',
   SERVER_ERROR: 'Something went wrong on our end. Please try again later.',
-  SESSION_EXPIRED: 'Your session has expired. Please log in again.',
   GENERIC_ERROR: 'An unexpected error occurred. Please try again.',
 };
 
-// Success Messages
+// Success Messages (authentication-related removed)
 export const SUCCESS_MESSAGES = {
-  LOGIN_SUCCESS: 'Welcome back! You have been successfully logged in.',
-  LOGOUT_SUCCESS: 'You have been successfully logged out.',
-  REGISTRATION_SUCCESS: 'Account created successfully! Please check your email to verify your account.',
   PROFILE_UPDATED: 'Your profile has been updated successfully.',
-  PASSWORD_CHANGED: 'Your password has been changed successfully.',
   EMAIL_SENT: 'Email sent successfully!',
   FORM_SUBMITTED: 'Your form has been submitted successfully.',
   EVENT_REGISTERED: 'You have been successfully registered for the event.',
@@ -320,23 +251,119 @@ export const SUCCESS_MESSAGES = {
   DONATION_SUCCESS: 'Thank you for your generous donation!',
 };
 
-export const STORAGE_KEYS = {
-  TOKEN: 'token',
-  USER: 'user',
-};
-
-export const API_ENDPOINTS = {
-  LOGIN: '/auth/login',
-  REGISTER: '/auth/register',
-  // Add more endpoints as needed
-};
+// Ministries List (shared between Ministries page and Footer)
+export const MINISTRIES_LIST = [
+  {
+    id: 1,
+    title: 'Haven Teens and Children Mission',
+    category: 'children',
+    tags: ['children', 'teens'],
+    description: 'Helping teens and children grow in Christ through fun, interactive activities.',
+    fullDescription: 'Helping teens and children grow in Christ through fun, interactive activities. We provide a safe and engaging environment for spiritual growth and friendship.',
+    image: '/api/placeholder/600/400',
+    leader: '',
+    contact: { phone: '', email: '' },
+    meetingTime: '',
+    location: '',
+    ageGroup: 'Children & Teens',
+    members: null,
+    activities: [
+      'Bible Stories',
+      'Worship Songs',
+      'Games',
+      'Arts & Crafts'
+    ],
+    upcomingEvents: []
+  },
+  {
+    id: 2,
+    title: 'Church Planting Mission',
+    category: 'outreach',
+    tags: ['outreach', 'all ages'],
+    description: 'Spreading the gospel through new church plants and outreach efforts.',
+    fullDescription: 'Spreading the gospel through new church plants and outreach efforts. We are passionate about reaching new communities for Christ.',
+    image: '/api/placeholder/600/400',
+    leader: '',
+    contact: { phone: '', email: '' },
+    meetingTime: '',
+    location: '',
+    ageGroup: 'All ages',
+    members: null,
+    activities: [
+      'Evangelism',
+      'Community Service',
+      'Discipleship Training'
+    ],
+    upcomingEvents: []
+  },
+  {
+    id: 3,
+    title: 'Flames Mission',
+    category: 'youth',
+    tags: ['youth', 'teens'],
+    description: 'Raising a generation of passionate, on-fire youths for Christ.',
+    fullDescription: 'Raising a generation of passionate, on-fire youths for Christ. We empower young people to lead and serve with zeal.',
+    image: '/api/placeholder/600/400',
+    leader: '',
+    contact: { phone: '', email: '' },
+    meetingTime: '',
+    location: '',
+    ageGroup: 'Teens & Youth',
+    members: null,
+    activities: [
+      'Youth Services',
+      'Prayer Meetings',
+      'Leadership Training'
+    ],
+    upcomingEvents: []
+  },
+  {
+    id: 4,
+    title: 'Campus Fellowship Mission',
+    category: 'fellowship',
+    tags: ['students', 'young adults'],
+    description: 'Bringing Christ to the campuses and empowering students.',
+    fullDescription: 'Bringing Christ to the campuses and empowering students. We foster spiritual growth and mentorship for students and young adults.',
+    image: '/api/placeholder/600/400',
+    leader: '',
+    contact: { phone: '', email: '' },
+    meetingTime: '',
+    location: '',
+    ageGroup: 'Students & Young Adults',
+    members: null,
+    activities: [
+      'Campus Bible Study',
+      'Worship Nights',
+      'Mentorship'
+    ],
+    upcomingEvents: []
+  },
+  {
+    id: 5,
+    title: 'Anagkazo Mission',
+    category: 'outreach',
+    tags: ['evangelism', 'all ages'],
+    description: 'A mission focused on aggressive evangelism and soul winning.',
+    fullDescription: 'A mission focused on aggressive evangelism and soul winning. We are committed to reaching the lost through various outreach events.',
+    image: '/api/placeholder/600/400',
+    leader: '',
+    contact: { phone: '', email: '' },
+    meetingTime: '',
+    location: '',
+    ageGroup: 'All ages',
+    members: null,
+    activities: [
+      'Street Preaching',
+      'Gospel Campaigns',
+      'Outreach Events'
+    ],
+    upcomingEvents: []
+  }
+];
 
 const constants = {
   APP_CONFIG,
   API_CONFIG,
-  AUTH_CONFIG,
-  USER_ROLES,
-  ROLE_PERMISSIONS,
   EVENT_TYPES,
   EVENT_STATUS,
   MINISTRY_CATEGORIES,
@@ -357,8 +384,6 @@ const constants = {
   FEATURES,
   ERROR_MESSAGES,
   SUCCESS_MESSAGES,
-  STORAGE_KEYS,
-  API_ENDPOINTS,
 };
 
 export default constants;

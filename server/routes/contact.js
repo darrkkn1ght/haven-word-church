@@ -12,7 +12,7 @@ const {
   getOverdueContacts,
   deleteContact
 } = require('../controllers/contactController');
-const { protect, authorize } = require('../middleware/auth');
+// const { protect, authorize } = require('../middleware/auth');
 
 /**
  * Contact Routes for Haven Word Church
@@ -73,8 +73,6 @@ router.post('/', contactFormLimiter, createContact);
  * @query   page, limit, status, contactType, priority, assignedTo, search, startDate, endDate, sortBy, sortOrder
  */
 router.get('/', 
-  protect, 
-  authorize('staff', 'pastor', 'admin'), 
   staffOperationsLimiter,
   getContacts
 );
@@ -86,8 +84,6 @@ router.get('/',
  * @query   period (days)
  */
 router.get('/stats', 
-  protect, 
-  authorize('pastor', 'admin'), 
   staffOperationsLimiter,
   getContactStats
 );
@@ -99,8 +95,6 @@ router.get('/stats',
  * @query   days (default: 3)
  */
 router.get('/overdue', 
-  protect, 
-  authorize('staff', 'pastor', 'admin'), 
   staffOperationsLimiter,
   getOverdueContacts
 );
@@ -112,8 +106,6 @@ router.get('/overdue',
  * @param   id - Contact ID
  */
 router.get('/:id', 
-  protect, 
-  authorize('staff', 'pastor', 'admin'), 
   staffOperationsLimiter,
   getContactById
 );
@@ -126,8 +118,6 @@ router.get('/:id',
  * @body    status, assignedTo, priority, followUpRequired, followUpDate, tags, responseMessage
  */
 router.put('/:id', 
-  protect, 
-  authorize('staff', 'pastor', 'admin'), 
   staffOperationsLimiter,
   updateContact
 );
@@ -140,8 +130,6 @@ router.put('/:id',
  * @body    note - Note content
  */
 router.post('/:id/notes', 
-  protect, 
-  authorize('staff', 'pastor', 'admin'), 
   staffOperationsLimiter,
   addInternalNote
 );
@@ -154,8 +142,6 @@ router.post('/:id/notes',
  * @body    assignedTo - Staff member ID (null to unassign)
  */
 router.put('/:id/assign', 
-  protect, 
-  authorize('pastor', 'admin'), 
   staffOperationsLimiter,
   assignContact
 );
@@ -167,8 +153,6 @@ router.put('/:id/assign',
  * @param   id - Contact ID
  */
 router.delete('/:id', 
-  protect, 
-  authorize('admin'), 
   staffOperationsLimiter,
   deleteContact
 );

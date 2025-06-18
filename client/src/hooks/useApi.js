@@ -1,10 +1,9 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { api } from '../services/api';
-import { useAuth } from './useAuth';
 
 /**
  * Custom hook for API operations with built-in loading, error handling, and caching
- * Provides a clean interface for making HTTP requests with authentication
+ * Provides a clean interface for making HTTP requests
  * 
  * @param {Object} options - Configuration options
  * @param {boolean} options.enableCache - Enable response caching (default: false)
@@ -23,8 +22,6 @@ export const useApi = (options = {}) => {
     retryDelay = 1000
   } = options;
 
-  const { token, logout } = useAuth();
-  
   // State management
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -101,7 +98,6 @@ export const useApi = (options = {}) => {
       message: 'An unexpected error occurred',
       status: null,
       isNetworkError: false,
-      isAuthError: false,
       isServerError: false,
       isRetryable: false,
       originalError: error
@@ -112,15 +108,7 @@ export const useApi = (options = {}) => {
       const { status, data } = error.response;
       errorInfo.status = status;
       errorInfo.message = data?.message || data?.error || `Server error (${status})`;
-      
-      if (status === 401) {
-        errorInfo.isAuthError = true;
-        errorInfo.message = 'Authentication required. Please log in again.';
-        logout(); // Auto logout on auth errors
-      } else if (status === 403) {
-        errorInfo.isAuthError = true;
-        errorInfo.message = 'Access denied. You don\'t have permission for this action.';
-      } else if (status >= 500) {
+      if (status >= 500) {
         errorInfo.isServerError = true;
         errorInfo.isRetryable = attempt < maxRetries;
         errorInfo.message = 'Server error. Please try again later.';
@@ -139,7 +127,7 @@ export const useApi = (options = {}) => {
     }
 
     return errorInfo;
-  }, [logout, maxRetries]);
+  }, [maxRetries]);
 
   /**
    * Make API request with retry logic
@@ -150,12 +138,10 @@ export const useApi = (options = {}) => {
       return { success: true, data: response.data };
     } catch (error) {
       const errorInfo = handleApiError(error, attempt);
-      
       if (retryOnFailure && errorInfo.isRetryable && attempt < maxRetries) {
         await sleep(retryDelay * attempt); // Exponential backoff
         return makeRequest(requestFn, attempt + 1);
       }
-      
       return { success: false, error: errorInfo };
     }
   }, [handleApiError, retryOnFailure, maxRetries, retryDelay, sleep]);
@@ -174,16 +160,13 @@ export const useApi = (options = {}) => {
     } = {}
   ) => {
     const requestId = ++requestCountRef.current;
-    
     try {
       // Cancel previous request if exists
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
-      
       // Create new abort controller
       abortControllerRef.current = new AbortController();
-      
       // Check cache if enabled
       if (useCache && cacheKey) {
         const cachedData = getCachedData(cacheKey);
@@ -196,67 +179,54 @@ export const useApi = (options = {}) => {
           return { success: true, data: cachedData, fromCache: true };
         }
       }
-      
       if (updateState) {
         setLoading(true);
         setError(null);
       }
-      
       const result = await makeRequest(() => 
         requestFn(abortControllerRef.current.signal)
       );
-      
       // Check if this is still the latest request
       if (requestId !== requestCountRef.current) {
         return { success: false, error: { message: 'Request cancelled' } };
       }
-      
       if (result.success) {
         // Cache successful response
         if (useCache && cacheKey) {
           setCachedData(cacheKey, result.data);
         }
-        
         if (updateState) {
           setData(result.data);
           setError(null);
         }
-        
         if (onSuccess) {
           onSuccess(result.data);
         }
-        
         return { success: true, data: result.data, fromCache: false };
       } else {
         if (updateState) {
           setError(result.error);
           setData(null);
         }
-        
         if (onError) {
           onError(result.error);
         }
-        
         return { success: false, error: result.error };
       }
     } catch (error) {
       const errorInfo = handleApiError(error);
-      
       if (updateState) {
         setError(errorInfo);
         setData(null);
       }
-      
       if (onError) {
         onError(errorInfo);
       }
-      
       return { success: false, error: errorInfo };
     } finally {
       if (updateState && requestId === requestCountRef.current) {
         setLoading(false);
       }
-      
       // Clear abort controller if this was the latest request
       if (requestId === requestCountRef.current) {
         abortControllerRef.current = null;
@@ -275,7 +245,6 @@ export const useApi = (options = {}) => {
    */
   const get = useCallback(async (url, params = {}, options = {}) => {
     const cacheKey = generateCacheKey(url, params);
-    
     return executeRequest(
       (signal) => api.get(url, { params, signal }),
       { ...options, cacheKey }
@@ -331,15 +300,12 @@ export const useApi = (options = {}) => {
       additionalData = {},
       ...requestOptions
     } = options;
-    
     const formData = new FormData();
     formData.append('file', file);
-    
     // Add additional form data
     Object.keys(additionalData).forEach(key => {
       formData.append(key, additionalData[key]);
     });
-    
     return executeRequest(
       (signal) => api.post(url, formData, {
         signal,
@@ -385,17 +351,11 @@ export const useApi = (options = {}) => {
     };
   }, [cancelRequest]);
 
-  // Auto-clear cache when token changes (user login/logout)
-  useEffect(() => {
-    clearCache();
-  }, [token, clearCache]);
-
   return {
     // State
     loading,
     error,
     data,
-    
     // HTTP methods
     get,
     post,
@@ -403,22 +363,17 @@ export const useApi = (options = {}) => {
     patch,
     delete: del,
     upload,
-    
     // Utilities
     cancelRequest,
     reset,
     clearCache,
-    
     // Status helpers
     isLoading: loading,
     hasError: !!error,
     hasData: !!data,
-    
     // Error helpers
     isNetworkError: error?.isNetworkError || false,
-    isAuthError: error?.isAuthError || false,
     isServerError: error?.isServerError || false,
-    
     // Advanced usage
     executeRequest // For custom request patterns
   };
@@ -429,7 +384,6 @@ export const useApi = (options = {}) => {
  */
 export const useApiCall = () => {
   const { executeRequest } = useApi();
-  
   return {
     get: (url, params, options) => 
       executeRequest(

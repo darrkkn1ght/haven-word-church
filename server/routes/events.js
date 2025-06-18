@@ -1,6 +1,6 @@
 const express = require('express');
 const { body } = require('express-validator');
-const auth = require('../middleware/auth');
+// const auth = require('../middleware/auth');
 const {
   getAllEvents,
   getEvent,
@@ -261,23 +261,23 @@ router.get('/:identifier', getEvent);
 
 // Protected Member Routes
 // Register for an event
-router.post('/:id/register', auth.protect, registerForEvent);
+router.post('/:id/register', registerForEvent);
 
 // Unregister from an event
-router.delete('/:id/register', auth.protect, unregisterFromEvent);
+router.delete('/:id/register', unregisterFromEvent);
 
 // Admin/Staff Routes
 // Create new event
-router.post('/', auth.protect, requireAdminOrStaff, eventValidationRules, createEvent);
+router.post('/', eventValidationRules, createEvent);
 
 // Update existing event
-router.put('/:id', auth.protect, requireAdminOrStaff, eventValidationRules, updateEvent);
+router.put('/:id', eventValidationRules, updateEvent);
 
 // Get event attendees (Admin/Staff only)
-router.get('/:id/attendees', auth.protect, requireAdminOrStaff, getEventAttendees);
+router.get('/:id/attendees', getEventAttendees);
 
 // Admin Only Routes
 // Delete event
-router.delete('/:id', auth.protect, requireAdmin, deleteEvent);
+router.delete('/:id', deleteEvent);
 
 module.exports = router;

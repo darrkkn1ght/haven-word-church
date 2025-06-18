@@ -9,29 +9,26 @@ const api = axios.create({
   },
 });
 
-// Request interceptor - Add auth token to requests
+// Request interceptor - Attach auth token if present
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    // Get the token object from localStorage
+    const tokenObj = localStorage.getItem('hwc_auth_token');
+    let token = null;
+    if (tokenObj) {
+      try {
+        // Parse the JSON and extract the value property
+        token = JSON.parse(tokenObj).value;
+      } catch (e) {
+        // If parsing fails, token remains null
+      }
+    }
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
-    
-    // Log requests in development
-    if (process.env.REACT_APP_DEBUG_MODE === 'true') {
-      console.log('API Request:', {
-        method: config.method?.toUpperCase(),
-        url: config.url,
-        data: config.data,
-      });
-    }
-    
     return config;
   },
-  (error) => {
-    console.error('Request interceptor error:', error);
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Response interceptor - Handle common responses and errors
@@ -45,59 +42,35 @@ api.interceptors.response.use(
         data: response.data,
       });
     }
-    
     return response;
   },
   (error) => {
     const { response, request, message } = error;
-
-    // Handle different error scenarios
     if (response) {
-      // Server responded with error status
       const { status, data } = response;
-      
       switch (status) {
-        case 401:
-          // Unauthorized - clear token and redirect to login
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          window.location.href = '/login';
-          break;
-        
         case 403:
-          // Forbidden - user doesn't have permission
           console.error('Access forbidden:', data.message);
           break;
-        
         case 404:
-          // Not found
           console.error('Resource not found:', data.message);
           break;
-        
         case 422:
-          // Validation error
           console.error('Validation error:', data.errors || data.message);
           break;
-        
         case 500:
-          // Server error
           console.error('Server error:', data.message);
           break;
-        
         default:
           console.error('API Error:', data.message || 'Unknown error occurred');
       }
-      
-      // Return standardized error object
       return Promise.reject({
         status,
         message: data.message || 'An error occurred',
         errors: data.errors || null,
         data: data
       });
-      
     } else if (request) {
-      // Request was made but no response received (network error)
       console.error('Network error:', message);
       return Promise.reject({
         status: 0,
@@ -105,9 +78,7 @@ api.interceptors.response.use(
         errors: null,
         data: null
       });
-      
     } else {
-      // Something else happened
       console.error('Request setup error:', message);
       return Promise.reject({
         status: 0,
@@ -119,29 +90,8 @@ api.interceptors.response.use(
   }
 );
 
-// API endpoint functions
+// API endpoint functions (authentication and user endpoints removed)
 export const endpoints = {
-  // Authentication
-  auth: {
-    login: (credentials) => api.post('/auth/login', credentials),
-    register: (userData) => api.post('/auth/register', userData),
-    logout: () => api.post('/auth/logout'),
-    refreshToken: () => api.post('/auth/refresh'),
-    forgotPassword: (email) => api.post('/auth/forgot-password', { email }),
-    resetPassword: (token, password) => api.post('/auth/reset-password', { token, password }),
-    verifyEmail: (token) => api.post('/auth/verify-email', { token }),
-  },
-
-  // User profile
-  user: {
-    getProfile: () => api.get('/user/profile'),
-    updateProfile: (data) => api.put('/user/profile', data),
-    changePassword: (passwords) => api.put('/user/change-password', passwords),
-    uploadAvatar: (formData) => api.post('/user/avatar', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    }),
-  },
-
   // Events
   events: {
     getAll: (params) => api.get('/events', { params }),
@@ -185,7 +135,7 @@ export const endpoints = {
     getAll: (params) => api.get('/blog', { params }),
     getById: (id) => api.get(`/blog/${id}`),
     create: (postData) => api.post('/blog', postData),
-    update: (id, postData) => api.put(`/blog/${id}`, postData),
+    update: (id, postData) => api.put('/blog', postData),
     delete: (id) => api.delete(`/blog/${id}`),
     getCategories: () => api.get('/blog/categories'),
   },
@@ -213,28 +163,37 @@ export const endpoints = {
     getSchedule: () => api.get('/church/schedule'),
     updateSchedule: (data) => api.put('/church/schedule', data),
   },
+
+  // Site Settings
+  settings: {
+    getSiteSettings: () => api.get('/settings'),
+    updateSiteSettings: (data) => {
+      // If uploading a file, use FormData
+      if (data.logo) {
+        const formData = new FormData();
+        Object.entries(data).forEach(([key, value]) => {
+          if (value !== null && value !== undefined) {
+            formData.append(key, value);
+          }
+        });
+        return api.put('/settings', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+      } else {
+        return api.put('/settings', data);
+      }
+    },
+  },
+
+  // Spiritual Growth
+  spiritualGrowth: {
+    get: () => api.get('/members/dashboard').then(res => res.data.spiritualGrowth),
+    update: (data) => api.post('/spiritual-growth', data),
+  },
 };
 
-// Utility functions
+// Utility functions (authentication and user utilities removed)
 export const apiUtils = {
-  // Check if user is authenticated
-  isAuthenticated: () => {
-    const token = localStorage.getItem('token');
-    return !!token;
-  },
-
-  // Get stored user data
-  getUser: () => {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
-  },
-
-  // Clear auth data
-  clearAuth: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  },
-
   // Handle API errors consistently
   handleError: (error, defaultMessage = 'An error occurred') => {
     if (error.message) {
@@ -242,7 +201,6 @@ export const apiUtils = {
     }
     return defaultMessage;
   },
-
   // Format API data for display
   formatError: (error) => {
     if (error.errors && Array.isArray(error.errors)) {
@@ -267,10 +225,10 @@ export function submitRSVP(data) {
   return Promise.resolve({ success: true });
 }
 
-export const memberService = {
-  // TODO: Implement real member service methods
-};
-
 export { api };
+
+// Direct exports for Site Settings
+export const getSiteSettings = endpoints.settings.getSiteSettings;
+export const updateSiteSettings = endpoints.settings.updateSiteSettings;
 
 export default api;

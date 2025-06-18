@@ -14,7 +14,7 @@ const {
   getMyBlogs,
   moderateBlog
 } = require('../controllers/blogController');
-const { protect, authorize } = require('../middleware/auth');
+// const { protect, authorize } = require('../middleware/auth');
 
 /**
  * Blog Routes for Haven Word Church
@@ -28,9 +28,6 @@ router.get('/featured', getFeaturedBlogs);       // GET /api/blogs/featured - Ge
 router.get('/category/:category', getBlogsByCategory); // GET /api/blogs/category/:category - Get blogs by category
 router.get('/:slug', getBlogBySlug);             // GET /api/blogs/:slug - Get single blog by slug
 
-// Protected routes (require authentication)
-router.use(protect); // All routes below this require authentication
-
 // Member routes
 router.post('/', createBlog);                    // POST /api/blogs - Create new blog post
 router.get('/user/my-blogs', getMyBlogs);        // GET /api/blogs/user/my-blogs - Get user's own blogs
@@ -41,7 +38,6 @@ router.post('/:id/like', toggleLike);            // POST /api/blogs/:id/like - T
 
 // Admin/Pastor only routes
 router.patch('/:id/moderate', 
-  authorize('admin', 'pastor'), 
   moderateBlog
 ); // PATCH /api/blogs/:id/moderate - Moderate blog post
 

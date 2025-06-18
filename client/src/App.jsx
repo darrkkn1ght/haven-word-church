@@ -1,24 +1,24 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // Context Providers
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { NotificationProvider } from './context/NotificationContext';
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
 
-// Layout Components (to be created)
+// Layout Components
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import LoadingSpinner from './components/common/LoadingSpinner';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import ScrollToTop from './components/common/ScrollToTop';
 
-// Page Components (to be created)
-// Public Pages
+// Page Components
 import Home from './pages/Home';
 import About from './pages/About';
 import Events from './pages/Events';
@@ -33,26 +33,11 @@ import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 
 // Auth Pages
-import Login from './pages/member/Login';
-import Register from './pages/auth/Register';
-import ForgotPassword from './pages/auth/ForgotPassword';
-import ResetPassword from './pages/auth/ResetPassword';
-import VerifyEmail from './pages/auth/VerifyEmail';
-
-// Member Portal Pages
-import Dashboard from './pages/member/Dashboard';
-import Profile from './pages/member/Profile';
-import MyEvents from './pages/member/MyEvents';
-import MyDonations from './pages/member/MyDonations';
-import PrayerRequests from './pages/member/PrayerRequests';
-
-// Admin Pages
+import ProtectedRoute from './components/common/ProtectedRoute';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import AdminDashboard from './pages/admin/AdminDashboard';
-import ManageUsers from './pages/admin/ManageUsers';
-import ManageEvents from './pages/admin/ManageEvents';
-import ManageSermons from './pages/admin/ManageSermons';
-import ManageContent from './pages/admin/ManageContent';
-import SiteSettings from './pages/admin/SiteSettings';
+import MemberDashboard from './pages/member/Dashboard';
 
 // Error Pages
 import NotFound from './pages/errors/NotFound';
@@ -90,58 +75,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-/**
- * Protected Route Component
- * Handles authentication and role-based access control
- */
-const ProtectedRoute = ({ children, requireRole = null, requireAuth = true }) => {
-  const { isAuthenticated, isLoading, hasRole } = useAuth();
-
-  // Show loading spinner while checking authentication
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="large" />
-      </div>
-    );
-  }
-
-  // Redirect to login if authentication is required but user is not authenticated
-  if (requireAuth && !isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  // Check role-based access if specific role is required
-  if (requireRole && !hasRole(requireRole)) {
-    return <Navigate to="/unauthorized" replace />;
-  }
-
-  return children;
-};
-
-/**
- * Public Route Component
- * Redirects authenticated users away from auth pages
- */
-const PublicRoute = ({ children, redirectTo = '/dashboard' }) => {
-  const { isAuthenticated, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="large" />
-      </div>
-    );
-  }
-
-  // Redirect authenticated users to dashboard
-  if (isAuthenticated) {
-    return <Navigate to={redirectTo} replace />;
-  }
-
-  return children;
-};
 
 /**
  * App Layout Component
@@ -195,343 +128,214 @@ function App() {
     };
   }, []);
 
+  // Route definitions for createBrowserRouter
+  const routes = [
+    {
+      path: '/',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Home />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/about',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <About />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/events',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Events />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/events/:id',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <EventDetails />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/sermons',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Sermons />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/sermons/:id',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <SermonDetails />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/ministries',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Ministries />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/ministries/:id',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <MinistryDetails />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/blog',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Blog />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/blog/:slug',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <BlogPost />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/gallery',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Gallery />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/contact',
+      element: (
+        <AppLayout>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Contact />
+          </Suspense>
+        </AppLayout>
+      ),
+    },
+    // Authentication Routes
+    {
+      path: '/login',
+      element: (
+        <AppLayout>
+          <Login />
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/register',
+      element: (
+        <AppLayout>
+          <Register />
+        </AppLayout>
+      ),
+    },
+    // Protected Dashboards
+    {
+      path: '/admin/dashboard',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['admin']}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/member/dashboard',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['member', 'pastor', 'staff', 'admin']}>
+            <MemberDashboard />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    // Error Routes
+    {
+      path: '/unauthorized',
+      element: (
+        <AppLayout>
+          <Unauthorized />
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/server-error',
+      element: (
+        <AppLayout>
+          <ServerError />
+        </AppLayout>
+      ),
+    },
+    // 404 Route
+    {
+      path: '*',
+      element: (
+        <AppLayout>
+          <NotFound />
+        </AppLayout>
+      ),
+    },
+  ];
+
+  const router = createBrowserRouter(routes, {
+    future: {
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+    },
+  });
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <AuthProvider>
-            <Router>
+            <NotificationProvider>
               <ScrollToTop />
               <div className="App">
-                <Routes>
-                  {/* Public Routes */}
-                  <Route path="/" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Home />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/about" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <About />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/events" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Events />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/events/:id" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <EventDetails />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/sermons" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Sermons />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/sermons/:id" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <SermonDetails />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/ministries" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Ministries />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/ministries/:id" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <MinistryDetails />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/blog" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Blog />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/blog/:slug" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <BlogPost />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/gallery" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Gallery />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/contact" element={
-                    <AppLayout>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Contact />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-
-                  {/* Authentication Routes */}
-                  <Route path="/login" element={
-                    <PublicRoute>
-                      <AppLayout showFooter={false}>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <Login />
-                        </Suspense>
-                      </AppLayout>
-                    </PublicRoute>
-                  } />
-                  
-                  <Route path="/register" element={
-                    <PublicRoute>
-                      <AppLayout showFooter={false}>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <Register />
-                        </Suspense>
-                      </AppLayout>
-                    </PublicRoute>
-                  } />
-                  
-                  <Route path="/forgot-password" element={
-                    <PublicRoute>
-                      <AppLayout showFooter={false}>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <ForgotPassword />
-                        </Suspense>
-                      </AppLayout>
-                    </PublicRoute>
-                  } />
-                  
-                  <Route path="/reset-password/:token" element={
-                    <PublicRoute>
-                      <AppLayout showFooter={false}>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <ResetPassword />
-                        </Suspense>
-                      </AppLayout>
-                    </PublicRoute>
-                  } />
-                  
-                  <Route path="/verify-email/:token" element={
-                    <AppLayout showFooter={false}>
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <VerifyEmail />
-                      </Suspense>
-                    </AppLayout>
-                  } />
-
-                  {/* Member Portal Routes */}
-                  <Route path="/dashboard" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <Dashboard />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/member/dashboard" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <Dashboard />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/profile" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <Profile />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/member/profile" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <Profile />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/my-events" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <MyEvents />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/member/my-events" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <MyEvents />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/my-donations" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <MyDonations />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/member/my-donations" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <MyDonations />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/prayer-requests" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <PrayerRequests />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/member/prayer-requests" element={
-                    <ProtectedRoute>
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <PrayerRequests />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-
-                  {/* Admin Routes */}
-                  <Route path="/admin" element={
-                    <ProtectedRoute requireRole="admin">
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <AdminDashboard />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/admin/users" element={
-                    <ProtectedRoute requireRole="admin">
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <ManageUsers />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/admin/events" element={
-                    <ProtectedRoute requireRole="admin">
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <ManageEvents />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/admin/sermons" element={
-                    <ProtectedRoute requireRole="admin">
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <ManageSermons />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/admin/content" element={
-                    <ProtectedRoute requireRole="admin">
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <ManageContent />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-                  
-                  <Route path="/admin/settings" element={
-                    <ProtectedRoute requireRole="admin">
-                      <AppLayout>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <SiteSettings />
-                        </Suspense>
-                      </AppLayout>
-                    </ProtectedRoute>
-                  } />
-
-                  {/* Error Routes */}
-                  <Route path="/unauthorized" element={
-                    <AppLayout>
-                      <Unauthorized />
-                    </AppLayout>
-                  } />
-                  
-                  <Route path="/server-error" element={
-                    <AppLayout>
-                      <ServerError />
-                    </AppLayout>
-                  } />
-                  
-                  {/* 404 Route - Must be last */}
-                  <Route path="*" element={
-                    <AppLayout>
-                      <NotFound />
-                    </AppLayout>
-                  } />
-                </Routes>
+                <RouterProvider router={router} />
               </div>
-            </Router>
+            </NotificationProvider>
           </AuthProvider>
         </ThemeProvider>
-        
         {/* React Query DevTools - Only in development */}
         {process.env.NODE_ENV === 'development' && (
           <ReactQueryDevtools initialIsOpen={false} />

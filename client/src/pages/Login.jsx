@@ -1,29 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { 
-  Eye, 
-  EyeOff, 
-  Mail, 
-  Lock, 
-  User,
-  Phone,
-  Calendar,
-  Shield,
-  AlertCircle,
-  CheckCircle,
-  ArrowRight,
-  Heart,
-  Cross,
-  Users
+import {
+  Eye, EyeOff, Mail, Lock, User, Phone, Calendar, Shield, AlertCircle, CheckCircle, ArrowRight, Heart, Users
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
-import SEOHead from '../../components/SEOHead';
-import LoadingSpinner from '../../components/common/LoadingSpinner';
+import { useAuth } from '../hooks/useAuth';
+import SEOHead from '../components/SEOHead';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, register, resetPassword, loading, user } = useAuth();
+  const { login, user } = useAuth();
 
   // State management
   const [activeTab, setActiveTab] = useState('login');
@@ -47,7 +34,7 @@ const Login = () => {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      const from = location.state?.from?.pathname || '/dashboard';
+      const from = location.state?.from?.pathname || (user.role === 'admin' ? '/admin/dashboard' : '/member/dashboard');
       navigate(from, { replace: true });
     }
   }, [user, navigate, location]);
@@ -55,10 +42,7 @@ const Login = () => {
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => {
-      const updated = { ...prev, [name]: value };
-      return updated;
-    });
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -92,66 +76,38 @@ const Login = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('handleSubmit called', { formData, activeTab });
     setMessage('');
     setMessageType('');
     if (!validateForm()) return;
     setIsSubmitting(true);
     try {
       if (activeTab === 'login') {
-        const loginResult = await login(formData.email, formData.password);
-        console.log('login result:', loginResult);
-        if (loginResult && loginResult.success === false) {
-          setMessage(loginResult.error || 'Login failed');
-          setMessageType('error');
-        } else {
-          setMessage('Login successful! Redirecting...');
-          setMessageType('success');
-          setShowRedirectSpinner(true);
-          setTimeout(() => {
-            navigate('/dashboard', { replace: true });
-          }, 1500);
-        }
+        const result = await login(formData.email, formData.password);
+        setMessage('Login successful! Redirecting...');
+        setMessageType('success');
+        setShowRedirectSpinner(true);
+        setTimeout(() => {
+          if (result && result.user && result.user.role === 'admin') navigate('/admin/dashboard', { replace: true });
+          else navigate('/member/dashboard', { replace: true });
+        }, 1500);
       } else {
-        const registerResult = await register({
+        // Registration logic: call your register API here
+        const { register } = await import('../services/authService');
+        const regData = {
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
           email: formData.email,
           password: formData.password,
-          confirmPassword: formData.confirmPassword,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          phone: formData.phone,
-          dateOfBirth: formData.dateOfBirth
-        });
-        console.log('register result:', registerResult);
-        setMessage('Registration successful! Please check your email to verify your account.');
+          role: 'member',
+        };
+        await register(regData);
+        setMessage('Registration successful! You can now log in.');
         setMessageType('success');
         setTimeout(() => {
           setActiveTab('login');
         }, 2000);
       }
     } catch (error) {
-      console.error('handleSubmit error:', error);
-      setMessage(error.message || 'An error occurred');
-      setMessageType('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Handle password reset
-  const handlePasswordReset = async () => {
-    if (!formData.email) {
-      setMessage('Please enter your email address first');
-      setMessageType('error');
-      return;
-    }
-    setIsSubmitting(true);
-    try {
-      await resetPassword(formData.email);
-      setMessage('Password reset link sent to your email');
-      setMessageType('success');
-    } catch (error) {
-      setMessage(error.message || 'Failed to send reset email');
+      setMessage(error.response?.data?.message || error.message || 'An error occurred');
       setMessageType('error');
     } finally {
       setIsSubmitting(false);
@@ -189,7 +145,7 @@ const Login = () => {
         description={`${activeTab === 'login' ? 'Sign in to your member account' : 'Join our church community'} at Haven Word Church. Access member resources, track attendance, and stay connected.`}
         keywords="church login, member portal, Haven Word Church, church registration, member access"
       />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8 pt-24">
         <div className="max-w-md mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
@@ -232,9 +188,9 @@ const Login = () => {
             {/* Message Display */}
             {message && (
               <div className={`mb-4 p-3 rounded-lg flex items-center ${
-                messageType === 'success' 
+                messageType === 'success'
                   ? 'bg-green-50 text-green-700 border border-green-200'
-                  : 'bg-red-50 text-red-700 border border-red-200'
+                  : 'bg-red-50 text-red-700 border-red-200 border'
               }`}>
                 {messageType === 'success' ? (
                   <CheckCircle className="w-5 h-5 mr-2 flex-shrink-0" />
@@ -251,9 +207,7 @@ const Login = () => {
                 <>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        First Name
-                      </label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
@@ -272,9 +226,7 @@ const Login = () => {
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Last Name
-                      </label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input
@@ -294,9 +246,7 @@ const Login = () => {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Phone Number
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                       <input
@@ -315,9 +265,7 @@ const Login = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Date of Birth
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
                     <div className="relative">
                       <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                       <input
@@ -338,9 +286,7 @@ const Login = () => {
               )}
               {/* Email Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -360,9 +306,7 @@ const Login = () => {
               </div>
               {/* Password Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
@@ -393,9 +337,7 @@ const Login = () => {
               {/* Confirm Password Field (Register only) */}
               {activeTab === 'register' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Confirm Password
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
                   <div className="relative">
                     <Shield className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <input
@@ -426,10 +368,10 @@ const Login = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isSubmitting || loading}
+                disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center"
               >
-                {(isSubmitting || loading) ? (
+                {isSubmitting ? (
                   <LoadingSpinner size="sm" color="white" />
                 ) : (
                   <>
@@ -438,19 +380,6 @@ const Login = () => {
                   </>
                 )}
               </button>
-              {/* Forgot Password (Login only) */}
-              {activeTab === 'login' && (
-                <div className="text-center">
-                  <button
-                    type="button"
-                    onClick={handlePasswordReset}
-                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                    disabled={isSubmitting || loading}
-                  >
-                    Forgot your password?
-                  </button>
-                </div>
-              )}
             </form>
           </div>
           {/* Church Info */}

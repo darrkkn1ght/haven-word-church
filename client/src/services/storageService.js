@@ -669,3 +669,40 @@ class StorageService {
 // Create and export singleton instance
 const storageService = new StorageService();
 export default storageService;
+
+// Minimal JWT decode (no validation, just base64 decode)
+function decodeJWT(token) {
+  if (!token) return null;
+  try {
+    const payload = token.split('.')[1];
+    return JSON.parse(atob(payload));
+  } catch {
+    return null;
+  }
+}
+
+export function setToken(token) {
+  return storageService.setLocal(STORAGE_KEYS.AUTH_TOKEN, token);
+}
+
+export function getToken() {
+  return storageService.getLocal(STORAGE_KEYS.AUTH_TOKEN, null);
+}
+
+export function removeToken() {
+  return storageService.removeLocal(STORAGE_KEYS.AUTH_TOKEN);
+}
+
+export function getUserFromToken() {
+  const token = getToken();
+  if (!token) return null;
+  const payload = decodeJWT(token);
+  if (!payload) return null;
+  // You can adjust this to match your backend's JWT payload
+  return {
+    id: payload.id,
+    name: payload.name,
+    email: payload.email,
+    role: payload.role,
+  };
+}

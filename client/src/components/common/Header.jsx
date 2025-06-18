@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 
 /**
@@ -13,6 +15,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
 
   // Navigation items for public pages
@@ -23,15 +26,10 @@ const Header = () => {
     { name: 'Sermons', path: '/sermons' },
     { name: 'Ministries', path: '/ministries' },
     { name: 'Blog', path: '/blog' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Contact', path: '/contact' },
   ];
 
-  // Member navigation items (match App.jsx routes)
-  const memberNavItems = [
-    { name: 'Dashboard', path: '/dashboard' },
-    { name: 'Profile', path: '/profile' },
-    { name: 'Attendance', path: '/attendance' } // If this route exists
-  ];
+  // (Removed: memberNavItems)
 
   // Handle scroll effect
   useEffect(() => {
@@ -56,15 +54,7 @@ const Header = () => {
     return location.pathname.startsWith(path);
   };
 
-  // Handle logout
-  const handleLogout = async () => {
-    try {
-      await logout();
-      setIsMenuOpen(false);
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
+  // (Removed: handleLogout function)
 
   // Toggle mobile menu
   const toggleMenu = () => {
@@ -123,11 +113,18 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
+            {!user && (
+              <Link
+                to="/login"
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20`}
+              >
+                Login
+              </Link>
+            )}
           </nav>
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
-            
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -144,49 +141,41 @@ const Header = () => {
                 </svg>
               )}
             </button>
-
-            {/* User Authentication */}
+            {/* User Dropdown */}
             {user ? (
-              <div className="hidden lg:flex items-center space-x-4">
-                {/* Member Navigation */}
-                <div className="flex items-center space-x-1">
-                  {memberNavItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.path}
-                      className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                        isActivePath(item.path)
-                          ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                          : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-                
-                {/* User Profile */}
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    Welcome, {user.firstName}
-                  </span>
+              <div className="relative group">
+                <button
+                  className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full"
+                >
+                  {user.avatar ? (
+                    <img src={user.avatar} alt="avatar" className="w-8 h-8 rounded-full object-cover" />
+                  ) : (
+                    <User className="w-7 h-7 text-blue-600 bg-blue-100 rounded-full p-1" />
+                  )}
+                  <span className="hidden md:inline text-gray-700 dark:text-gray-200 font-medium">{user.name?.split(' ')[0] || 'Account'}</span>
+                </button>
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto transition-all z-50">
+                  <Link
+                    to={user.role === 'admin' ? '/admin/dashboard' : '/member/dashboard'}
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-800"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    to={user.role === 'admin' ? '/admin/profile' : '/member/profile'}
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-800"
+                  >
+                    Profile
+                  </Link>
                   <button
-                    onClick={handleLogout}
-                    className="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors duration-200"
+                    onClick={() => { logout(); navigate('/'); }}
+                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-800"
                   >
                     Logout
                   </button>
                 </div>
               </div>
-            ) : (
-              <Link
-                to="/login"
-                className="hidden lg:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
-              >
-                Member Login
-              </Link>
-            )}
-
+            ) : null}
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
@@ -225,43 +214,37 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-
-              {/* Authentication Section */}
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                {user ? (
-                  <>
-                    <div className="px-3 py-2 text-sm text-gray-600 dark:text-gray-400">
-                      Welcome, {user.firstName}
-                    </div>
-                    {memberNavItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                          isActivePath(item.path)
-                            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                            : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
-                        }`}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
-                    >
-                      Logout
-                    </button>
-                  </>
-                ) : (
+              {!user && (
+                <Link
+                  to="/login"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                >
+                  Login
+                </Link>
+              )}
+              {user && (
+                <>
+                  <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
                   <Link
-                    to="/login"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 text-center"
+                    to={user.role === 'admin' ? '/admin/dashboard' : '/member/dashboard'}
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-800"
                   >
-                    Member Login
+                    Dashboard
                   </Link>
-                )}
-              </div>
+                  <Link
+                    to={user.role === 'admin' ? '/admin/profile' : '/member/profile'}
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-800"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={() => { logout(); navigate('/'); }}
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-800"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}

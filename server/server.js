@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
@@ -12,15 +11,20 @@ const { connectDB } = require('./config/database');
 
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');
+const { corsMiddleware } = require('./middleware/cors');
 
 // Import routes
 const authRoutes = require('./routes/auth');
 const eventRoutes = require('./routes/events');
+const protectedRoutes = require('./routes/protected');
 const sermonRoutes = require('./routes/sermons');
 const blogRoutes = require('./routes/blog');
 const contactRoutes = require('./routes/contact');
 const memberRoutes = require('./routes/attendance');
+const membersDashboardRoutes = require('./routes/members');
 const ministryRoutes = require('./routes/ministries');
+const settingsRoutes = require('./routes/settings');
+const spiritualGrowthRoutes = require('./routes/spiritualGrowth');
 
 const app = express();
 
@@ -50,13 +54,8 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// CORS configuration
-const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true,
-  optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+// CORS middleware
+app.use(corsMiddleware);
 
 // Compression middleware
 app.use(compression());
@@ -88,11 +87,15 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/protected', protectedRoutes);
 app.use('/api/sermons', sermonRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/contact', contactRoutes);
-app.use('/api/members', memberRoutes);
+app.use('/api/attendance', memberRoutes);
+app.use('/api/members', membersDashboardRoutes);
 app.use('/api/ministries', ministryRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/spiritual-growth', spiritualGrowthRoutes);
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
@@ -102,6 +105,11 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 }
+
+// Serve React app for all other routes (SPA support)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 // 404 handler for API routes
 app.use('/api/*', (req, res) => {
