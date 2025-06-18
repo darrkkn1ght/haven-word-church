@@ -241,17 +241,19 @@ const About = () => {
                   </ul>
                 </div>
                 
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">👁️</span>
+                <div className="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-blue-900 dark:to-purple-950 rounded-2xl p-10 shadow-2xl border border-blue-200 dark:border-blue-800">
+                  <div className="text-center mb-8">
+                    <div className="w-20 h-20 bg-purple-200 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <span className="text-4xl">👁️</span>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Our Vision</h3>
+                    <h3 className="text-3xl font-extrabold text-purple-900 dark:text-white tracking-tight mb-2">Our Vision</h3>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-center leading-relaxed">
-                    To be a thriving, multi-generational church community that impacts Ibadan 
-                    and beyond with the transformative love of Jesus Christ.
-                  </p>
+                  <ul className="space-y-6 max-w-2xl mx-auto">
+                    <li className="flex items-start bg-white dark:bg-gray-800 rounded-lg shadow p-5 border-l-4 border-purple-500 dark:border-purple-400">
+                      <span className="text-2xl mr-4">🌍</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">Raising a multitude of preachers in countless cities</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
 
