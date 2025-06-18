@@ -50,7 +50,7 @@ const Events = () => {
       capacity: 500,
       registered: 0,
       tags: ['worship', 'sermon', 'fellowship'],
-      pastor: 'Pastor Emmanuel Adebayo',
+      pastor: 'Pastor Anthonia Amadi',
       recurring: 'Weekly'
     },
     {
@@ -68,7 +68,7 @@ const Events = () => {
       capacity: 600,
       registered: 234,
       tags: ['christmas', 'carols', 'special service'],
-      pastor: 'Pastor Emmanuel Adebayo',
+      pastor: 'Pastor Anthonia Amadi',
       specialGuests: ['Haven Word Choir', 'Youth Drama Team']
     },
     {
@@ -185,7 +185,7 @@ const Events = () => {
 
     // Apply category filter
     if (activeFilter === 'upcoming') {
-      filtered = filtered.filter(event => !event.isPast);
+      filtered = [];
     } else if (activeFilter === 'past') {
       filtered = filtered.filter(event => event.isPast);
     } else if (activeFilter !== 'all') {

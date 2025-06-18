@@ -33,7 +33,7 @@ const Blog = () => {
       excerpt: 'Discover how Abraham\'s unwavering faith teaches us to trust God\'s promises even when the path seems uncertain.',
       content: 'Full blog content here...',
       author: {
-        name: 'Pastor Michael Adebayo',
+        name: 'Pastor Anthonia Amadi',
         avatar: '/images/pastor-michael.jpg'
       },
       category: 'Faith',
@@ -65,7 +65,7 @@ const Blog = () => {
       excerpt: 'How prayer becomes our anchor during life\'s storms and God\'s faithfulness sustains us through every season.',
       content: 'Full blog content here...',
       author: {
-        name: 'Pastor Sarah Jimoh',
+        name: 'Pastor Anthonia Amadi',
         avatar: '/images/pastor-sarah.jpg'
       },
       category: 'Prayer',
@@ -97,7 +97,7 @@ const Blog = () => {
       excerpt: 'Discover how God\'s amazing grace transforms ordinary moments into extraordinary encounters with His love.',
       content: 'Full blog content here...',
       author: {
-        name: 'Pastor Michael Adebayo',
+        name: 'Pastor Anthonia Amadi',
         avatar: '/images/pastor-michael.jpg'
       },
       category: 'Grace',
@@ -113,7 +113,7 @@ const Blog = () => {
       excerpt: 'Empowering the next generation to lead with integrity, passion, and biblical wisdom in today\'s world.',
       content: 'Full blog content here...',
       author: {
-        name: 'Pastor David Eze',
+        name: 'Pastor Anthonia Amadi',
         avatar: '/images/pastor-david.jpg'
       },
       category: 'Youth',

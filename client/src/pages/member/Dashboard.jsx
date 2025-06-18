@@ -79,7 +79,7 @@ const Dashboard = () => {
       {
         _id: '1',
         title: 'Walking in Faith',
-        pastor: 'Pastor Michael Adebayo',
+        pastor: 'Pastor Anthonia Amadi',
         date: '2024-06-09T10:30:00Z',
         duration: '45 min',
         thumbnail: '/images/sermon-thumb-1.jpg'
@@ -87,7 +87,7 @@ const Dashboard = () => {
       {
         _id: '2',
         title: 'God\'s Amazing Grace',
-        pastor: 'Pastor Sarah Jimoh',
+        pastor: 'Pastor Anthonia Amadi',
         date: '2024-06-02T10:30:00Z',
         duration: '38 min',
         thumbnail: '/images/sermon-thumb-2.jpg'

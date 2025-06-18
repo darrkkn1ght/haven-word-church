@@ -6,7 +6,6 @@ import Footer from '../components/common/Footer';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import ContactForm from '../components/forms/ContactForm';
-import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const About = () => {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -17,36 +16,36 @@ const About = () => {
   const leadershipTeam = [
     {
       id: 1,
-      name: 'Pastor Emmanuel Adebayo',
+      name: 'Pastor Anthonia Amadi',
       position: 'Senior Pastor',
       image: '/images/pastor-emmanuel.jpg',
-      bio: 'Pastor Emmanuel has been leading Haven Word Church since its founding in 2010. With over 20 years of ministry experience, he holds a Master of Divinity from the Nigerian Baptist Theological Seminary and is passionate about community transformation through the Gospel.',
+      bio: 'Pastor Anthonia Amadi has been leading Haven Word Church since its founding. She is passionate about community transformation through the Gospel and raising supernatural believers.',
       education: 'M.Div - Nigerian Baptist Theological Seminary',
       experience: '20+ years in ministry',
       specialization: 'Church Leadership, Community Development',
-      contact: 'pastor.emmanuel@havenwordchurch.org'
+      contact: 'pastor.anthonia@havenwordchurch.org'
     },
     {
       id: 2,
-      name: 'Pastor (Mrs.) Sarah Adebayo',
+      name: 'Pastor Anthonia Amadi',
       position: 'Associate Pastor & Women\'s Ministry Leader',
       image: '/images/pastor-sarah.jpg',
-      bio: 'Pastor Sarah co-founded Haven Word Church alongside her husband and leads our thriving Women\'s Ministry. She is a certified counselor and has a heart for empowering women and supporting families in our community.',
+      bio: 'Pastor Anthonia Amadi leads our thriving Women\'s Ministry. She is a certified counselor and has a heart for empowering women and supporting families in our community.',
       education: 'B.A. Christian Education, Counseling Certificate',
       experience: '18+ years in ministry',
       specialization: 'Women\'s Ministry, Family Counseling',
-      contact: 'pastor.sarah@havenwordchurch.org'
+      contact: 'pastor.anthonia@havenwordchurch.org'
     },
     {
       id: 3,
-      name: 'Pastor Adunni Ogundimu',
+      name: 'Pastor Anthonia Amadi',
       position: 'Youth Pastor',
       image: '/images/pastor-adunni.jpg',
-      bio: 'Pastor Adunni joined our team in 2018 and has revolutionized our youth ministry. A dynamic teacher and mentor, she connects powerfully with young people and helps them discover their purpose in God.',
+      bio: 'Pastor Anthonia Amadi is a dynamic teacher and mentor, connecting powerfully with young people and helping them discover their purpose in God.',
       education: 'B.Th - Redeemed Christian Bible College',
       experience: '8+ years in youth ministry',
       specialization: 'Youth Development, Discipleship',
-      contact: 'pastor.adunni@havenwordchurch.org'
+      contact: 'pastor.anthonia@havenwordchurch.org'
     },
     {
       id: 4,
@@ -171,39 +170,40 @@ const About = () => {
                     Our Story
                   </h2>
                   <div className="prose prose-lg text-gray-600 dark:text-gray-300">
+                    <p className="mb-6 font-bold text-2xl">Our Story</p>
                     <p className="mb-6">
-                      Haven Word Church began as a vision in the hearts of Pastor Emmanuel and 
-                      Sarah Adebayo in 2010. Having served in ministry for several years, they 
-                      felt God's call to establish a church that would be a true haven for 
-                      souls seeking God's word and love in the bustling city of Ibadan.
+                      Haven Word Church was birthed from a divine vision entrusted to Pastor Anthonia Amadi, who answered God's call to establish a spiritual haven for souls seeking His word and love.
                     </p>
                     <p className="mb-6">
-                      Starting with just 15 members in a small rented hall in Bodija, our church 
-                      has grown by God's grace to become a thriving community of over 800 members. 
-                      What began as a small gathering has blossomed into a church family that 
-                      impacts lives across Ibadan and beyond.
+                      Our journey began humbly in 2021 as "The Father's Family" at the Alumni Building of the University of Ibadan. As God's hand moved upon our growing congregation, we transitioned to "The Father's Tribe" while remaining in the same Alumni Building during the 2021/2022 season. The Lord continued to expand our borders, and we relocated to Abadina Classroom within the university grounds, carrying the name "The Father's Tribe" as we ministered to students and the broader community.
                     </p>
                     <p className="mb-6">
-                      In 2018, we moved to our current permanent location on Ring Road, a beautiful 
-                      facility that accommodates our growing congregation and numerous ministry 
-                      programs. Today, Haven Word Church stands as a beacon of hope in our community, 
-                      committed to preaching the gospel, nurturing believers, and serving those in need.
+                      Trusting in God's provision and timing, we made another significant move to a new facility at Richbam Place in Mokola, Ibadan. From there, our faith journey led us to worship under a tent at Bethel, where we experienced the beauty of praising God under the open sky. On May 5th, a date that will forever be etched in our hearts, we established our current home at 9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State.
+                    </p>
+                    <p className="mb-6">
+                      It was during this transformative period that God revealed our new identity - Haven Word Church. This name perfectly captures our mission: to be a true haven where God's word is proclaimed with power, where weary souls find rest, and where families are built in the love of Christ.
+                    </p>
+                    <p className="mb-6">
+                      Today, by God's amazing grace, our church family has grown to over 100 members and continues to expand. From a small gathering to a thriving community, we remain committed to our founding vision of being a sanctuary where every person can encounter God's transforming word and experience His unconditional love.
+                    </p>
+                    <p className="mb-6">
+                      Haven Word Church stands as a testament to God's faithfulness, growing not just in numbers but in spiritual maturity, community impact, and kingdom influence throughout Ibadan and beyond.
                     </p>
                   </div>
                 </div>
                 
                 <div className="space-y-6">
                   <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-lg p-8 text-center">
-                    <div className="text-4xl font-bold text-blue-600 mb-2">2010</div>
-                    <div className="text-gray-700 dark:text-gray-300">Church Founded</div>
+                    <div className="text-2xl font-bold text-blue-600 mb-2">A Journey of Faith (2021–Present)</div>
+                    <div className="text-gray-700 dark:text-gray-300">From a humble gathering at UI Alumni Building to our vibrant home today, our story is one of faith, obedience, and God’s leading.</div>
                   </div>
                   <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 rounded-lg p-8 text-center">
-                    <div className="text-4xl font-bold text-purple-600 mb-2">800+</div>
-                    <div className="text-gray-700 dark:text-gray-300">Active Members</div>
+                    <div className="text-2xl font-bold text-purple-600 mb-2">Transformed Lives</div>
+                    <div className="text-gray-700 dark:text-gray-300">Over 100 members and counting—each life a testimony to God’s power, love, and the impact of a true spiritual family.</div>
                   </div>
                   <div className="bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-lg p-8 text-center">
-                    <div className="text-4xl font-bold text-green-600 mb-2">50+</div>
-                    <div className="text-gray-700 dark:text-gray-300">Ministry Programs</div>
+                    <div className="text-2xl font-bold text-green-600 mb-2">A True Haven</div>
+                    <div className="text-gray-700 dark:text-gray-300">More than a name—Haven Word Church is a sanctuary where God’s word is proclaimed, weary souls find rest, and families are built in Christ’s love.</div>
                   </div>
                 </div>
               </div>
@@ -217,17 +217,28 @@ const About = () => {
             <div className="max-w-6xl mx-auto">
               {/* Mission & Vision */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">🎯</span>
+                <div className="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-blue-900 dark:to-purple-950 rounded-2xl p-10 shadow-2xl border border-blue-200 dark:border-blue-800">
+                  <div className="text-center mb-8">
+                    <div className="w-20 h-20 bg-blue-200 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <span className="text-4xl">🌟</span>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Our Mission</h3>
+                    <h3 className="text-3xl font-extrabold text-blue-900 dark:text-white tracking-tight mb-2">Our Mission</h3>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto">We exist to fulfill God’s call and raise supernatural believers, empowered by the Holy Spirit and rooted in Christ’s gospel.</p>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-center leading-relaxed">
-                    To create a haven where people encounter God's word, experience His love, 
-                    and are equipped to transform their communities through the power of the Gospel.
-                  </p>
+                  <ul className="space-y-6 max-w-2xl mx-auto">
+                    <li className="flex items-start bg-white dark:bg-gray-800 rounded-lg shadow p-5 border-l-4 border-blue-500 dark:border-blue-400">
+                      <span className="text-2xl mr-4">📣</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">WE ARE CALLED OF GOD TO PREACH CHRIST'S GOSPEL TO EVERY MAN</span>
+                    </li>
+                    <li className="flex items-start bg-white dark:bg-gray-800 rounded-lg shadow p-5 border-l-4 border-purple-500 dark:border-purple-400">
+                      <span className="text-2xl mr-4">🔥</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">WE GIVE OURSELVES TO THE TRAINING OF THE HOLY SPIRIT AND ARE PERFECTED FOR THE WORK OF MINISTRY</span>
+                    </li>
+                    <li className="flex items-start bg-white dark:bg-gray-800 rounded-lg shadow p-5 border-l-4 border-green-500 dark:border-green-400">
+                      <span className="text-2xl mr-4">🕊️</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">TILL EVERYMAN IS MADE GOD'S MAN! FULL OF FAITH AND OF THE HOLY GHOST.</span>
+                    </li>
+                  </ul>
                 </div>
                 
                 <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">

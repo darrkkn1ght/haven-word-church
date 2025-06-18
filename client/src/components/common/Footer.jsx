@@ -89,18 +89,15 @@ const Footer = () => {
             {/* Church Information */}
             <div className="lg:col-span-1">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">HW</span>
-                </div>
+                <img src="/logo.jpeg" alt="Haven Word Church Logo" className="w-12 h-12 rounded-full object-contain shadow" />
                 <div>
                   <h3 className="text-xl font-bold">Haven Word Church</h3>
-                  <p className="text-gray-400 text-sm">A place of hope and faith</p>
+                  <p className="text-gray-400 text-sm italic">...Raising supernatural believers</p>
                 </div>
               </div>
               
               <p className="text-gray-300 mb-6 leading-relaxed">
-                Welcome to Haven Word Church, where we gather to worship, grow in faith, 
-                and serve our community with love and compassion in Ibadan, Nigeria.
+                Haven Word Church is a true haven where God's word is proclaimed, weary souls find rest, and families are built in the love of Christ. Led by Pastor Anthonia Amadi in Ibadan, Oyo State, Nigeria.
               </p>
 
               {/* Social Media Links */}
@@ -168,8 +165,8 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <div>
-                    <p className="text-gray-300">123 Church Street, Ibadan</p>
-                    <p className="text-gray-300">Oyo State, Nigeria</p>
+                    <p className="text-gray-300">9VXM+797, 107D Akintola Road</p>
+                    <p className="text-gray-300">Ibadan 200284, Oyo State, Nigeria</p>
                   </div>
                 </div>
 
@@ -186,8 +183,8 @@ const Footer = () => {
                   <svg className="w-5 h-5 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <a href="mailto:info@havenwordchurch.org" className="text-gray-300 hover:text-blue-400 transition-colors duration-200">
-                    info@havenwordchurch.org
+                  <a href="mailto:havenwordchurch@gmail.com" className="text-gray-300 hover:text-blue-400 transition-colors duration-200">
+                    havenwordchurch@gmail.com
                   </a>
                 </div>
               </div>
@@ -197,16 +194,16 @@ const Footer = () => {
                 <h5 className="font-medium text-white mb-3">Service Times</h5>
                 <div className="space-y-2 text-sm text-gray-300">
                   <div className="flex justify-between">
-                    <span>Sunday Service:</span>
-                    <span>8:00 AM & 10:30 AM</span>
+                    <span>Sundays:</span>
+                    <span>7:30 AM & 10:00 AM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Wednesday Prayer:</span>
-                    <span>6:00 PM</span>
+                    <span>Wednesdays (Bible Study):</span>
+                    <span>5:30 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Friday Youth:</span>
-                    <span>6:30 PM</span>
+                    <span>Fridays (Cell Meetings):</span>
+                    <span>5:30 PM</span>
                   </div>
                   <p className="text-xs text-gray-400 mt-2">(West Africa Time - WAT)</p>
                 </div>

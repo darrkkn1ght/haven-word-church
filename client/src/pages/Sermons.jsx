@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Play, Download, Share2, Calendar, Clock, User, BookOpen, Search, ChevronLeft, ChevronRight, Volume2 } from 'lucide-react';
 import SEOHead from '../components/SEOHead';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -45,138 +46,44 @@ const Sermons = () => {
    * Initialize sermons data (mock data for working demo)
    */
   useEffect(() => {
-    const mockSermons = [
-      {
-        id: 1,
-        title: 'Walking in Faith, Not Fear',
-        description: 'In times of uncertainty, God calls us to trust Him completely. Learn how to overcome fear with unwavering faith and discover the peace that comes from trusting in His perfect plan.',
-        pastor: 'Pastor Emmanuel Adebayo',
-        date: '2024-12-15',
-        duration: '45:30',
-        series: 'faith-foundations',
-        seriesTitle: 'Faith Foundations',
-        scripture: '2 Timothy 1:7, Isaiah 41:10',
-        audioUrl: '/sermons/audio/walking-in-faith.mp3',
-        videoUrl: '/sermons/video/walking-in-faith.mp4',
-        thumbnail: '/api/placeholder/600/400',
-        featured: true,
-        views: 2847,
-        likes: 234,
-        downloads: 156,
-        tags: ['faith', 'fear', 'trust', 'peace'],
-        notes: '/sermons/notes/walking-in-faith.pdf',
-        transcript: '/sermons/transcripts/walking-in-faith.txt'
-      },
-      {
-        id: 2,
-        title: 'The Power of Persistent Prayer',
-        description: 'Jesus taught us to pray without ceasing. Discover the transformative power of consistent, persistent prayer and how it changes both circumstances and hearts.',
-        pastor: 'Pastor David Okafor',
-        date: '2024-12-08',
-        duration: '38:45',
-        series: 'prayer-power',
-        seriesTitle: 'The Power of Prayer',
-        scripture: 'Luke 18:1-8, 1 Thessalonians 5:17',
-        audioUrl: '/sermons/audio/persistent-prayer.mp3',
-        videoUrl: '/sermons/video/persistent-prayer.mp4',
-        thumbnail: '/api/placeholder/600/400',
-        featured: false,
-        views: 1923,
-        likes: 187,
-        downloads: 89,
-        tags: ['prayer', 'persistence', 'breakthrough'],
-        notes: '/sermons/notes/persistent-prayer.pdf',
-        transcript: '/sermons/transcripts/persistent-prayer.txt'
-      },
-      {
-        id: 3,
-        title: 'Psalm 23: The Good Shepherd',
-        description: 'Explore the beloved Psalm 23 and discover how Jesus as our Good Shepherd provides, protects, and guides us through every season of life.',
-        pastor: 'Pastor Emmanuel Adebayo',
-        date: '2024-12-01',
-        duration: '42:15',
-        series: 'psalms-study',
-        seriesTitle: 'Psalms Study',
-        scripture: 'Psalm 23, John 10:11-16',
-        audioUrl: '/sermons/audio/psalm-23.mp3',
-        videoUrl: '/sermons/video/psalm-23.mp4',
-        thumbnail: '/api/placeholder/600/400',
-        featured: false,
-        views: 3156,
-        likes: 298,
-        downloads: 201,
-        tags: ['psalms', 'shepherd', 'guidance', 'protection'],
-        notes: '/sermons/notes/psalm-23.pdf',
-        transcript: '/sermons/transcripts/psalm-23.txt'
-      },
-      {
-        id: 4,
-        title: 'Building Strong Christian Families',
-        description: 'God\'s design for the family is beautiful and purposeful. Learn practical principles for building Christ-centered homes that honor God and nurture growth.',
-        pastor: 'Pastor & Mrs. Adebayo',
-        date: '2024-11-24',
-        duration: '51:20',
-        series: 'family-values',
-        seriesTitle: 'Family & Relationships',
-        scripture: 'Ephesians 5:22-33, Proverbs 22:6',
-        audioUrl: '/sermons/audio/christian-families.mp3',
-        videoUrl: '/sermons/video/christian-families.mp4',
-        thumbnail: '/api/placeholder/600/400',
-        featured: false,
-        views: 2234,
-        likes: 167,
-        downloads: 134,
-        tags: ['family', 'marriage', 'parenting', 'relationships'],
-        notes: '/sermons/notes/christian-families.pdf',
-        transcript: '/sermons/transcripts/christian-families.txt'
-      },
-      {
-        id: 5,
-        title: 'Living as Kingdom Citizens',
-        description: 'As followers of Christ, we are citizens of God\'s kingdom. Discover what it means to live with kingdom values in a world that often opposes them.',
-        pastor: 'Pastor David Okafor',
-        date: '2024-11-17',
-        duration: '44:30',
-        series: 'kingdom-living',
-        seriesTitle: 'Kingdom Living',
-        scripture: 'Matthew 5:3-16, Philippians 3:20',
-        audioUrl: '/sermons/audio/kingdom-citizens.mp3',
-        videoUrl: '/sermons/video/kingdom-citizens.mp4',
-        thumbnail: '/api/placeholder/600/400',
-        featured: false,
-        views: 1876,
-        likes: 143,
-        downloads: 78,
-        tags: ['kingdom', 'citizenship', 'values', 'discipleship'],
-        notes: '/sermons/notes/kingdom-citizens.pdf',
-        transcript: '/sermons/transcripts/kingdom-citizens.txt'
-      },
-      {
-        id: 6,
-        title: 'The Great Commission in Nigeria',
-        description: 'Jesus\' command to make disciples applies powerfully to our Nigerian context. Learn how to be effective witnesses in our communities and beyond.',
-        pastor: 'Pastor Emmanuel Adebayo',
-        date: '2024-11-10',
-        duration: '47:45',
-        series: 'new-testament',
-        seriesTitle: 'New Testament Journey',
-        scripture: 'Matthew 28:16-20, Acts 1:8',
-        audioUrl: '/sermons/audio/great-commission.mp3',
-        videoUrl: '/sermons/video/great-commission.mp3',
-        thumbnail: '/api/placeholder/600/400',
-        featured: false,
-        views: 2567,
-        likes: 189,
-        downloads: 123,
-        tags: ['evangelism', 'missions', 'discipleship', 'nigeria'],
-        notes: '/sermons/notes/great-commission.pdf',
-        transcript: '/sermons/transcripts/great-commission.txt'
+    const fetchSermons = async () => {
+      setLoading(true);
+      try {
+        // Fetch Telegram sermons
+        const telegramRes = await axios.get('/api/sermons/telegram');
+        const telegramSermons = (telegramRes.data?.sermons || []).map((sermon, idx) => ({
+          id: `telegram-${sermon.message_id || idx}`,
+          title: sermon.caption || sermon.title || 'Telegram Audio Sermon',
+          description: 'Audio sermon from our official Telegram channel.',
+          pastor: sermon.performer || 'Pastor Anthonia Amadi',
+          date: sermon.date || new Date().toISOString(),
+          duration: sermon.duration ? `${Math.floor(sermon.duration / 60)}:${('0' + (sermon.duration % 60)).slice(-2)}` : '00:00',
+          series: 'telegram',
+          seriesTitle: 'Telegram Channel',
+          scripture: '',
+          audioUrl: sermon.audioUrl,
+          videoUrl: '',
+          thumbnail: '/logo512.png',
+          featured: false,
+          views: 0,
+          likes: 0,
+          downloads: 0,
+          tags: ['telegram'],
+          notes: '',
+          transcript: '',
+          telegramLink: sermon.telegramLink
+        }));
+        setSermons(telegramSermons);
+        setFilteredSermons(telegramSermons);
+        setFeaturedSermon(telegramSermons.find(sermon => sermon.featured));
+      } catch (err) {
+        setSermons([]);
+        setFilteredSermons([]);
+        setFeaturedSermon(null);
       }
-    ];
-    setSermons(mockSermons);
-    setFilteredSermons(mockSermons);
-    setFeaturedSermon(mockSermons.find(sermon => sermon.featured));
-    setLoading(false);
+      setLoading(false);
+    };
+    fetchSermons();
   }, []);
 
   /**
@@ -311,6 +218,23 @@ const Sermons = () => {
         />
         <div className="flex justify-center items-center min-h-screen">
           <LoadingSpinner size="large" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!loading && sermons.length === 0) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950">
+        <SEOHead 
+          title="Sermons - Haven Word Church"
+          description="Listen to inspiring sermons and biblical teachings from Haven Word Church pastors in Ibadan."
+          keywords="church sermons, biblical teachings, Pastor Emmanuel Adebayo, Haven Word Church, Ibadan sermons"
+        />
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4 text-gray-800 dark:text-white">Sermons</h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">Our Telegram sermon library is coming soon!</p>
+          <span className="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full font-medium">Coming Soon</span>
         </div>
       </div>
     );

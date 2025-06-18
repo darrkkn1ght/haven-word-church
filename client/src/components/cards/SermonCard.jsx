@@ -266,6 +266,15 @@ const SermonCard = ({
             </button>
           </div>
         )}
+
+        {/* Telegram Badge */}
+        {series === 'telegram' && (
+          <div className="absolute top-3 left-1/2 transform -translate-x-1/2 z-10">
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 border border-blue-200 shadow">
+              Telegram
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Card Content */}

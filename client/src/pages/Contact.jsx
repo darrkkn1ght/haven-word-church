@@ -99,7 +99,7 @@ const Contact = () => {
   // Staff contact information
   const staffContacts = [
     {
-      name: 'Pastor Michael Adebayo',
+      name: 'Pastor Anthonia Amadi',
       role: 'Senior Pastor',
       phone: '+234 805 987 6543',
       email: 'pastor@havenwordchurch.org',
@@ -115,7 +115,7 @@ const Contact = () => {
       availability: 'Mon-Fri: 8AM-4PM'
     },
     {
-      name: 'Pastor David Eze',
+      name: 'Pastor Anthonia Amadi',
       role: 'Youth Pastor',
       phone: '+234 807 555 0123',
       email: 'youth@havenwordchurch.org',
@@ -164,11 +164,11 @@ const Contact = () => {
     },
     {
       question: 'How can I get involved in ministry?',
-      answer: 'There are many ways to serve! Contact our church office or speak with Pastor Michael about opportunities in worship, children\'s ministry, community outreach, and more. We\'ll help you find where your gifts can best serve God\'s kingdom.'
+      answer: 'There are many ways to serve! Contact our church office or speak with Pastor Anthonia Amadi about opportunities in worship, children\'s ministry, community outreach, and more. We\'ll help you find where your gifts can best serve God\'s kingdom.'
     },
     {
       question: 'Do you offer counseling services?',
-      answer: 'Yes, Pastor Michael provides biblical counseling by appointment. We also have referrals to Christian counselors in the community for specialized needs. Contact the church office to schedule.'
+      answer: 'Yes, Pastor Anthonia Amadi provides biblical counseling by appointment. We also have referrals to Christian counselors in the community for specialized needs. Contact the church office to schedule.'
     }
   ];
 

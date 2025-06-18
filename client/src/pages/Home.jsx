@@ -61,7 +61,7 @@ const Home = () => {
     {
       id: 1,
       title: 'Walking in Faith',
-      pastor: 'Pastor Emmanuel Adebayo',
+      pastor: 'Pastor Anthonia Amadi',
       date: '2024-06-16',
       duration: '45 min',
       description: 'Understanding what it means to truly walk by faith and not by sight.',
@@ -72,7 +72,7 @@ const Home = () => {
     {
       id: 2,
       title: 'The Power of Prayer',
-      pastor: 'Pastor Sarah Adebayo',
+      pastor: 'Pastor Anthonia Amadi',
       date: '2024-06-09',
       duration: '38 min',
       description: 'Discovering the transformative power of consistent prayer.',
@@ -83,7 +83,7 @@ const Home = () => {
     {
       id: 3,
       title: 'Love Your Neighbor',
-      pastor: 'Pastor Emmanuel Adebayo',
+      pastor: 'Pastor Anthonia Amadi',
       date: '2024-06-02',
       duration: '42 min',
       description: 'Practical ways to show Christ\'s love to those around us.',
@@ -223,7 +223,7 @@ const Home = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {(upcomingEvents || mockUpcomingEvents).map((event) => (
+                {[].map((event) => (
                   <EventCard 
                     key={event.id} 
                     event={event}
@@ -296,24 +296,9 @@ const Home = () => {
               </p>
             </div>
             
-            {sermonsLoading ? (
-              <div className="flex justify-center">
-                <LoadingSpinner size="lg" />
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {(recentSermons || mockRecentSermons).map((sermon) => (
-                  <SermonCard key={sermon.id} sermon={sermon} />
-                ))}
-              </div>
-            )}
-            
-            <div className="text-center mt-12">
-              <Link to="/sermons">
-                <Button variant="primary" size="lg">
-                  View All Sermons
-                </Button>
-              </Link>
+            <div className="flex flex-col items-center justify-center py-16">
+              <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Sermons Coming Soon</h3>
+              <p className="text-gray-500 dark:text-gray-400">Our latest sermons will be available here soon. Stay tuned!</p>
             </div>
           </div>
         </section>

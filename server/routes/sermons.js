@@ -11,7 +11,8 @@ const {
   getSermonsBySeries,
   getSermonSeries,
   downloadSermonMedia,
-  toggleSermonLike
+  toggleSermonLike,
+  getTelegramSermons
 } = require('../controllers/sermonController');
 
 const router = express.Router();
@@ -309,6 +310,9 @@ router.get('/series/:seriesName', getSermonsBySeries);
 
 // Download sermon media
 router.get('/:id/download/:mediaType', downloadSermonMedia);
+
+// Add Telegram sermons endpoint BEFORE the dynamic identifier route
+router.get('/telegram', getTelegramSermons);
 
 // Get single sermon by ID or slug
 router.get('/:identifier', getSermon);
