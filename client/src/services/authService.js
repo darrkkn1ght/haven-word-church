@@ -27,15 +27,17 @@ class AuthService {
       if (!validateEmail(email)) {
         throw new Error('Please enter a valid email address');
       }
-      if (!validatePassword(password)) {
-        throw new Error('Password must be at least 8 characters long');
+      if (!password || password.length < 1) {
+        throw new Error('Password is required');
       }
 
-      const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, {
+      // Only send email and password to backend
+      const loginPayload = {
         email: email.toLowerCase().trim(),
-        password,
-        rememberMe
-      });
+        password
+      };
+      console.log('Login payload:', loginPayload);
+      const response = await api.post(API_ENDPOINTS.LOGIN, loginPayload);
 
       const { user, token, refreshToken } = response.data;
 
@@ -86,7 +88,7 @@ class AuthService {
         throw new Error('Please enter a valid phone number');
       }
 
-      const response = await api.post(API_ENDPOINTS.AUTH.REGISTER, {
+      const response = await api.post(API_ENDPOINTS.REGISTER, {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         email: email.toLowerCase().trim(),
@@ -120,7 +122,7 @@ class AuthService {
       
       if (token) {
         // Call logout endpoint to invalidate token on server
-        await api.post(API_ENDPOINTS.AUTH.LOGOUT);
+        await api.post(API_ENDPOINTS.LOGOUT);
       }
     } catch (error) {
       console.warn('Logout API call failed:', error);
@@ -143,7 +145,7 @@ class AuthService {
         throw new Error('No refresh token available');
       }
 
-      const response = await api.post(API_ENDPOINTS.AUTH.REFRESH, {
+      const response = await api.post(API_ENDPOINTS.REFRESH, {
         refreshToken
       });
 
@@ -175,7 +177,7 @@ class AuthService {
         throw new Error('Verification token is required');
       }
 
-      const response = await api.post(API_ENDPOINTS.AUTH.VERIFY_EMAIL, {
+      const response = await api.post(API_ENDPOINTS.VERIFY_EMAIL, {
         token: token.trim()
       });
 
@@ -197,7 +199,7 @@ class AuthService {
         throw new Error('Please enter a valid email address');
       }
 
-      const response = await api.post(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, {
+      const response = await api.post(API_ENDPOINTS.FORGOT_PASSWORD, {
         email: email.toLowerCase().trim()
       });
 
@@ -227,7 +229,7 @@ class AuthService {
         throw new Error('Passwords do not match');
       }
 
-      const response = await api.post(API_ENDPOINTS.AUTH.RESET_PASSWORD, {
+      const response = await api.post(API_ENDPOINTS.RESET_PASSWORD, {
         token: token.trim(),
         password: newPassword
       });
@@ -261,7 +263,7 @@ class AuthService {
         throw new Error('New password must be different from current password');
       }
 
-      const response = await api.post(API_ENDPOINTS.AUTH.CHANGE_PASSWORD, {
+      const response = await api.post(API_ENDPOINTS.CHANGE_PASSWORD, {
         currentPassword,
         newPassword
       });
@@ -279,7 +281,7 @@ class AuthService {
    */
   async getCurrentUser() {
     try {
-      const response = await api.get(API_ENDPOINTS.AUTH.PROFILE);
+      const response = await api.get(API_ENDPOINTS.PROFILE);
       
       // Update stored user data
       this.setUserData(response.data.user);
@@ -321,7 +323,7 @@ class AuthService {
         throw new Error('Please enter a valid phone number');
       }
 
-      const response = await api.put(API_ENDPOINTS.AUTH.PROFILE, {
+      const response = await api.put(API_ENDPOINTS.PROFILE, {
         firstName: firstName?.trim(),
         lastName: lastName?.trim(),
         phone: phone?.trim(),
@@ -349,7 +351,7 @@ class AuthService {
    */
   async resendVerification() {
     try {
-      const response = await api.post(API_ENDPOINTS.AUTH.RESEND_VERIFICATION);
+      const response = await api.post(API_ENDPOINTS.RESEND_VERIFICATION);
       return response.data;
     } catch (error) {
       console.error('Resend verification error:', error);

@@ -36,6 +36,7 @@ const generateVerificationToken = () => {
  */
 const register = async (req, res) => {
   try {
+    console.log('--- Registration started ---');
     const {
       firstName,
       lastName,
@@ -49,25 +50,43 @@ const register = async (req, res) => {
       occupation,
       emergencyContact
     } = req.body;
+    console.log('Received registration data:', {
+      firstName,
+      lastName,
+      email,
+      phone,
+      dateOfBirth,
+      gender,
+      maritalStatus,
+      address,
+      occupation,
+      emergencyContact
+    });
 
     // Check if user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
+      console.log('User already exists with email:', email);
       return res.status(400).json({
         success: false,
         message: 'User with this email already exists'
       });
     }
+    console.log('No existing user found, proceeding.');
 
     // Hash password
     const saltRounds = 12;
+    console.log('Hashing password...');
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+    console.log('Password hashed.');
 
     // Generate email verification token
     const emailVerificationToken = generateVerificationToken();
     const emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+    console.log('Generated email verification token.');
 
     // Create new user
+    console.log('Creating new user document...');
     const user = new User({
       firstName,
       lastName,
@@ -88,7 +107,9 @@ const register = async (req, res) => {
       }
     });
 
+    console.log('Saving user to database...');
     await user.save();
+    console.log('User saved to database:', user._id);
 
     // Generate JWT token
     const token = generateToken(user._id);
@@ -111,6 +132,7 @@ const register = async (req, res) => {
 
     // TODO: Send verification email (implement email service)
     console.log(`Verification token for ${email}: ${emailVerificationToken}`);
+    console.log('--- Registration completed successfully ---');
 
   } catch (error) {
     console.error('Registration error:', error);

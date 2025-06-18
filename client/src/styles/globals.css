@@ -222,6 +222,7 @@
 
   input[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
   }
 
   /* Remove search input styling */

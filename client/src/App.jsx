@@ -360,8 +360,26 @@ function App() {
                       </AppLayout>
                     </ProtectedRoute>
                   } />
+                  <Route path="/member/dashboard" element={
+                    <ProtectedRoute>
+                      <AppLayout>
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <Dashboard />
+                        </Suspense>
+                      </AppLayout>
+                    </ProtectedRoute>
+                  } />
                   
                   <Route path="/profile" element={
+                    <ProtectedRoute>
+                      <AppLayout>
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <Profile />
+                        </Suspense>
+                      </AppLayout>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/member/profile" element={
                     <ProtectedRoute>
                       <AppLayout>
                         <Suspense fallback={<LoadingSpinner />}>
@@ -380,6 +398,15 @@ function App() {
                       </AppLayout>
                     </ProtectedRoute>
                   } />
+                  <Route path="/member/my-events" element={
+                    <ProtectedRoute>
+                      <AppLayout>
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <MyEvents />
+                        </Suspense>
+                      </AppLayout>
+                    </ProtectedRoute>
+                  } />
                   
                   <Route path="/my-donations" element={
                     <ProtectedRoute>
@@ -390,8 +417,26 @@ function App() {
                       </AppLayout>
                     </ProtectedRoute>
                   } />
+                  <Route path="/member/my-donations" element={
+                    <ProtectedRoute>
+                      <AppLayout>
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <MyDonations />
+                        </Suspense>
+                      </AppLayout>
+                    </ProtectedRoute>
+                  } />
                   
                   <Route path="/prayer-requests" element={
+                    <ProtectedRoute>
+                      <AppLayout>
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PrayerRequests />
+                        </Suspense>
+                      </AppLayout>
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/member/prayer-requests" element={
                     <ProtectedRoute>
                       <AppLayout>
                         <Suspense fallback={<LoadingSpinner />}>

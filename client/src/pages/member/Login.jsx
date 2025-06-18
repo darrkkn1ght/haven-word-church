@@ -20,11 +20,6 @@ import { useAuth } from '../../context/AuthContext';
 import SEOHead from '../../components/SEOHead';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
-/**
- * Login Page Component
- * Handles member authentication, registration, and password reset
- * Features: Login/Register tabs, form validation, responsive design
- */
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,139 +52,100 @@ const Login = () => {
     }
   }, [user, navigate, location]);
 
-  /**
-   * Handle input changes with validation
-   */
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-
-    // Clear specific error when user starts typing
+    setFormData(prev => {
+      const updated = { ...prev, [name]: value };
+      return updated;
+    });
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
-  /**
-   * Validate form data
-   */
+  // Validate form data
   const validateForm = () => {
     const newErrors = {};
-
-    // Email validation
     if (!formData.email) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/.+@.+\..+/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-
-    // Password validation
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (activeTab === 'register' && formData.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters long';
     }
-
-    // Register-specific validations
     if (activeTab === 'register') {
-      if (!formData.firstName) {
-        newErrors.firstName = 'First name is required';
-      }
-      if (!formData.lastName) {
-        newErrors.lastName = 'Last name is required';
-      }
-      if (!formData.phone) {
-        newErrors.phone = 'Phone number is required';
-      } else if (!/^\+?[\d\s-()]+$/.test(formData.phone)) {
-        newErrors.phone = 'Please enter a valid phone number';
-      }
-      if (!formData.confirmPassword) {
-        newErrors.confirmPassword = 'Please confirm your password';
-      } else if (formData.password !== formData.confirmPassword) {
-        newErrors.confirmPassword = 'Passwords do not match';
-      }
-      if (!formData.dateOfBirth) {
-        newErrors.dateOfBirth = 'Date of birth is required';
-      }
+      if (!formData.firstName) newErrors.firstName = 'First name is required';
+      if (!formData.lastName) newErrors.lastName = 'Last name is required';
+      if (!formData.phone) newErrors.phone = 'Phone number is required';
+      if (!formData.confirmPassword) newErrors.confirmPassword = 'Please confirm your password';
+      if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+      if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required';
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  /**
-   * Handle form submission
-   */
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
+    console.log('handleSubmit called', { formData, activeTab });
     setMessage('');
-
+    setMessageType('');
+    if (!validateForm()) return;
+    setIsSubmitting(true);
     try {
       if (activeTab === 'login') {
-        await login(formData.email, formData.password);
-        setMessage('Login successful! Redirecting...');
-        setMessageType('success');
-        setShowRedirectSpinner(true);
-        // Redirect after successful login
-        setTimeout(() => {
-          const from = location.state?.from?.pathname || '/dashboard';
-          navigate(from, { replace: true });
-        }, 1500);
+        const loginResult = await login(formData.email, formData.password);
+        console.log('login result:', loginResult);
+        if (loginResult && loginResult.success === false) {
+          setMessage(loginResult.error || 'Login failed');
+          setMessageType('error');
+        } else {
+          setMessage('Login successful! Redirecting...');
+          setMessageType('success');
+          setShowRedirectSpinner(true);
+          setTimeout(() => {
+            navigate('/dashboard', { replace: true });
+          }, 1500);
+        }
       } else {
-        await register({
+        const registerResult = await register({
           email: formData.email,
           password: formData.password,
+          confirmPassword: formData.confirmPassword,
           firstName: formData.firstName,
           lastName: formData.lastName,
           phone: formData.phone,
           dateOfBirth: formData.dateOfBirth
         });
+        console.log('register result:', registerResult);
         setMessage('Registration successful! Please check your email to verify your account.');
         setMessageType('success');
-        
-        // Switch to login tab after successful registration
         setTimeout(() => {
           setActiveTab('login');
-          setFormData(prev => ({
-            ...prev,
-            firstName: '',
-            lastName: '',
-            phone: '',
-            dateOfBirth: '',
-            confirmPassword: ''
-          }));
         }, 2000);
       }
     } catch (error) {
-      setMessage(error.message || 'An error occurred. Please try again.');
+      console.error('handleSubmit error:', error);
+      setMessage(error.message || 'An error occurred');
       setMessageType('error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  /**
-   * Handle password reset
-   */
+  // Handle password reset
   const handlePasswordReset = async () => {
     if (!formData.email) {
       setMessage('Please enter your email address first');
       setMessageType('error');
       return;
     }
-
+    setIsSubmitting(true);
     try {
       await resetPassword(formData.email);
       setMessage('Password reset link sent to your email');
@@ -197,12 +153,12 @@ const Login = () => {
     } catch (error) {
       setMessage(error.message || 'Failed to send reset email');
       setMessageType('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  /**
-   * Switch between login and register tabs
-   */
+  // Switch between login and register tabs
   const switchTab = (tab) => {
     setActiveTab(tab);
     setErrors({});
@@ -233,7 +189,6 @@ const Login = () => {
         description={`${activeTab === 'login' ? 'Sign in to your member account' : 'Join our church community'} at Haven Word Church. Access member resources, track attendance, and stay connected.`}
         keywords="church login, member portal, Haven Word Church, church registration, member access"
       />
-
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
           {/* Header */}
@@ -250,7 +205,6 @@ const Login = () => {
               {activeTab === 'login' ? 'Sign in to your member account' : 'Join our church family'}
             </p>
           </div>
-
           {/* Tab Navigation */}
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
             <div className="flex mb-6">
@@ -275,7 +229,6 @@ const Login = () => {
                 Register
               </button>
             </div>
-
             {/* Message Display */}
             {message && (
               <div className={`mb-4 p-3 rounded-lg flex items-center ${
@@ -291,7 +244,6 @@ const Login = () => {
                 <span className="text-sm">{message}</span>
               </div>
             )}
-
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Register Fields */}
@@ -309,7 +261,7 @@ const Login = () => {
                           name="firstName"
                           value={formData.firstName}
                           onChange={handleInputChange}
-                          className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                          className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
                             errors.firstName ? 'border-red-500' : 'border-gray-300'
                           }`}
                           placeholder="John"
@@ -319,7 +271,6 @@ const Login = () => {
                         <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>
                       )}
                     </div>
-
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Last Name
@@ -331,7 +282,7 @@ const Login = () => {
                           name="lastName"
                           value={formData.lastName}
                           onChange={handleInputChange}
-                          className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                          className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
                             errors.lastName ? 'border-red-500' : 'border-gray-300'
                           }`}
                           placeholder="Doe"
@@ -342,7 +293,6 @@ const Login = () => {
                       )}
                     </div>
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Phone Number
@@ -354,7 +304,7 @@ const Login = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
                           errors.phone ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="+234 XXX XXX XXXX"
@@ -364,7 +314,6 @@ const Login = () => {
                       <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
                     )}
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Date of Birth
@@ -376,7 +325,7 @@ const Login = () => {
                         name="dateOfBirth"
                         value={formData.dateOfBirth}
                         onChange={handleInputChange}
-                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                        className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
                           errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
                         }`}
                       />
@@ -387,7 +336,6 @@ const Login = () => {
                   </div>
                 </>
               )}
-
               {/* Email Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -400,7 +348,7 @@ const Login = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    className={`w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="john@example.com"
@@ -410,7 +358,6 @@ const Login = () => {
                   <p className="text-red-500 text-xs mt-1">{errors.email}</p>
                 )}
               </div>
-
               {/* Password Field */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -423,7 +370,8 @@ const Login = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    required
+                    className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
                       errors.password ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder={activeTab === 'register' ? 'At least 8 characters' : 'Enter your password'}
@@ -432,6 +380,8 @@ const Login = () => {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    title={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -440,7 +390,6 @@ const Login = () => {
                   <p className="text-red-500 text-xs mt-1">{errors.password}</p>
                 )}
               </div>
-
               {/* Confirm Password Field (Register only) */}
               {activeTab === 'register' && (
                 <div>
@@ -454,7 +403,7 @@ const Login = () => {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                      className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
                         errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Confirm your password"
@@ -463,6 +412,8 @@ const Login = () => {
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                      title={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
                     >
                       {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
@@ -472,14 +423,13 @@ const Login = () => {
                   )}
                 </div>
               )}
-
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting || loading}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center"
               >
-                {isSubmitting || loading ? (
+                {(isSubmitting || loading) ? (
                   <LoadingSpinner size="sm" color="white" />
                 ) : (
                   <>
@@ -488,7 +438,6 @@ const Login = () => {
                   </>
                 )}
               </button>
-
               {/* Forgot Password (Login only) */}
               {activeTab === 'login' && (
                 <div className="text-center">
@@ -496,6 +445,7 @@ const Login = () => {
                     type="button"
                     onClick={handlePasswordReset}
                     className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                    disabled={isSubmitting || loading}
                   >
                     Forgot your password?
                   </button>
@@ -503,7 +453,6 @@ const Login = () => {
               )}
             </form>
           </div>
-
           {/* Church Info */}
           <div className="bg-white rounded-lg shadow-lg p-6">
             <div className="text-center">
@@ -524,7 +473,6 @@ const Login = () => {
               </div>
             </div>
           </div>
-
           {/* Back to Home */}
           <div className="text-center mt-6">
             <Link
