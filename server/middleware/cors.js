@@ -90,7 +90,8 @@ function getAllowedOrigins() {
         process.env.FRONTEND_URL || 'https://havenwordchurch.com',
         process.env.ADMIN_URL || 'https://admin.havenwordchurch.com',
         'https://havenwordchurch.netlify.app',
-        'https://havenwordchurch.vercel.app'
+        'https://havenwordchurch.vercel.app',
+        'https://haven-word-church.onrender.com' // Added Render frontend
       ].filter(Boolean); // Remove undefined values
       
     case 'staging':
@@ -100,7 +101,8 @@ function getAllowedOrigins() {
         'https://staging-havenwordchurch.netlify.app',
         'https://staging-havenwordchurch.vercel.app',
         'http://localhost:3000',
-        'http://localhost:3001'
+        'http://localhost:3001',
+        'https://haven-word-church.onrender.com' // Added Render frontend for staging
       ].filter(Boolean);
       
     case 'development':

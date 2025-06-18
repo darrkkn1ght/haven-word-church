@@ -54,12 +54,11 @@ const Contact = () => {
       icon: MapPin,
       title: 'Visit Us',
       details: [
-        '123 Faith Avenue, GRA',
-        'Ibadan, Oyo State, Nigeria',
-        '200001'
+        '9VXM+797, 107D Akintola Road',
+        'Ibadan 200284, Oyo State, Nigeria'
       ],
       action: 'Get Directions',
-      actionLink: 'https://maps.google.com/?q=123+Faith+Avenue+Ibadan'
+      actionLink: 'https://maps.google.com/?q=9VXM%2B797%2C%20107D%20Akintola%20Road%2C%20Ibadan%20200284%2C%20Oyo%20State%2C%20Nigeria'
     },
     {
       icon: Phone,
@@ -76,20 +75,18 @@ const Contact = () => {
       icon: Mail,
       title: 'Email Us',
       details: [
-        'info@havenwordchurch.org',
-        'pastor@havenwordchurch.org',
-        'prayer@havenwordchurch.org'
+        'havenwordchurch@gmail.com'
       ],
       action: 'Send Email',
-      actionLink: 'mailto:info@havenwordchurch.org'
+      actionLink: 'mailto:havenwordchurch@gmail.com'
     },
     {
       icon: Clock,
       title: 'Service Hours',
       details: [
-        'Sunday: 8:00 AM & 10:30 AM',
-        'Wednesday: 6:00 PM',
-        'Friday: 6:00 PM (Youth)'
+        'Sundays: 7:30 AM & 10:00 AM',
+        'Wednesdays (Bible Study): 5:30 PM',
+        'Fridays (Cell Meetings): 5:30 PM'
       ],
       action: 'View Calendar',
       actionLink: '/events'
@@ -102,7 +99,7 @@ const Contact = () => {
       name: 'Pastor Anthonia Amadi',
       role: 'Senior Pastor',
       phone: '+234 805 987 6543',
-      email: 'pastor@havenwordchurch.org',
+      email: 'havenwordchurch@gmail.com',
       image: '/images/pastor-michael.jpg',
       availability: 'Mon-Fri: 9AM-5PM'
     },
@@ -110,7 +107,7 @@ const Contact = () => {
       name: 'Mrs. Grace Okafor',
       role: 'Church Administrator',
       phone: '+234 803 123 4567',
-      email: 'admin@havenwordchurch.org',
+      email: 'havenwordchurch@gmail.com',
       image: '/images/grace-okafor.jpg',
       availability: 'Mon-Fri: 8AM-4PM'
     },
@@ -118,7 +115,7 @@ const Contact = () => {
       name: 'Pastor Anthonia Amadi',
       role: 'Youth Pastor',
       phone: '+234 807 555 0123',
-      email: 'youth@havenwordchurch.org',
+      email: 'havenwordchurch@gmail.com',
       image: '/images/pastor-david.jpg',
       availability: 'Tue-Sat: 2PM-8PM'
     }
@@ -370,7 +367,7 @@ const Contact = () => {
                     <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-600 mb-4">Interactive map will be embedded here</p>
                     <a
-                      href="https://maps.google.com/?q=123+Faith+Avenue+Ibadan"
+                      href="https://maps.google.com/?q=9VXM%2B797%2C%20107D%20Akintola%20Road%2C%20Ibadan%20200284%2C%20Oyo%20State%2C%20Nigeria"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center"
@@ -387,9 +384,8 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">Address</h3>
                     <p className="text-gray-600">
-                      123 Faith Avenue, GRA<br />
-                      Ibadan, Oyo State, Nigeria<br />
-                      200001
+                      9VXM+797, 107D Akintola Road<br />
+                      Ibadan 200284, Oyo State, Nigeria
                     </p>
                   </div>
                   <div>
@@ -462,7 +458,7 @@ const Contact = () => {
               <div className="text-center mt-12">
                 <p className="text-gray-600 mb-4">Have another question?</p>
                 <a
-                  href="mailto:info@havenwordchurch.org"
+                  href="mailto:havenwordchurch@gmail.com"
                   className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center"
                 >
                   <Mail className="w-4 h-4 mr-2" />
@@ -490,7 +486,7 @@ const Contact = () => {
                   Emergency Prayer Line
                 </a>
                 <a
-                  href="mailto:prayer@havenwordchurch.org"
+                  href="mailto:havenwordchurch@gmail.com"
                   className="bg-white text-red-600 border border-red-600 px-6 py-3 rounded-lg hover:bg-red-50 transition-colors inline-flex items-center justify-center"
                 >
                   <Mail className="w-4 h-4 mr-2" />

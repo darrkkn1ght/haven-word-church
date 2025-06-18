@@ -384,9 +384,8 @@ const About = () => {
                       <div>
                         <p className="font-medium text-gray-900 dark:text-white">Address</p>
                         <p className="text-gray-600 dark:text-gray-300">
-                          Haven Word Church Complex<br />
-                          123 Ring Road, Ibadan<br />
-                          Oyo State, Nigeria
+                          9VXM+797, 107D Akintola Road<br />
+                          Ibadan 200284, Oyo State, Nigeria
                         </p>
                       </div>
                     </div>
@@ -396,7 +395,7 @@ const About = () => {
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-white">Phone</p>
-                        <p className="text-gray-600 dark:text-gray-300">+234 802 123 4567</p>
+                        <p className="text-gray-600 dark:text-gray-300"></p>
                       </div>
                     </div>
                     <div className="flex items-start">
@@ -405,7 +404,7 @@ const About = () => {
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-white">Email</p>
-                        <p className="text-gray-600 dark:text-gray-300">info@havenwordchurch.org</p>
+                        <p className="text-gray-600 dark:text-gray-300">havenwordchurch@gmail.com</p>
                       </div>
                     </div>
                   </div>

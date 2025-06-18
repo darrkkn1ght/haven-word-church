@@ -25,106 +25,6 @@ const Blog = () => {
 
   const postsPerPage = 9;
 
-  // Sample data for development
-  const samplePosts = [
-    {
-      _id: '1',
-      title: 'Walking in Faith: Lessons from Abraham\'s Journey',
-      excerpt: 'Discover how Abraham\'s unwavering faith teaches us to trust God\'s promises even when the path seems uncertain.',
-      content: 'Full blog content here...',
-      author: {
-        name: 'Pastor Anthonia Amadi',
-        avatar: '/images/pastor-michael.jpg'
-      },
-      category: 'Faith',
-      tags: ['faith', 'biblical-characters', 'trust'],
-      featuredImage: '/images/blog/faith-journey.jpg',
-      publishedAt: '2024-06-10T10:00:00Z',
-      readTime: 5,
-      featured: true
-    },
-    {
-      _id: '2',
-      title: 'Building Strong Christian Families in Modern Nigeria',
-      excerpt: 'Practical wisdom for nurturing godly families while navigating contemporary challenges in Nigerian society.',
-      content: 'Full blog content here...',
-      author: {
-        name: 'Mrs. Grace Okafor',
-        avatar: '/images/grace-okafor.jpg'
-      },
-      category: 'Family',
-      tags: ['family', 'parenting', 'marriage'],
-      featuredImage: '/images/blog/christian-family.jpg',
-      publishedAt: '2024-06-08T14:30:00Z',
-      readTime: 7,
-      featured: false
-    },
-    {
-      _id: '3',
-      title: 'The Power of Prayer in Times of Uncertainty',
-      excerpt: 'How prayer becomes our anchor during life\'s storms and God\'s faithfulness sustains us through every season.',
-      content: 'Full blog content here...',
-      author: {
-        name: 'Pastor Anthonia Amadi',
-        avatar: '/images/pastor-sarah.jpg'
-      },
-      category: 'Prayer',
-      tags: ['prayer', 'spiritual-growth', 'hope'],
-      featuredImage: '/images/blog/prayer-power.jpg',
-      publishedAt: '2024-06-05T09:15:00Z',
-      readTime: 6,
-      featured: true
-    },
-    {
-      _id: '4',
-      title: 'Serving with Joy: Finding Your Ministry Calling',
-      excerpt: 'Explore how God has uniquely gifted you to serve His kingdom and impact lives in your community.',
-      content: 'Full blog content here...',
-      author: {
-        name: 'Deacon Paul Uche',
-        avatar: '/images/deacon-paul.jpg'
-      },
-      category: 'Ministry',
-      tags: ['ministry', 'calling', 'service'],
-      featuredImage: '/images/blog/ministry-calling.jpg',
-      publishedAt: '2024-06-02T16:45:00Z',
-      readTime: 8,
-      featured: false
-    },
-    {
-      _id: '5',
-      title: 'Understanding God\'s Grace in Daily Life',
-      excerpt: 'Discover how God\'s amazing grace transforms ordinary moments into extraordinary encounters with His love.',
-      content: 'Full blog content here...',
-      author: {
-        name: 'Pastor Anthonia Amadi',
-        avatar: '/images/pastor-michael.jpg'
-      },
-      category: 'Grace',
-      tags: ['grace', 'daily-life', 'transformation'],
-      featuredImage: '/images/blog/gods-grace.jpg',
-      publishedAt: '2024-05-30T11:20:00Z',
-      readTime: 4,
-      featured: false
-    },
-    {
-      _id: '6',
-      title: 'Youth Leadership in the 21st Century Church',
-      excerpt: 'Empowering the next generation to lead with integrity, passion, and biblical wisdom in today\'s world.',
-      content: 'Full blog content here...',
-      author: {
-        name: 'Pastor Anthonia Amadi',
-        avatar: '/images/pastor-david.jpg'
-      },
-      category: 'Youth',
-      tags: ['youth', 'leadership', 'next-generation'],
-      featuredImage: '/images/blog/youth-leadership.jpg',
-      publishedAt: '2024-05-28T13:00:00Z',
-      readTime: 6,
-      featured: false
-    }
-  ];
-
   const categories = ['all', 'Faith', 'Family', 'Prayer', 'Ministry', 'Grace', 'Youth'];
   const allTags = ['faith', 'biblical-characters', 'trust', 'family', 'parenting', 'marriage', 'prayer', 'spiritual-growth', 'hope', 'ministry', 'calling', 'service', 'grace', 'daily-life', 'transformation', 'youth', 'leadership', 'next-generation'];
 
@@ -147,12 +47,8 @@ const Blog = () => {
       // Uncomment when API is ready
       // const response = await blogService.getPosts();
       // setPosts(response.data);
-      
-      // Using sample data for now
-      setTimeout(() => {
-        setPosts(samplePosts);
-        setLoading(false);
-      }, 1000);
+      setPosts([]);
+      setLoading(false);
     } catch (err) {
       setError('Failed to load blog posts. Please try again later.');
       setLoading(false);

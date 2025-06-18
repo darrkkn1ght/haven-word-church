@@ -30,7 +30,7 @@ const Home = () => {
       title: 'Sunday Morning Service',
       date: '2024-06-23',
       time: '10:00 AM',
-      location: 'Main Sanctuary',
+      location: '9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State, Nigeria',
       description: 'Join us for worship, fellowship, and the Word of God.',
       // image: '/images/sunday-service.jpg',
       category: 'service'
@@ -40,7 +40,7 @@ const Home = () => {
       title: 'Youth Fellowship Night',
       date: '2024-06-25',
       time: '6:00 PM',
-      location: 'Youth Hall',
+      location: '9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State, Nigeria',
       description: 'An evening of praise, games, and fellowship for young adults.',
       // image: '/images/youth-fellowship.jpg',
       category: 'youth'
@@ -50,7 +50,7 @@ const Home = () => {
       title: 'Community Outreach',
       date: '2024-06-29',
       time: '2:00 PM',
-      location: 'Ibadan Central Market',
+      location: '9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State, Nigeria',
       description: 'Reaching out to our community with love and support.',
       // image: '/images/outreach.jpg',
       category: 'outreach'

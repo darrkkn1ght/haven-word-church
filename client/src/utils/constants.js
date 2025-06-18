@@ -207,18 +207,17 @@ export const SOCIAL_LINKS = {
 // Church Information
 export const CHURCH_INFO = {
   NAME: 'Haven Word Church',
-  ADDRESS: process.env.REACT_APP_CHURCH_ADDRESS || '123 Faith Street, City, State 12345',
-  PHONE: process.env.REACT_APP_CHURCH_PHONE || '+1-555-123-4567',
-  EMAIL: process.env.REACT_APP_CHURCH_EMAIL || 'info@havenwordchurch.org',
+  ADDRESS: process.env.REACT_APP_CHURCH_ADDRESS || '9VXM+797, 107D Akintola Road\nIbadan 200284, Oyo State, Nigeria',
+  PHONE: process.env.REACT_APP_CHURCH_PHONE || '',
+  EMAIL: process.env.REACT_APP_CHURCH_EMAIL || 'havenwordchurch@gmail.com',
   WEBSITE: process.env.REACT_APP_BASE_URL || 'https://havenwordchurch.org',
 };
 
 // Service Times (default - can be overridden by admin)
 export const DEFAULT_SERVICE_TIMES = {
-  SUNDAY_MORNING: '10:00 AM',
-  SUNDAY_EVENING: '6:00 PM',
-  WEDNESDAY_BIBLE_STUDY: '7:00 PM',
-  FRIDAY_PRAYER: '6:00 PM',
+  SUNDAY_MORNING: '7:30 AM & 10:00 AM',
+  WEDNESDAY_BIBLE_STUDY: '5:30 PM',
+  FRIDAY_CELL_MEETING: '5:30 PM',
 };
 
 // Feature Flags
@@ -264,7 +263,7 @@ export const MINISTRIES_LIST = [
     leader: '',
     contact: { phone: '', email: '' },
     meetingTime: '',
-    location: '',
+    location: '9VXM+797, 107D Akintola Road\nIbadan 200284, Oyo State, Nigeria',
     ageGroup: 'Children & Teens',
     members: null,
     activities: [
@@ -286,7 +285,7 @@ export const MINISTRIES_LIST = [
     leader: '',
     contact: { phone: '', email: '' },
     meetingTime: '',
-    location: '',
+    location: '9VXM+797, 107D Akintola Road\nIbadan 200284, Oyo State, Nigeria',
     ageGroup: 'All ages',
     members: null,
     activities: [
@@ -307,7 +306,7 @@ export const MINISTRIES_LIST = [
     leader: '',
     contact: { phone: '', email: '' },
     meetingTime: '',
-    location: '',
+    location: '9VXM+797, 107D Akintola Road\nIbadan 200284, Oyo State, Nigeria',
     ageGroup: 'Teens & Youth',
     members: null,
     activities: [
@@ -328,7 +327,7 @@ export const MINISTRIES_LIST = [
     leader: '',
     contact: { phone: '', email: '' },
     meetingTime: '',
-    location: '',
+    location: '9VXM+797, 107D Akintola Road\nIbadan 200284, Oyo State, Nigeria',
     ageGroup: 'Students & Young Adults',
     members: null,
     activities: [
@@ -349,7 +348,7 @@ export const MINISTRIES_LIST = [
     leader: '',
     contact: { phone: '', email: '' },
     meetingTime: '',
-    location: '',
+    location: '9VXM+797, 107D Akintola Road\nIbadan 200284, Oyo State, Nigeria',
     ageGroup: 'All ages',
     members: null,
     activities: [
