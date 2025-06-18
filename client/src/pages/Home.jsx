@@ -121,7 +121,7 @@ const Home = () => {
   return (
     <>
       <SEOHead 
-        title="Welcome to Haven Word Church - Your Spiritual Home in Ibadan"
+        title="Haven Word Church – The Spread City"
         description="Join Haven Word Church in Ibadan for worship, fellowship, and spiritual growth. Experience God's love in a welcoming community."
         keywords="church, Ibadan, worship, fellowship, Christianity, Nigeria, spiritual growth"
       />
