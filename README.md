@@ -118,6 +118,40 @@ REACT_APP_API_URL=http://localhost:5000/api
 REACT_APP_GOOGLE_MAPS_API_KEY=your_google_maps_key
 ```
 
+## 🌐 Deployment on Render
+
+This project is designed to be deployed on Render using two services:
+
+### 1. Web Service (Node/Express Backend)
+- **Root Directory:** `server`
+- **Build Command:**
+  ```sh
+  cd ../client && npm install && npm run build && cd ../server && npm install
+  ```
+- **Start Command:**
+  ```sh
+  node server.js
+  ```
+- This ensures the React app is built before the server starts, and the server can serve static files from `client/build`.
+
+### 2. Static Site (React Frontend)
+- **Root Directory:** `client`
+- **Build Command:**
+  ```sh
+  npm install && npm run build
+  ```
+- **Publish Directory:**
+  ```
+  build
+  ```
+- This will serve your React app as a static site directly from the `client/build` folder.
+
+### Important Notes
+- The backend serves API requests and can also serve the React build for SSR or fallback.
+- The static site serves the React frontend directly for best performance.
+- In your React app, set API URLs to the backend service URL (not relative `/api`).
+- Make sure both services are deployed and running on Render for full functionality.
+
 ## 🤝 Contributing
 
 1. Fork the repository

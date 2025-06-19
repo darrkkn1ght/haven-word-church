@@ -9,28 +9,6 @@ const api = axios.create({
   },
 });
 
-// Request interceptor - Attach auth token if present
-api.interceptors.request.use(
-  (config) => {
-    // Get the token object from localStorage
-    const tokenObj = localStorage.getItem('hwc_auth_token');
-    let token = null;
-    if (tokenObj) {
-      try {
-        // Parse the JSON and extract the value property
-        token = JSON.parse(tokenObj).value;
-      } catch (e) {
-        // If parsing fails, token remains null
-      }
-    }
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
 // Response interceptor - Handle common responses and errors
 api.interceptors.response.use(
   (response) => {
