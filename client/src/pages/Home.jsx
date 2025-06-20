@@ -5,7 +5,6 @@ import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import Calendar from '../components/ui/Calendar';
 import EventCard from '../components/cards/EventCard';
-import SermonCard from '../components/cards/SermonCard';
 import ContactForm from '../components/forms/ContactForm';
 import RSVPForm from '../components/forms/RSVPForm';
 import LoadingSpinner from '../components/common/LoadingSpinner';
@@ -21,77 +20,6 @@ const Home = () => {
 
   // API calls for dynamic content
   const { data: upcomingEvents, loading: eventsLoading } = useApi('/api/events/upcoming?limit=3');
-  const { data: recentSermons, loading: sermonsLoading } = useApi('/api/sermons/recent?limit=3');
-
-  // Mock data for demonstration (remove when API is ready)
-  const mockUpcomingEvents = [
-    {
-      id: 1,
-      title: 'Sunday Morning Service',
-      date: '2024-06-23',
-      time: '10:00 AM',
-      location: '9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State, Nigeria',
-      description: 'Join us for worship, fellowship, and the Word of God.',
-      // image: '/images/sunday-service.jpg',
-      category: 'service'
-    },
-    {
-      id: 2,
-      title: 'Youth Fellowship Night',
-      date: '2024-06-25',
-      time: '6:00 PM',
-      location: '9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State, Nigeria',
-      description: 'An evening of praise, games, and fellowship for young adults.',
-      // image: '/images/youth-fellowship.jpg',
-      category: 'youth'
-    },
-    {
-      id: 3,
-      title: 'Community Outreach',
-      date: '2024-06-29',
-      time: '2:00 PM',
-      location: '9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State, Nigeria',
-      description: 'Reaching out to our community with love and support.',
-      // image: '/images/outreach.jpg',
-      category: 'outreach'
-    }
-  ];
-
-  const mockRecentSermons = [
-    {
-      id: 1,
-      title: 'Walking in Faith',
-      pastor: 'Pastor Anthonia Amadi',
-      date: '2024-06-16',
-      duration: '45 min',
-      description: 'Understanding what it means to truly walk by faith and not by sight.',
-      audioUrl: '/sermons/walking-in-faith.mp3',
-      // image: '/images/sermon1.jpg',
-      series: 'Faith Series'
-    },
-    {
-      id: 2,
-      title: 'The Power of Prayer',
-      pastor: 'Pastor Anthonia Amadi',
-      date: '2024-06-09',
-      duration: '38 min',
-      description: 'Discovering the transformative power of consistent prayer.',
-      audioUrl: '/sermons/power-of-prayer.mp3',
-      // image: '/images/sermon2.jpg',
-      series: 'Prayer Life'
-    },
-    {
-      id: 3,
-      title: 'Love Your Neighbor',
-      pastor: 'Pastor Anthonia Amadi',
-      date: '2024-06-02',
-      duration: '42 min',
-      description: 'Practical ways to show Christ\'s love to those around us.',
-      audioUrl: '/sermons/love-your-neighbor.mp3',
-      // image: '/images/sermon3.jpg',
-      series: 'Love in Action'
-    }
-  ];
 
   const serviceSchedule = [
     { day: 'Sunday', service: 'First Service', time: '7:30 AM' },
@@ -144,7 +72,7 @@ const Home = () => {
               Your Spiritual Home in the Heart of Ibadan
             </p>
             <p className="text-lg mb-10 max-w-2xl mx-auto font-sans opacity-80">
-              Experience God's love, grow in faith, and connect with a community that cares. Join us as we journey together in worship, fellowship, and service.
+              Experience God&apos;s love, grow in faith, and connect with a community that cares. Join us as we journey together in worship, fellowship, and service.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -223,7 +151,7 @@ const Home = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {[].map((event) => (
+                {(upcomingEvents || []).map((event) => (
                   <EventCard 
                     key={event.id} 
                     event={event}
@@ -314,7 +242,7 @@ const Home = () => {
                   </h2>
                   <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
                     At Haven Word Church, we believe in being the hands and feet of Jesus 
-                    in our local community. Through our various outreach programs, we've 
+                    in our local community. Through our various outreach programs, we&apos;ve
                     been blessed to impact thousands of lives across Ibadan and Oyo State.
                   </p>
                   
@@ -391,7 +319,7 @@ const Home = () => {
               
               {newsletterSubmitted && (
                 <div className="mt-4 p-4 bg-green-600 rounded-lg">
-                  <p className="font-medium">Thank you for subscribing! You'll receive our latest updates soon.</p>
+                  <p className="font-medium">Thank you for subscribing! You&apos;ll receive our latest updates soon.</p>
                 </div>
               )}
             </div>

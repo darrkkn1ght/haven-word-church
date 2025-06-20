@@ -62,8 +62,8 @@ const Modal = ({
 }) => {
   const modalRef = useRef(null);
   const previousFocusRef = useRef(null);
-  const firstFocusableRef = useRef(null);
-  const lastFocusableRef = useRef(null);
+  // const firstFocusableRef = useRef(null);
+  // const lastFocusableRef = useRef(null);
 
   // Size classes
   const sizeClasses = {
@@ -396,7 +396,7 @@ const ModalExamples = () => {
       >
         <div className="space-y-4">
           <p className="text-gray-700">
-            We're delighted to have you join our church family! Haven Word Church 
+            We&apos;re delighted to have you join our church family! Haven Word Church 
             is a community where faith, hope, and love come together.
           </p>
           <p className="text-gray-700">
@@ -472,6 +472,47 @@ const ModalExamples = () => {
       </Modal>
     </div>
   );
+};
+
+import PropTypes from 'prop-types';
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl', 'full']),
+  title: PropTypes.string,
+  children: PropTypes.node,
+  footer: PropTypes.node,
+  showCloseButton: PropTypes.bool,
+  closeOnBackdrop: PropTypes.bool,
+  closeOnEscape: PropTypes.bool,
+  className: PropTypes.string,
+  overlayClassName: PropTypes.string,
+  showFooter: PropTypes.bool,
+  confirmText: PropTypes.string,
+  cancelText: PropTypes.string,
+  onConfirm: PropTypes.func,
+  onCancel: PropTypes.func,
+  confirmVariant: PropTypes.oneOf(['primary', 'secondary', 'danger']),
+  loading: PropTypes.bool,
+  ariaLabel: PropTypes.string,
+  ariaDescribedBy: PropTypes.string
+};
+
+ConfirmationModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onConfirm: PropTypes.func,
+  title: PropTypes.string,
+  message: PropTypes.string
+};
+
+AlertModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  title: PropTypes.string,
+  message: PropTypes.string,
+  type: PropTypes.oneOf(['info', 'success', 'warning', 'error'])
 };
 
 export default Modal;

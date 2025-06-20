@@ -133,7 +133,7 @@ const Login = () => {
   if (showRedirectSpinner) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" text={message || "Redirecting to your dashboard..."} />
+        <LoadingSpinner size="lg" text={message || 'Redirecting to your dashboard...'} />
       </div>
     );
   }
@@ -324,8 +324,8 @@ const Login = () => {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    title={showPassword ? "Hide password" : "Show password"}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    title={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -354,8 +354,8 @@ const Login = () => {
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                      aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
-                      title={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                      aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                      title={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
                     >
                       {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
@@ -394,7 +394,7 @@ const Login = () => {
                 Join Our Church Family
               </h3>
               <p className="text-gray-600 text-sm mb-4">
-                Experience God's love, grow in faith, and connect with a community that cares.
+                Experience God&apos;s love, grow in faith, and connect with a community that cares.
               </p>
               <div className="flex items-center justify-center text-sm text-gray-500">
                 <Users className="w-4 h-4 mr-2" />

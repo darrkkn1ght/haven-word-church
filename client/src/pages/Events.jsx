@@ -23,22 +23,12 @@ const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 6;
 
-  // Event categories for filtering
-  const eventCategories = [
-    { key: 'upcoming', label: 'Upcoming Events', count: 0 },
-    { key: 'worship', label: 'Worship Services', count: 0 },
-    { key: 'fellowship', label: 'Fellowship', count: 0 },
-    { key: 'outreach', label: 'Outreach', count: 0 },
-    { key: 'youth', label: 'Youth Ministry', count: 0 },
-    { key: 'past', label: 'Past Events', count: 0 }
-  ];
-
   // Mock events data (in real app, this would come from API)
   const mockEvents = [
     {
       id: 1,
       title: 'Sunday Worship Service',
-      description: 'Join us for a powerful time of worship, prayer, and the Word. Experience God\'s presence as we gather as one family in Christ.',
+      description: 'Join us for a powerful time of worship, prayer, and the Word. Experience God&apos;s presence as we gather as one family in Christ.',
       category: 'worship',
       date: '2024-12-22',
       time: '9:00 AM',
@@ -74,7 +64,7 @@ const Events = () => {
     {
       id: 3,
       title: 'New Year Prayer & Fasting',
-      description: '21 days of prayer and fasting to begin the new year. Join us as we seek God\'s face for breakthrough and direction.',
+      description: '21 days of prayer and fasting to begin the new year. Join us as we seek God&apos;s face for breakthrough and direction.',
       category: 'fellowship',
       date: '2025-01-01',
       time: '6:00 AM',
@@ -216,7 +206,7 @@ const Events = () => {
   /**
    * Handle successful RSVP submission
    */
-  const handleRSVPSuccess = (rsvpData) => {
+  const handleRSVPSuccess = () => {
     // Update event registration count
     setEvents(prevEvents =>
       prevEvents.map(event =>
@@ -497,7 +487,7 @@ const Events = () => {
             Stay Connected
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Don't miss out on any of our events. Subscribe to our newsletter or follow us on social media for the latest updates.
+            Don&apos;t miss out on any of our events. Subscribe to our newsletter or follow us on social media for the latest updates.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">

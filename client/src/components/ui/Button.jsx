@@ -268,5 +268,23 @@ const ButtonExamples = () => {
   );
 };
 
+import PropTypes from 'prop-types';
+
+Button.propTypes = {
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'ghost', 'danger']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  children: PropTypes.node,
+  leftIcon: PropTypes.node,
+  rightIcon: PropTypes.node,
+  fullWidth: PropTypes.bool,
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  ariaLabel: PropTypes.string,
+  ariaDescribedBy: PropTypes.string
+};
+
 export default Button;
 export { ButtonExamples };

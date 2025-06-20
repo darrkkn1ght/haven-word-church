@@ -87,7 +87,7 @@ const Footer = () => {
               </div>
               
               <p className="text-gray-300 mb-6 leading-relaxed">
-                Haven Word Church is a true haven where God's word is proclaimed, weary souls find rest, and families are built in the love of Christ. Led by Pastor Anthonia Amadi in Ibadan, Oyo State, Nigeria.
+                Haven Word Church is a true haven where God&apos;s word is proclaimed, weary souls find rest, and families are built in the love of Christ. Led by Pastor Anthonia Amadi in Ibadan, Oyo State, Nigeria.
               </p>
 
               {/* Social Media Links */}

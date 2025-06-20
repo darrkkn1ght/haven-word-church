@@ -44,7 +44,7 @@ const ContactForm = ({
 
   // Form validation state
   const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+  const [, setTouched] = useState({});
 
   // Form submission state
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -305,7 +305,7 @@ const ContactForm = ({
             Message Sent Successfully!
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            Thank you for contacting Haven Word Church. We'll get back to you within 24 hours.
+            Thank you for contacting Haven Word Church. We&apos;ll get back to you within 24 hours.
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             For urgent matters, please call us at <a href="tel:+2348031234567" className="text-blue-600 hover:underline">+234-803-123-4567</a>
@@ -323,7 +323,7 @@ const ContactForm = ({
             Get in Touch
           </h2>
           <p className="text-gray-600 dark:text-gray-300">
-            We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
           </p>
         </div>
       )}
@@ -451,7 +451,7 @@ const ContactForm = ({
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
                 errors.subject ? 'border-red-500' : 'border-gray-300'
               }`}
-              placeholder="What's this about?"
+              placeholder="What&apos;s this about?"
               disabled={isSubmitting}
               aria-describedby={errors.subject ? 'subject-error' : undefined}
             />
@@ -676,6 +676,16 @@ const ContactForm = ({
       </form>
     </div>
   );
+};
+
+import PropTypes from 'prop-types';
+
+ContactForm.propTypes = {
+  onSuccess: PropTypes.func,
+  onError: PropTypes.func,
+  className: PropTypes.string,
+  showTitle: PropTypes.bool,
+  defaultValues: PropTypes.object
 };
 
 export default ContactForm;

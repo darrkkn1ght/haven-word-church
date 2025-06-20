@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { formatDate, formatDuration, truncateText } from '../../utils/helpers';
-import { CHURCH_CONFIG } from '../../utils/constants';
+// import { CHURCH_CONFIG } from '../../utils/constants';
 
 /**
  * SermonCard Component
@@ -443,6 +443,40 @@ const SermonCard = ({
       </div>
     </article>
   );
+};
+
+import PropTypes from 'prop-types';
+
+SermonCard.propTypes = {
+  sermon: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    speaker: PropTypes.string,
+    series: PropTypes.string,
+    scripture: PropTypes.string,
+    thumbnail: PropTypes.string,
+    media: PropTypes.shape({
+      audio: PropTypes.string,
+      video: PropTypes.string,
+      notes: PropTypes.string
+    }),
+    duration: PropTypes.number,
+    category: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    views: PropTypes.number,
+    downloads: PropTypes.number,
+    featured: PropTypes.bool
+  }),
+  onPlay: PropTypes.func,
+  onDownload: PropTypes.func,
+  onShare: PropTypes.func,
+  onViewDetails: PropTypes.func,
+  className: PropTypes.string,
+  showActions: PropTypes.bool,
+  compact: PropTypes.bool,
+  isPlaying: PropTypes.bool
 };
 
 export default SermonCard;

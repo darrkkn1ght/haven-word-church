@@ -24,7 +24,6 @@ import Button from '../ui/Button';
  * @param {Object[]} props.events - Array of event objects with date and details
  * @param {boolean} props.multiSelect - Allow multiple date selection
  * @param {boolean} props.showEvents - Show event indicators
- * @param {boolean} props.showWeekNumbers - Show week numbers
  * @param {'en'|'ig'|'yo'|'ha'} props.locale - Language locale
  * @param {string} props.className - Additional CSS classes
  * @param {Function} props.onMonthChange - Month change handler
@@ -42,7 +41,6 @@ const Calendar = ({
   events = [],
   multiSelect = false,
   showEvents = true,
-  showWeekNumbers = false,
   locale = 'en',
   className = '',
   onMonthChange,
@@ -442,6 +440,26 @@ const CalendarExamples = () => {
       </div>
     </div>
   );
+};
+
+import PropTypes from 'prop-types';
+
+Calendar.propTypes = {
+  selectedDate: PropTypes.instanceOf(Date),
+  selectedDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  onDateSelect: PropTypes.func,
+  minDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.instanceOf(Date),
+  disabledDates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  events: PropTypes.arrayOf(PropTypes.object),
+  multiSelect: PropTypes.bool,
+  showEvents: PropTypes.bool,
+  locale: PropTypes.oneOf(['en', 'ig', 'yo', 'ha']),
+  className: PropTypes.string,
+  onMonthChange: PropTypes.func,
+  onYearChange: PropTypes.func,
+  highlightToday: PropTypes.bool,
+  customDayRenderer: PropTypes.func
 };
 
 export default Calendar;

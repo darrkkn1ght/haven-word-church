@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatDate, formatTime, truncateText } from '../../utils/helpers';
-import { CHURCH_CONFIG } from '../../utils/constants';
+// import { CHURCH_CONFIG } from '../../utils/constants';
 
 /**
  * EventCard Component
@@ -299,6 +299,32 @@ const EventCard = ({
       </div>
     </article>
   );
+};
+
+import PropTypes from 'prop-types';
+
+EventCard.propTypes = {
+  event: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    time: PropTypes.string,
+    location: PropTypes.string,
+    type: PropTypes.string,
+    image: PropTypes.string,
+    status: PropTypes.string,
+    requiresRSVP: PropTypes.bool,
+    attendeeCount: PropTypes.number,
+    maxAttendees: PropTypes.number,
+    speaker: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string)
+  }),
+  onRSVP: PropTypes.func,
+  onViewDetails: PropTypes.func,
+  className: PropTypes.string,
+  showActions: PropTypes.bool,
+  compact: PropTypes.bool
 };
 
 export default EventCard;

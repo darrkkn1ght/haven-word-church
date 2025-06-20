@@ -6,6 +6,8 @@ export function useNotification() {
   return useContext(NotificationContext);
 }
 
+import PropTypes from 'prop-types';
+
 export const NotificationProvider = ({ children }) => {
   const [notification, setNotification] = useState(null);
 
@@ -47,6 +49,10 @@ export const NotificationProvider = ({ children }) => {
       )}
     </NotificationContext.Provider>
   );
+};
+
+NotificationProvider.propTypes = {
+  children: PropTypes.node
 };
 
 export default NotificationContext;

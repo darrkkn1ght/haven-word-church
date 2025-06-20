@@ -57,7 +57,7 @@ const RSVPForm = ({
   // Event and form state
   const [event, setEvent] = useState(eventData);
   const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+  const [, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(!eventData && !!eventId);
@@ -418,7 +418,7 @@ const RSVPForm = ({
             RSVP Confirmed!
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            Thank you for registering for {event?.title}. We're excited to see you there!
+            Thank you for registering for {event?.title}. We&apos;re excited to see you there!
           </p>
           {formData.attendance === 'yes' && (
             <div className="bg-blue-50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
@@ -504,7 +504,7 @@ const RSVPForm = ({
                 disabled={isSubmitting}
               />
               <span className="text-sm text-gray-700 dark:text-gray-300">
-                Yes, I'll be there! 🎉
+                Yes, I&apos;ll be there! 🎉
               </span>
             </label>
             <label className="flex items-center">
@@ -518,7 +518,7 @@ const RSVPForm = ({
                 disabled={isSubmitting}
               />
               <span className="text-sm text-gray-700 dark:text-gray-300">
-                No, I can't make it 😔
+                No, I can&apos;t make it 😔
               </span>
             </label>
             <label className="flex items-center">
@@ -532,7 +532,7 @@ const RSVPForm = ({
                 disabled={isSubmitting}
               />
               <span className="text-sm text-gray-700 dark:text-gray-300">
-                Maybe, I'm not sure yet 🤔
+                Maybe, I&apos;m not sure yet 🤔
               </span>
             </label>
           </div>
@@ -902,7 +902,7 @@ const RSVPForm = ({
                   disabled={isSubmitting}
                 />
                 <label htmlFor="volunteer" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  I'd like to volunteer to help with this event 🙋‍♀️
+                  I&apos;d like to volunteer to help with this event 🙋‍♀️
                 </label>
               </div>
 
@@ -945,7 +945,7 @@ const RSVPForm = ({
                 value={formData.comments}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                placeholder="Anything else you'd like us to know? Questions about the event? Special requests?"
+                placeholder="Anything else you&apos;d like us to know? Questions about the event? Special requests?"
                 disabled={isSubmitting}
               />
             </div>
@@ -969,7 +969,7 @@ const RSVPForm = ({
                 Keep me updated about church events and news
               </label>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                We'll send you occasional updates about upcoming events, ministry opportunities, and church news. 
+                We&apos;ll send you occasional updates about upcoming events, ministry opportunities, and church news. 
                 You can unsubscribe anytime.
               </p>
             </div>
@@ -1032,7 +1032,7 @@ const RSVPForm = ({
               });
               setErrors({});
               setTouched({});
-              setSubmitError('');
+              // setTouched({}); // removed unused touched state
             }}
             disabled={isSubmitting}
             className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 disabled:opacity-50"
@@ -1058,6 +1058,18 @@ const RSVPForm = ({
       </form>
     </div>
   );
+};
+
+import PropTypes from 'prop-types';
+
+RSVPForm.propTypes = {
+  eventId: PropTypes.string,
+  eventData: PropTypes.object,
+  onSuccess: PropTypes.func,
+  onError: PropTypes.func,
+  className: PropTypes.string,
+  allowGuests: PropTypes.bool,
+  maxGuests: PropTypes.number
 };
 
 export default RSVPForm;

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Search, Calendar, User, Clock, Tag, ChevronRight, Filter } from 'lucide-react';
+import { Search, Filter, Tag } from 'lucide-react';
 import BlogCard from '../components/cards/BlogCard';
 import LoadingSpinner from '../components/common/LoadingSpinner';
-import { blogService } from '../services/api';
-import { formatDate } from '../utils/helpers';
 
 /**
  * Blog Page Component
@@ -334,7 +332,7 @@ const Blog = () => {
                   <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-6">
-                    Try adjusting your search terms or filters to find what you're looking for.
+                    Try adjusting your search terms or filters to find what you&apos;re looking for.
                   </p>
                   <button
                     onClick={clearFilters}

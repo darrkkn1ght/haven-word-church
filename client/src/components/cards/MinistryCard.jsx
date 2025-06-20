@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate, formatTime } from '../../utils/helpers';
+import { formatDate } from '../../utils/helpers';
 
 /**
  * MinistryCard Component
@@ -83,7 +83,6 @@ const MinistryCard = ({
 }) => {
   // Destructure ministry properties with defaults
   const {
-    id,
     title,
     name,
     description = '',
@@ -413,6 +412,47 @@ const MinistryCard = ({
       </div>
     </div>
   );
+};
+
+import PropTypes from 'prop-types';
+
+MinistryCard.propTypes = {
+  ministry: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    image: PropTypes.string,
+    leader: PropTypes.shape({
+      name: PropTypes.string,
+      title: PropTypes.string,
+      image: PropTypes.string,
+      phone: PropTypes.string,
+      email: PropTypes.string
+    }),
+    schedule: PropTypes.shape({
+      day: PropTypes.string,
+      time: PropTypes.string,
+      location: PropTypes.string,
+      frequency: PropTypes.string
+    }),
+    category: PropTypes.string,
+    memberCount: PropTypes.number,
+    activities: PropTypes.arrayOf(PropTypes.string),
+    ageGroup: PropTypes.string,
+    isActive: PropTypes.bool,
+    established: PropTypes.string
+  }),
+  variant: PropTypes.string,
+  className: PropTypes.string,
+  onJoin: PropTypes.func,
+  onContact: PropTypes.func,
+  onClick: PropTypes.func,
+  showSchedule: PropTypes.bool,
+  showLeader: PropTypes.bool,
+  showMemberCount: PropTypes.bool,
+  showActivities: PropTypes.bool,
+  showJoinButton: PropTypes.bool
 };
 
 export default MinistryCard;

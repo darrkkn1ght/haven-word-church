@@ -1,8 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getToken, setToken, removeToken, getUserFromToken } from '../services/storageService';
+import { setToken, removeToken, getUserFromToken } from '../services/storageService';
 import { login as loginService } from '../services/authService';
 
 export const AuthContext = createContext();
+
+import PropTypes from 'prop-types';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getUserFromToken());
@@ -28,4 +30,8 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node
 };

@@ -12,7 +12,6 @@ import {
   Clock,
   Phone,
   Mail,
-  ArrowRight,
   Filter,
   Search,
   Star,
@@ -21,6 +20,7 @@ import {
 } from 'lucide-react';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import MinistryCard from '../components/cards/MinistryCard';
+import PropTypes from 'prop-types';
 
 /**
  * Ministries Page Component
@@ -499,6 +499,38 @@ const Ministries = () => {
       )}
     </div>
   );
+};
+
+// PropTypes validation
+Ministries.propTypes = {
+  ministry: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
+    fullDescription: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    leader: PropTypes.string,
+    contact: PropTypes.shape({
+      phone: PropTypes.string,
+      email: PropTypes.string
+    }),
+    meetingTime: PropTypes.string,
+    location: PropTypes.string,
+    ageGroup: PropTypes.string,
+    members: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    activities: PropTypes.arrayOf(PropTypes.string).isRequired,
+    upcomingEvents: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      date: PropTypes.string.isRequired
+    })).isRequired
+  }).isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default Ministries;

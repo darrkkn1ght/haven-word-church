@@ -9,4 +9,11 @@ const ProtectedRoute = ({ children, roles }) => {
   return children;
 };
 
+import PropTypes from 'prop-types';
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node,
+  roles: PropTypes.arrayOf(PropTypes.string)
+};
+
 export default ProtectedRoute;

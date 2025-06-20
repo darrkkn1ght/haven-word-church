@@ -17,7 +17,6 @@ import {
   AlertCircle
 } from 'lucide-react';
 import ContactForm from '../components/forms/ContactForm';
-import LoadingSpinner from '../components/common/LoadingSpinner';
 
 /**
  * Contact Page Component
@@ -157,11 +156,11 @@ const Contact = () => {
     },
     {
       question: 'Do you have programs for children?',
-      answer: 'Yes! We have Sunday School for all ages, children\'s church during main service, and various youth programs throughout the week. Our children\'s ministry is safe, fun, and Bible-centered.'
+      answer: 'Yes! We have Sunday School for all ages, children&apos;s church during main service, and various youth programs throughout the week. Our children&apos;s ministry is safe, fun, and Bible-centered.'
     },
     {
       question: 'How can I get involved in ministry?',
-      answer: 'There are many ways to serve! Contact our church office or speak with Pastor Anthonia Amadi about opportunities in worship, children\'s ministry, community outreach, and more. We\'ll help you find where your gifts can best serve God\'s kingdom.'
+      answer: 'There are many ways to serve! Contact our church office or speak with Pastor Anthonia Amadi about opportunities in worship, children&apos;s ministry, community outreach, and more. We&apos;ll help you find where your gifts can best serve God&apos;s kingdom.'
     },
     {
       question: 'Do you offer counseling services?',
@@ -189,7 +188,7 @@ const Contact = () => {
                 Contact Us
               </h1>
               <p className="text-xl md:text-2xl mb-8 opacity-90">
-                We'd love to hear from you and welcome you into our church family
+                We&apos;d love to hear from you and welcome you into our church family
               </p>
               
               {/* Quick Contact Cards */}
@@ -207,7 +206,7 @@ const Contact = () => {
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
                   <Heart className="w-8 h-8 mx-auto mb-3" />
                   <h3 className="font-semibold mb-2">Prayer Request</h3>
-                  <p className="text-sm opacity-90">We're here to pray with you</p>
+                  <p className="text-sm opacity-90">We&apos;re here to pray with you</p>
                 </div>
               </div>
             </div>
@@ -220,7 +219,7 @@ const Contact = () => {
             <div className="flex items-center">
               <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
               <p className="text-green-700 font-medium">
-                Thank you for your message! We'll get back to you soon.
+                Thank you for your message! We&apos;ll get back to you soon.
               </p>
             </div>
           </div>
@@ -241,7 +240,7 @@ const Contact = () => {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Get In Touch</h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Whether you're new to faith or looking for a church home, we're here to help
+                Whether you&apos;re new to faith or looking for a church home, we&apos;re here to help
               </p>
             </div>
 
@@ -281,7 +280,7 @@ const Contact = () => {
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Send Us a Message</h2>
                 <p className="text-xl text-gray-600">
-                  Have questions or need prayer? We'd love to hear from you
+                  Have questions or need prayer? We&apos;d love to hear from you
                 </p>
               </div>
 
@@ -475,7 +474,7 @@ const Contact = () => {
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-2xl font-bold text-red-800 mb-4">Need Immediate Prayer or Help?</h2>
               <p className="text-red-700 mb-6">
-                If you're facing a crisis or need urgent prayer, please don't hesitate to reach out
+                If you&apos;re facing a crisis or need urgent prayer, please don&apos;t hesitate to reach out
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a

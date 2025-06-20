@@ -74,4 +74,11 @@ const RegisterForm = ({ onRegister, loading }) => {
   );
 };
 
+import PropTypes from 'prop-types';
+
+RegisterForm.propTypes = {
+  onRegister: PropTypes.func,
+  loading: PropTypes.bool
+};
+
 export default RegisterForm;

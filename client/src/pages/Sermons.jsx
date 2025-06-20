@@ -256,7 +256,7 @@ const Sermons = () => {
               Sermon Library
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-purple-100">
-              Be encouraged and equipped through God's Word with messages that inspire, challenge, and transform
+              Be encouraged and equipped through God&apos;s Word with messages that inspire, challenge, and transform
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-purple-100">
               <div className="flex items-center gap-2">

@@ -105,7 +105,7 @@ const SEOHead = ({
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Church Services',
-      itemListElement: orgData.serviceTime.map((time, index) => ({
+      itemListElement: orgData.serviceTime.map((time) => ({
         '@type': 'Offer',
         name: `Worship Service - ${time}`,
         category: 'Religious Service'
@@ -278,6 +278,25 @@ const SEOHead = ({
       <link rel="dns-prefetch" href="//twitter.com" />
     </Helmet>
   );
+};
+
+import PropTypes from 'prop-types';
+
+SEOHead.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  keywords: PropTypes.string,
+  image: PropTypes.string,
+  url: PropTypes.string,
+  type: PropTypes.string,
+  article: PropTypes.object,
+  event: PropTypes.object,
+  noIndex: PropTypes.bool,
+  breadcrumbs: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    url: PropTypes.string
+  })),
+  organization: PropTypes.object
 };
 
 export default SEOHead;

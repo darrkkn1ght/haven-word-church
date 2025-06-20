@@ -136,8 +136,8 @@ const About = () => {
   return (
     <>
       <SEOHead 
-        title="About Haven Word Church - Our Story, Leadership & Mission in Ibadan"
-        description="Learn about Haven Word Church's history, mission, and leadership team. Discover our commitment to serving the Ibadan community through faith, love, and service."
+        title="About Haven Word Church - Our Story, Leadership &amp; Mission in Ibadan"
+        description="Learn about Haven Word Church&apos;s history, mission, and leadership team. Discover our commitment to serving the Ibadan community through faith, love, and service."
         keywords="Haven Word Church, about us, church history, leadership, mission, vision, Ibadan church, Nigeria"
       />
       
@@ -172,22 +172,22 @@ const About = () => {
                   <div className="prose prose-lg text-gray-600 dark:text-gray-300">
                     <p className="mb-6 font-bold text-2xl">Our Story</p>
                     <p className="mb-6">
-                      Haven Word Church was birthed from a divine vision entrusted to Pastor Anthonia Amadi, who answered God's call to establish a spiritual haven for souls seeking His word and love.
+                      Haven Word Church was birthed from a divine vision entrusted to Pastor Anthonia Amadi, who answered God&apos;s call to establish a spiritual haven for souls seeking His word and love.
                     </p>
                     <p className="mb-6">
-                      Our journey began humbly in 2021 as "The Father's Family" at the Alumni Building of the University of Ibadan. As God's hand moved upon our growing congregation, we transitioned to "The Father's Tribe" while remaining in the same Alumni Building during the 2021/2022 season. The Lord continued to expand our borders, and we relocated to Abadina Classroom within the university grounds, carrying the name "The Father's Tribe" as we ministered to students and the broader community.
+                      Our journey began humbly in 2021 as &quot;The Father&apos;s Family&quot; at the Alumni Building of the University of Ibadan. As God&apos;s hand moved upon our growing congregation, we transitioned to &quot;The Father&apos;s Tribe&quot; while remaining in the same Alumni Building during the 2021/2022 season. The Lord continued to expand our borders, and we relocated to Abadina Classroom within the university grounds, carrying the name &quot;The Father&apos;s Tribe&quot; as we ministered to students and the broader community.
                     </p>
                     <p className="mb-6">
-                      Trusting in God's provision and timing, we made another significant move to a new facility at Richbam Place in Mokola, Ibadan. From there, our faith journey led us to worship under a tent at Bethel, where we experienced the beauty of praising God under the open sky. On May 5th, a date that will forever be etched in our hearts, we established our current home at 9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State.
+                      Trusting in God&apos;s provision and timing, we made another significant move to a new facility at Richbam Place in Mokola, Ibadan. From there, our faith journey led us to worship under a tent at Bethel, where we experienced the beauty of praising God under the open sky. On May 5th, a date that will forever be etched in our hearts, we established our current home at 9VXM+797, 107D Akintola Road, Ibadan 200284, Oyo State.
                     </p>
                     <p className="mb-6">
-                      It was during this transformative period that God revealed our new identity - Haven Word Church. This name perfectly captures our mission: to be a true haven where God's word is proclaimed with power, where weary souls find rest, and where families are built in the love of Christ.
+                      It was during this transformative period that God revealed our new identity - Haven Word Church. This name perfectly captures our mission: to be a true haven where God&apos;s word is proclaimed with power, where weary souls find rest, and where families are built in the love of Christ.
                     </p>
                     <p className="mb-6">
-                      Today, by God's amazing grace, our church family has grown to over 100 members and continues to expand. From a small gathering to a thriving community, we remain committed to our founding vision of being a sanctuary where every person can encounter God's transforming word and experience His unconditional love.
+                      Today, by God&apos;s amazing grace, our church family has grown to over 100 members and continues to expand. From a small gathering to a thriving community, we remain committed to our founding vision of being a sanctuary where every person can encounter God&apos;s transforming word and experience His unconditional love.
                     </p>
                     <p className="mb-6">
-                      Haven Word Church stands as a testament to God's faithfulness, growing not just in numbers but in spiritual maturity, community impact, and kingdom influence throughout Ibadan and beyond.
+                      Haven Word Church stands as a testament to God&apos;s faithfulness, growing not just in numbers but in spiritual maturity, community impact, and kingdom influence throughout Ibadan and beyond.
                     </p>
                   </div>
                 </div>
@@ -195,15 +195,15 @@ const About = () => {
                 <div className="space-y-6">
                   <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-lg p-8 text-center">
                     <div className="text-2xl font-bold text-blue-600 mb-2">A Journey of Faith (2021–Present)</div>
-                    <div className="text-gray-700 dark:text-gray-300">From a humble gathering at UI Alumni Building to our vibrant home today, our story is one of faith, obedience, and God’s leading.</div>
+                    <div className="text-gray-700 dark:text-gray-300">From a humble gathering at UI Alumni Building to our vibrant home today, our story is one of faith, obedience, and God&apos;s leading.</div>
                   </div>
                   <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 rounded-lg p-8 text-center">
                     <div className="text-2xl font-bold text-purple-600 mb-2">Transformed Lives</div>
-                    <div className="text-gray-700 dark:text-gray-300">Over 100 members and counting—each life a testimony to God’s power, love, and the impact of a true spiritual family.</div>
+                    <div className="text-gray-700 dark:text-gray-300">Over 100 members and counting—each life a testimony to God&apos;s power, love, and the impact of a true spiritual family.</div>
                   </div>
                   <div className="bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-lg p-8 text-center">
                     <div className="text-2xl font-bold text-green-600 mb-2">A True Haven</div>
-                    <div className="text-gray-700 dark:text-gray-300">More than a name—Haven Word Church is a sanctuary where God’s word is proclaimed, weary souls find rest, and families are built in Christ’s love.</div>
+                    <div className="text-gray-700 dark:text-gray-300">More than a name—Haven Word Church is a sanctuary where God&apos;s word is proclaimed, weary souls find rest, and families are built in Christ&apos;s love.</div>
                   </div>
                 </div>
               </div>
@@ -223,12 +223,12 @@ const About = () => {
                       <span className="text-4xl">🌟</span>
                     </div>
                     <h3 className="text-3xl font-extrabold text-blue-900 dark:text-white tracking-tight mb-2">Our Mission</h3>
-                    <p className="text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto">We exist to fulfill God’s call and raise supernatural believers, empowered by the Holy Spirit and rooted in Christ’s gospel.</p>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto">We exist to fulfill God&apos;s call and raise supernatural believers, empowered by the Holy Spirit and rooted in Christ&apos;s gospel.</p>
                   </div>
                   <ul className="space-y-6 max-w-2xl mx-auto">
                     <li className="flex items-start bg-white dark:bg-gray-800 rounded-lg shadow p-5 border-l-4 border-blue-500 dark:border-blue-400">
                       <span className="text-2xl mr-4">📣</span>
-                      <span className="font-semibold text-gray-800 dark:text-gray-100">WE ARE CALLED OF GOD TO PREACH CHRIST'S GOSPEL TO EVERY MAN</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">WE ARE CALLED OF GOD TO PREACH CHRIST&apos;S GOSPEL TO EVERY MAN</span>
                     </li>
                     <li className="flex items-start bg-white dark:bg-gray-800 rounded-lg shadow p-5 border-l-4 border-purple-500 dark:border-purple-400">
                       <span className="text-2xl mr-4">🔥</span>
@@ -236,7 +236,7 @@ const About = () => {
                     </li>
                     <li className="flex items-start bg-white dark:bg-gray-800 rounded-lg shadow p-5 border-l-4 border-green-500 dark:border-green-400">
                       <span className="text-2xl mr-4">🕊️</span>
-                      <span className="font-semibold text-gray-800 dark:text-gray-100">TILL EVERYMAN IS MADE GOD'S MAN! FULL OF FAITH AND OF THE HOLY GHOST.</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">TILL EVERYMAN IS MADE GOD&apos;S MAN! FULL OF FAITH AND OF THE HOLY GHOST.</span>
                     </li>
                   </ul>
                 </div>
@@ -419,7 +419,7 @@ const About = () => {
                     </li>
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                      Children's Church Halls
+                      Children&apos;s Church Halls
                     </li>
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
@@ -464,7 +464,7 @@ const About = () => {
                 Join Our Church Family
               </h2>
               <p className="text-lg mb-8 opacity-90">
-                We'd love to welcome you to Haven Word Church. Come as you are 
+                We&apos;d love to welcome you to Haven Word Church. Come as you are 
                 and discover the love, community, and purpose God has for you.
               </p>
               

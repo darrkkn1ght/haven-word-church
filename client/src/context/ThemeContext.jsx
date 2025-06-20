@@ -59,16 +59,19 @@ function themeReducer(state, action) {
         systemPreference: false
       };
 
-    case THEME_ACTIONS.SET_SYSTEM_PREFERENCE:
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches 
-        ? THEMES.DARK 
-        : THEMES.LIGHT;
-      
-      return {
-        ...state,
-        theme: action.payload ? systemTheme : state.theme,
-        systemPreference: action.payload
-      };
+    case THEME_ACTIONS.SET_SYSTEM_PREFERENCE: {
+      // Fix: wrap lexical declaration in a block
+      {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches 
+          ? THEMES.DARK 
+          : THEMES.LIGHT;
+        return {
+          ...state,
+          theme: action.payload ? systemTheme : state.theme,
+          systemPreference: action.payload
+        };
+      }
+    }
 
     case THEME_ACTIONS.SET_FONT_SIZE:
       return {
@@ -134,6 +137,8 @@ export function useTheme() {
  * @param {React.ReactNode} props.children - Child components
  * @returns {JSX.Element} Theme provider wrapper
  */
+import PropTypes from 'prop-types';
+
 export function ThemeProvider({ children }) {
   const [state, dispatch] = useReducer(themeReducer, initialState);
 
@@ -343,5 +348,9 @@ export function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
+
+ThemeProvider.propTypes = {
+  children: PropTypes.node
+};
 
 export default ThemeContext;

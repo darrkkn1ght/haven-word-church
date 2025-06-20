@@ -10,7 +10,7 @@ import { formatDate, formatCurrency } from '../../utils/helpers';
 import { getDashboard } from '../../services/memberService';
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  useAuth();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

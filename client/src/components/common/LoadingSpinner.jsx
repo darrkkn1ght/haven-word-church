@@ -98,6 +98,34 @@ const LoadingSpinner = ({
  * 
  * Full-page loading component for page transitions
  */
+
+/**
+ * LoadingButton Component
+ * 
+ * Button with integrated loading state
+ */
+
+/**
+ * LoadingCard Component
+ * 
+ * Card skeleton for loading states
+ */
+/**
+ * LoadingTable Component
+ * 
+ * Table skeleton for loading states
+ */
+
+import PropTypes from 'prop-types';
+
+LoadingSpinner.propTypes = {
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  text: PropTypes.string,
+  overlay: PropTypes.bool,
+  className: PropTypes.string,
+  color: PropTypes.oneOf(['primary', 'secondary', 'white'])
+};
+
 export const LoadingPage = ({ message = 'Loading page...' }) => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
     <div className="text-center">
@@ -106,11 +134,10 @@ export const LoadingPage = ({ message = 'Loading page...' }) => (
   </div>
 );
 
-/**
- * LoadingButton Component
- * 
- * Button with integrated loading state
- */
+LoadingPage.propTypes = {
+  message: PropTypes.string
+};
+
 export const LoadingButton = ({ 
   children, 
   loading = false, 
@@ -149,11 +176,15 @@ export const LoadingButton = ({
   );
 };
 
-/**
- * LoadingCard Component
- * 
- * Card skeleton for loading states
- */
+LoadingButton.propTypes = {
+  children: PropTypes.node,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  variant: PropTypes.string
+};
+
 export const LoadingCard = ({ className = '' }) => (
   <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 ${className}`}>
     <div className="animate-pulse">
@@ -176,11 +207,10 @@ export const LoadingCard = ({ className = '' }) => (
   </div>
 );
 
-/**
- * LoadingTable Component
- * 
- * Table skeleton for loading states
- */
+LoadingCard.propTypes = {
+  className: PropTypes.string
+};
+
 export const LoadingTable = ({ rows = 5, cols = 4, className = '' }) => (
   <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden ${className}`}>
     <div className="animate-pulse">
@@ -206,6 +236,12 @@ export const LoadingTable = ({ rows = 5, cols = 4, className = '' }) => (
     </div>
   </div>
 );
+
+LoadingTable.propTypes = {
+  rows: PropTypes.number,
+  cols: PropTypes.number,
+  className: PropTypes.string
+};
 
 export { LoadingSpinner };
 export default LoadingSpinner;
