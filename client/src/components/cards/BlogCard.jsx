@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { formatDate, truncateText } from '../../utils/helpers';
 
 /**
@@ -62,7 +63,6 @@ const BlogCard = ({
 }) => {
   // Destructure post properties with defaults
   const {
-    id,
     title = 'Untitled Post',
     excerpt = '',
     content = '',
@@ -285,6 +285,37 @@ const BlogCard = ({
       <div className="absolute inset-0 bg-primary-50 opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none" />
     </article>
   );
+};
+
+BlogCard.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    excerpt: PropTypes.string,
+    content: PropTypes.string,
+    author: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        name: PropTypes.string,
+        image: PropTypes.string,
+      })
+    ]),
+    authorImage: PropTypes.string,
+    category: PropTypes.string,
+    featuredImage: PropTypes.string,
+    publishedAt: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    readTime: PropTypes.number,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    featured: PropTypes.bool,
+  }).isRequired,
+  variant: PropTypes.string,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+  showAuthor: PropTypes.bool,
+  showCategory: PropTypes.bool,
+  showReadTime: PropTypes.bool,
+  showTags: PropTypes.bool,
+  excerptLength: PropTypes.number,
 };
 
 export default BlogCard;

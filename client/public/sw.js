@@ -21,16 +21,7 @@ const STATIC_ASSETS = [
 ];
 
 // Routes to cache dynamically
-const CACHEABLE_ROUTES = [
-  '/',
-  '/about',
-  '/events',
-  '/sermons',
-  '/ministries',
-  '/blog',
-  '/contact',
-  '/member/login'
-];
+// (Removed unused CACHEABLE_ROUTES)
 
 // API endpoints to cache
 const CACHEABLE_API_ROUTES = [
@@ -154,7 +145,11 @@ async function handleStaticAsset(request) {
   } catch (error) {
     console.error('[SW] Static asset fetch failed:', error);
     // Return offline fallback if available
-    return caches.match('/offline.html') || new Response('Offline');
+    const offlineResponse = await caches.match('/offline.html');
+    if (offlineResponse) {
+      return offlineResponse;
+    }
+    return new Response('Offline', { status: 503 });
   }
 }
 
@@ -198,32 +193,31 @@ async function handleNavigationRequest(request) {
   try {
     // Try network first
     const networkResponse = await fetch(request);
-    
     if (networkResponse.ok) {
       // Cache successful page responses
       const cache = await caches.open(DYNAMIC_CACHE_NAME);
       cache.put(request, networkResponse.clone());
       return networkResponse;
     }
-    
     throw new Error('Network response not ok');
   } catch (error) {
     console.log('[SW] Navigation network failed, trying cache');
-    
     // Try to get from cache
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
       return cachedResponse;
     }
-    
     // Try to get homepage from cache as fallback
     const homepageResponse = await caches.match('/');
     if (homepageResponse) {
       return homepageResponse;
     }
-    
     // Return offline page
-    return caches.match('/offline.html') || new Response(`
+    const offlineResponse = await caches.match('/offline.html');
+    if (offlineResponse) {
+      return offlineResponse;
+    }
+    return new Response(`
       <!DOCTYPE html>
       <html>
       <head>
@@ -272,7 +266,8 @@ async function handleNavigationRequest(request) {
       </body>
       </html>
     `, {
-      headers: { 'Content-Type': 'text/html' }
+      headers: { 'Content-Type': 'text/html' },
+      status: 503
     });
   }
 }
@@ -283,16 +278,17 @@ async function handleNavigationRequest(request) {
 async function handleOtherRequest(request) {
   try {
     const networkResponse = await fetch(request);
-    
     if (networkResponse.ok) {
       const cache = await caches.open(DYNAMIC_CACHE_NAME);
       cache.put(request, networkResponse.clone());
     }
-    
     return networkResponse;
   } catch (error) {
     const cachedResponse = await caches.match(request);
-    return cachedResponse || new Response('Offline', { status: 503 });
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    return new Response('Offline', { status: 503 });
   }
 }
 
@@ -314,7 +310,6 @@ self.addEventListener('sync', (event) => {
  */
 async function syncContactForms() {
   try {
-    // Get offline contact forms from IndexedDB
     const offlineForms = await getOfflineData('contact-forms');
     
     for (const form of offlineForms) {
@@ -325,7 +320,6 @@ async function syncContactForms() {
           body: JSON.stringify(form.data)
         });
         
-        // Remove synced form from offline storage
         await removeOfflineData('contact-forms', form.id);
         console.log('[SW] Contact form synced successfully');
       } catch (error) {
@@ -393,8 +387,9 @@ async function syncRSVPForms() {
  * Get offline data from IndexedDB (placeholder - implement with IndexedDB)
  */
 async function getOfflineData(storeName) {
-  // This would be implemented with IndexedDB
+  // This would be implemented with IndexedDB for store: storeName
   // For now, return empty array
+  console.log(`[SW] Would get offline data from store: ${storeName}`);
   return [];
 }
 
@@ -409,35 +404,22 @@ async function removeOfflineData(storeName, id) {
 // Push notification handling
 self.addEventListener('push', (event) => {
   console.log('[SW] Push notification received');
-  
   const options = {
     body: 'You have a new message from Haven Word Church',
     icon: '/havenword.jpeg',
     badge: '/favicon-32x32.png',
     vibrate: [100, 50, 100],
-    data: {
-      url: '/'
-    },
+    data: { url: '/' },
     actions: [
-      {
-        action: 'open',
-        title: 'Open App',
-        icon: '/icons/open-192.png'
-      },
-      {
-        action: 'close',
-        title: 'Close',
-        icon: '/icons/close-192.png'
-      }
+      { action: 'open', title: 'Open App', icon: '/icons/open-192.png' },
+      { action: 'close', title: 'Close', icon: '/icons/close-192.png' }
     ]
   };
-
   if (event.data) {
     const payload = event.data.json();
     options.body = payload.body || options.body;
     options.data.url = payload.url || options.data.url;
   }
-
   event.waitUntil(
     self.registration.showNotification('Haven Word Church', options)
   );
@@ -446,41 +428,31 @@ self.addEventListener('push', (event) => {
 // Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
   console.log('[SW] Notification clicked');
-  
   event.notification.close();
-
   if (event.action === 'close') {
     return;
   }
-
   const url = event.notification.data?.url || '/';
-  
   event.waitUntil(
-    clients.matchAll({ type: 'window' })
-      .then((clientList) => {
-        // If app is already open, focus it
-        for (const client of clientList) {
-          if (client.url === url && 'focus' in client) {
-            return client.focus();
-          }
+    clients.matchAll({ type: 'window' }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === url && 'focus' in client) {
+          return client.focus();
         }
-        
-        // Otherwise open new window
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
-      })
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    })
   );
 });
 
 // Handle message from main thread
 self.addEventListener('message', (event) => {
   console.log('[SW] Message received:', event.data);
-  
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-  
   if (event.data && event.data.type === 'GET_VERSION') {
     event.ports[0].postMessage({ version: CACHE_NAME });
   }
@@ -489,7 +461,6 @@ self.addEventListener('message', (event) => {
 // Periodic background sync (if supported)
 self.addEventListener('periodicsync', (event) => {
   console.log('[SW] Periodic sync:', event.tag);
-  
   if (event.tag === 'update-content') {
     event.waitUntil(updateCachedContent());
   }
@@ -501,19 +472,17 @@ self.addEventListener('periodicsync', (event) => {
 async function updateCachedContent() {
   try {
     const cache = await caches.open(DYNAMIC_CACHE_NAME);
-    
     // Update frequently changing content
     const urlsToUpdate = [
       '/api/events/upcoming',
       '/api/sermons/latest',
       '/api/blog/recent'
     ];
-    
     for (const url of urlsToUpdate) {
       try {
         const response = await fetch(url);
         if (response.ok) {
-          await cache.put(url, response);
+          await cache.put(url, response.clone());
           console.log('[SW] Updated cached content:', url);
         }
       } catch (error) {

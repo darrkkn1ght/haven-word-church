@@ -26,7 +26,11 @@
   "author": "Haven Word Church",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@babel/eslint-parser": "^7.27.5",
+    "@babel/preset-react": "^7.27.1",
+    "concurrently": "^8.2.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0"
   },
   "engines": {
     "node": ">=18.0.0",

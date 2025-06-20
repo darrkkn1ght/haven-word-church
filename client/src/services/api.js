@@ -3,7 +3,7 @@ import axios from 'axios';
 // Create axios instance with base configuration
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
-  timeout: 10000, // 10 seconds
+  timeout: 20000, // 20 seconds (increased to handle backend cold starts)
   headers: {
     'Content-Type': 'application/json',
   },
@@ -52,7 +52,7 @@ api.interceptors.response.use(
       console.error('Network error:', message);
       return Promise.reject({
         status: 0,
-        message: 'Network error. Please check your connection.',
+        message: 'Network error or server is waking up. Please wait a few seconds and try again.',
         errors: null,
         data: null
       });
@@ -188,7 +188,7 @@ export const apiUtils = {
   },
 };
 
-export function sendContactMessage(data) {
+export function sendContactMessage() {
   // TODO: Implement real API call
   return Promise.resolve({ success: true });
 }
@@ -198,7 +198,7 @@ export function getEventDetails(id) {
   return Promise.resolve({ id });
 }
 
-export function submitRSVP(data) {
+export function submitRSVP() {
   // TODO: Implement real API call
   return Promise.resolve({ success: true });
 }

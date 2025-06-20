@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -9,7 +9,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { NotificationProvider } from './context/NotificationContext';
 
 // Hooks
-import { useAuth } from './hooks/useAuth';
+// import { useAuth } from './hooks/useAuth';
 
 // Layout Components
 import Header from './components/common/Header';
@@ -80,6 +80,8 @@ const queryClient = new QueryClient({
  * App Layout Component
  * Provides consistent layout structure for all pages
  */
+import PropTypes from 'prop-types';
+
 const AppLayout = ({ children, showHeader = true, showFooter = true }) => {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
@@ -90,6 +92,12 @@ const AppLayout = ({ children, showHeader = true, showFooter = true }) => {
       {showFooter && <Footer />}
     </div>
   );
+};
+
+AppLayout.propTypes = {
+  children: PropTypes.node,
+  showHeader: PropTypes.bool,
+  showFooter: PropTypes.bool,
 };
 
 /**
