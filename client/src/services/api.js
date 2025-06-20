@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from './storageService';
 
 // Create axios instance with base configuration
 const api = axios.create({
@@ -8,6 +9,18 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Request interceptor - Attach auth token if available
+api.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Response interceptor - Handle common responses and errors
 api.interceptors.response.use(
