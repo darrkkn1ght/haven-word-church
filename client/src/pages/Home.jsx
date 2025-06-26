@@ -56,7 +56,7 @@ const Home = () => {
       
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Hero Section - Refined for Haven Word Church Theme */}
-        <section className="relative bg-primary-500 dark:bg-primary-700 text-white py-20 pt-36 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-primary-900 to-primary-800 text-white py-20 pt-36 overflow-hidden font-sans">
           {/* Wave separator at bottom */}
           <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
             <svg viewBox="0 0 1440 100" className="w-full h-16" preserveAspectRatio="none">
@@ -65,8 +65,8 @@ const Home = () => {
           </div>
           <div className="container mx-auto px-4 text-center relative z-10">
             <img src="/logo.jpeg" alt="Haven Word Church Logo" className="mx-auto mb-6 h-20 w-20 rounded-full shadow-lg object-contain" style={{ maxHeight: 80 }} />
-            <h1 className="font-accent text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
-              Welcome to <span className="text-secondary-500">Haven Word Church</span>
+            <h1 className="font-accent text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">
+            <span className="text-white">Welcome to</span> <span className="bg-gradient-to-r from-primary-900 to-primary-700 bg-clip-text text-transparent drop-shadow-lg">Haven Word Church</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-sans opacity-90">
               Your Spiritual Home in the Heart of Ibadan
@@ -87,7 +87,7 @@ const Home = () => {
                 variant="secondary" 
                 size="lg"
                 onClick={() => setIsCalendarOpen(true)}
-                className="bg-primary-100 text-primary-700 border-2 border-primary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-primary-200 hover:text-primary-900 transition dark:bg-primary-900 dark:text-primary-100 dark:border-primary-700 dark:hover:bg-primary-800 dark:hover:text-primary-50"
+                className="bg-white text-primary-500 border-2 border-primary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-primary-100 hover:text-primary-700 transition"
               >
                 View Calendar
               </Button>
@@ -95,7 +95,7 @@ const Home = () => {
                 variant="outline" 
                 size="lg"
                 onClick={() => setIsContactOpen(true)}
-                className="bg-white text-secondary-500 border-2 border-secondary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-secondary-50 transition dark:bg-gray-900 dark:text-secondary-300 dark:border-secondary-700 dark:hover:bg-gray-800"
+                className="bg-white text-secondary-500 border-2 border-secondary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-secondary-50 transition"
               >
                 Contact Us
               </Button>
@@ -260,7 +260,7 @@ const Home = () => {
                       <div className="text-gray-600 dark:text-gray-300">Lives Touched</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-orange-600 mb-2">25+</div>
+                      <div className="text-3xl font-bold text-secondary-500 mb-2">25+</div>
                       <div className="text-gray-600 dark:text-gray-300">Partner Organizations</div>
                     </div>
                   </div>
