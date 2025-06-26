@@ -31,6 +31,8 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
+import HomeCelebrationStyle from './pages/HomeCelebrationStyle';
+import AboutCelebrationStyle from './pages/AboutCelebrationStyle';
 
 // Auth Pages
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -255,6 +257,24 @@ function App() {
           <Suspense fallback={<LoadingSpinner />}>
             <Contact />
           </Suspense>
+        </AppLayout>
+      ),
+    },
+    // Celebration Style Test Route
+    {
+      path: '/test-home',
+      element: (
+        <AppLayout>
+          <HomeCelebrationStyle />
+        </AppLayout>
+      ),
+    },
+    // Celebration Style About Test Route
+    {
+      path: '/test-about',
+      element: (
+        <AppLayout>
+          <AboutCelebrationStyle />
         </AppLayout>
       ),
     },

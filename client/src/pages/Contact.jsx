@@ -85,7 +85,7 @@ const Contact = () => {
       details: [
         'Sundays: 7:30 AM & 10:00 AM',
         'Wednesdays (Bible Study): 5:30 PM',
-        'Fridays (Cell Meetings): 5:30 PM'
+        'Fridays (Mission Group): 5:00 PM'
       ],
       action: 'View Calendar',
       actionLink: '/events'

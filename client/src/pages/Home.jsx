@@ -71,9 +71,18 @@ const Home = () => {
             <span className="text-primary-700 dark:text-primary-100">Welcome to</span> <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-300 bg-clip-text text-transparent drop-shadow-lg dark:bg-gradient-to-r dark:from-primary-200 dark:to-primary-400 dark:bg-clip-text dark:text-transparent">Haven Word Church</span>
             </h1>
             <div className="flex justify-center mb-8">
-              <span className="inline-block px-10 py-3 rounded-full bg-white border-2 border-primary-300 shadow-soft text-primary-700 font-semibold text-xl md:text-2xl tracking-wide dark:bg-primary-900 dark:border-primary-400 dark:text-primary-100 transition-all">
-                ...The Spread City...
-              </span>
+              <img
+                src="/assets/images/spreadcity-light.png"
+                alt="Spread City Logo Light"
+                className="h-12 md:h-16 w-auto object-contain mx-auto block dark:hidden"
+                style={{ maxHeight: '4rem' }}
+              />
+              <img
+                src="/assets/images/spreadcity-dark.png"
+                alt="Spread City Logo Dark"
+                className="h-12 md:h-16 w-auto object-contain mx-auto hidden dark:block"
+                style={{ maxHeight: '4rem' }}
+              />
             </div>
             <p className="text-lg mb-10 max-w-2xl mx-auto font-sans opacity-80">
               Experience God&apos;s love, grow in faith, and connect with a community that cares. Join us as we journey together in worship, fellowship, and service.

@@ -192,8 +192,8 @@ const Footer = () => {
                     <span>5:30 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Fridays (Cell Meetings):</span>
-                    <span>5:30 PM</span>
+                    <span>Fridays (Mission Group):</span>
+                    <span>5:00 PM</span>
                   </div>
                   <p className="text-xs text-gray-400 mt-2">(West Africa Time - WAT)</p>
                 </div>
