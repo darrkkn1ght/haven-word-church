@@ -56,7 +56,9 @@ const Home = () => {
       
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Hero Section - Refined for Haven Word Church Theme */}
-        <section className="relative bg-gradient-to-br from-primary-900 to-primary-800 text-white py-20 pt-36 overflow-hidden font-sans">
+        <section className="relative bg-gradient-to-br from-white via-gray-50 to-blue-50 dark:bg-gradient-to-br dark:from-primary-900 dark:to-primary-700 py-20 pt-36 overflow-hidden font-sans">
+          {/* Decorative blue accent shape */}
+          <div className="absolute -top-16 -left-16 w-96 h-96 bg-gradient-to-br from-primary-100 via-primary-200 to-primary-300 opacity-30 dark:from-primary-800 dark:via-primary-900 dark:to-primary-700 dark:opacity-40 rounded-full blur-2xl z-0"></div>
           {/* Wave separator at bottom */}
           <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
             <svg viewBox="0 0 1440 100" className="w-full h-16" preserveAspectRatio="none">
@@ -64,13 +66,15 @@ const Home = () => {
             </svg>
           </div>
           <div className="container mx-auto px-4 text-center relative z-10">
-            <img src="/logo.jpeg" alt="Haven Word Church Logo" className="mx-auto mb-6 h-20 w-20 rounded-full shadow-lg object-contain" style={{ maxHeight: 80 }} />
+            <img src="/logo.jpeg" alt="Haven Word Church Logo" className="mx-auto mb-6 h-28 w-28 rounded-full shadow-lg object-contain" style={{ maxHeight: 112 }} />
             <h1 className="font-accent text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">
-            <span className="text-white">Welcome to</span> <span className="bg-gradient-to-r from-primary-900 to-primary-700 bg-clip-text text-transparent drop-shadow-lg">Haven Word Church</span>
+            <span className="text-primary-700 dark:text-primary-100">Welcome to</span> <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-300 bg-clip-text text-transparent drop-shadow-lg dark:bg-gradient-to-r dark:from-primary-200 dark:to-primary-400 dark:bg-clip-text dark:text-transparent">Haven Word Church</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 font-sans opacity-90">
-              Your Spiritual Home in the Heart of Ibadan
-            </p>
+            <div className="flex justify-center mb-8">
+              <span className="inline-block px-10 py-3 rounded-full bg-white border-2 border-primary-300 shadow-soft text-primary-700 font-semibold text-xl md:text-2xl tracking-wide dark:bg-primary-900 dark:border-primary-400 dark:text-primary-100 transition-all">
+                ...The Spread City...
+              </span>
+            </div>
             <p className="text-lg mb-10 max-w-2xl mx-auto font-sans opacity-80">
               Experience God&apos;s love, grow in faith, and connect with a community that cares. Join us as we journey together in worship, fellowship, and service.
             </p>
@@ -87,7 +91,7 @@ const Home = () => {
                 variant="secondary" 
                 size="lg"
                 onClick={() => setIsCalendarOpen(true)}
-                className="bg-white text-primary-500 border-2 border-primary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-primary-100 hover:text-primary-700 transition"
+                className="bg-primary-100 text-primary-700 border-2 border-primary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-primary-200 hover:text-primary-900 transition dark:bg-primary-500 dark:text-white dark:border-primary-400 dark:hover:bg-primary-600"
               >
                 View Calendar
               </Button>
