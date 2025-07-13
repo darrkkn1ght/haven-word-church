@@ -91,7 +91,7 @@ const About = () => {
         <Header />
         
         {/* Hero Section with Image */}
-        <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <section className="relative h-[60vh] flex items-center justify-center overflow-hidden pt-20">
           {/* Replace 'hero-placeholder.jpg' with your real hero image in assets/images */}
           <img src="/assets/images/hero-placeholder.jpg" alt="Church Hero" className="absolute inset-0 w-full h-full object-cover z-0" />
           <div className="absolute inset-0 bg-gradient-to-b from-blue-900/80 via-blue-900/60 to-purple-900/80 z-10" />

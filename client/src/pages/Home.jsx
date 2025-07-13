@@ -56,64 +56,88 @@ const Home = () => {
       
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Hero Section - Refined for Haven Word Church Theme */}
-        <section className="relative bg-gradient-to-br from-white via-gray-50 to-blue-50 dark:bg-gradient-to-br dark:from-primary-900 dark:to-primary-700 py-20 pt-36 overflow-hidden font-sans">
-          {/* Decorative blue accent shape */}
-          <div className="absolute -top-16 -left-16 w-96 h-96 bg-gradient-to-br from-primary-100 via-primary-200 to-primary-300 opacity-30 dark:from-primary-800 dark:via-primary-900 dark:to-primary-700 dark:opacity-40 rounded-full blur-2xl z-0"></div>
+        <section
+          className="relative overflow-hidden font-sans py-32 pt-48"
+          style={{
+            backgroundImage: "url('/assets/images/hannah-busing-FF049vNP1eg-unsplash.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        >
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-blue-900 bg-opacity-80 dark:bg-primary-900 dark:bg-opacity-80 backdrop-blur-sm z-0"></div>
           {/* Wave separator at bottom */}
           <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
             <svg viewBox="0 0 1440 100" className="w-full h-16" preserveAspectRatio="none">
               <path fill="#fff" d="M0,0 C480,100 960,0 1440,100 L1440,100 L0,100 Z"></path>
             </svg>
           </div>
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <img src="/logo.jpeg" alt="Haven Word Church Logo" className="mx-auto mb-6 h-28 w-28 rounded-full shadow-lg object-contain" style={{ maxHeight: 112 }} />
-            <h1 className="font-accent text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">
-            <span className="text-primary-700 dark:text-primary-100">Welcome to</span> <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-300 bg-clip-text text-transparent drop-shadow-lg dark:bg-gradient-to-r dark:from-primary-200 dark:to-primary-400 dark:bg-clip-text dark:text-transparent">Haven Word Church</span>
+          <div className="container mx-auto px-4 text-center relative z-10 flex flex-col items-center justify-center min-h-[480px]">
+            <h1 className="font-accent text-5xl md:text-7xl font-bold mb-8 text-white drop-shadow-xl">
+              <span className="block">We Are a City…</span>
+              <span className="block bg-gradient-to-r from-primary-200 via-primary-400 to-primary-600 bg-clip-text text-transparent animate-gradient-text">We Are Spreading!</span>
             </h1>
-            <div className="flex justify-center mb-8">
-              <img
-                src="/assets/images/spreadcity-light.png"
-                alt="Spread City Logo Light"
-                className="h-12 md:h-16 w-auto object-contain mx-auto block dark:hidden"
-                style={{ maxHeight: '4rem' }}
-              />
-              <img
-                src="/assets/images/spreadcity-dark.png"
-                alt="Spread City Logo Dark"
-                className="h-12 md:h-16 w-auto object-contain mx-auto hidden dark:block"
-                style={{ maxHeight: '4rem' }}
-              />
-            </div>
-            <p className="text-lg mb-10 max-w-2xl mx-auto font-sans opacity-80">
-              Experience God&apos;s love, grow in faith, and connect with a community that cares. Join us as we journey together in worship, fellowship, and service.
+            <p className="text-xl md:text-2xl mb-2 max-w-2xl mx-auto font-sans text-white drop-shadow-lg">
+              Raising a multitude of preachers in countless cities,
             </p>
+            <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-sans text-white drop-shadow-lg">
+              full of faith and the Holy Ghost.
+            </p>
+            {/* Modern Uiverse.io-inspired Button */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                variant="primary" 
-                size="lg"
-                onClick={() => setIsRSVPOpen(true)}
-                className="bg-secondary-500 text-white rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-secondary-600 transition border-2 border-secondary-500"
-              >
-                Join Us This Sunday
-              </Button>
-              <Button 
-                variant="secondary" 
-                size="lg"
-                onClick={() => setIsCalendarOpen(true)}
-                className="bg-primary-100 text-primary-700 border-2 border-primary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-primary-200 hover:text-primary-900 transition dark:bg-primary-500 dark:text-white dark:border-primary-400 dark:hover:bg-primary-600"
-              >
-                View Calendar
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                onClick={() => setIsContactOpen(true)}
-                className="bg-white text-secondary-500 border-2 border-secondary-500 rounded-lg px-8 py-3 font-semibold shadow-soft hover:bg-secondary-50 transition"
-              >
-                Contact Us
-              </Button>
+              <div className="relative group">
+                <button
+                  className="relative inline-block font-semibold leading-6 text-white bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 dark:from-blue-700 dark:via-cyan-600 dark:to-purple-700 shadow-2xl shadow-blue-400/40 dark:shadow-cyan-900/60 rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 text-base px-8 py-3 min-w-[160px] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-800 before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-blue-400 before:via-cyan-300 before:to-purple-400 before:opacity-0 group-hover:before:opacity-30 before:transition-opacity before:duration-300 after:absolute after:inset-0 after:rounded-2xl after:shadow-[0_8px_30px_0_rgba(59,130,246,0.25)] after:opacity-80 after:pointer-events-none"
+                  style={{ boxShadow: '0 6px 24px 0 rgba(59,130,246,0.25), 0 1.5px 4px 0 rgba(59,130,246,0.15)' }}
+                  onClick={() => setIsRSVPOpen(true)}
+                >
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span className="transition-all duration-500 group-hover:translate-x-1 text-sm md:text-base font-bold drop-shadow-lg">
+                      Join Us This Sunday
+                    </span>
+                    <svg
+                      className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 drop-shadow"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                        fillRule="evenodd"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
+          {/* Custom Animations */}
+          <style>{`
+            @keyframes gradient-move {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
+            .animate-gradient-move {
+              animation: gradient-move 8s ease-in-out infinite;
+            }
+            @keyframes gradient-text {
+              0%,100% { filter: brightness(1) saturate(1); }
+              50% { filter: brightness(1.2) saturate(1.5); }
+            }
+            .animate-gradient-text {
+              animation: gradient-text 3s ease-in-out infinite;
+            }
+            @keyframes fade-in {
+              0% { opacity: 0; transform: translateY(40px); }
+              100% { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in {
+              animation: fade-in 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+            }
+          `}</style>
         </section>
 
         {/* Service Schedule */}

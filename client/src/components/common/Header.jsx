@@ -112,22 +112,41 @@ const Header = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
+            {/* Spread City Logo - right side */}
+            <div className="hidden md:block">
+              <img
+                src="/assets/images/spreadcity-light.png"
+                alt="Spread City Logo Light"
+                className="h-10 w-auto object-contain dark:hidden"
+                style={{ maxHeight: '2.5rem' }}
+              />
+              <img
+                src="/assets/images/spreadcity-dark.png"
+                alt="Spread City Logo Dark"
+                className="h-10 w-auto object-contain hidden dark:block"
+                style={{ maxHeight: '2.5rem' }}
+              />
+            </div>
             {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-            >
-              {theme === 'light' ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              )}
-            </button>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                className="sr-only peer"
+                type="checkbox"
+                checked={theme === 'dark'}
+                onChange={toggleTheme}
+                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+              />
+              <div className="group peer ring-2 bg-gradient-to-r from-yellow-200 via-gray-400 to-blue-900 rounded-full outline-none duration-500 after:duration-300 w-14 h-7 shadow-md peer-focus:outline-none after:content-[''] after:rounded-full after:absolute after:bg-[#0D2B39] after:transition-all after:duration-300 after:w-6 after:h-6 after:top-0.5 after:left-0.5 peer-checked:after:translate-x-7 peer-hover:after:scale-110 after:shadow after:border after:border-gray-400 relative">
+                {/* Sun icon (left) */}
+                <span className="absolute left-1 top-1/2 -translate-y-1/2 text-yellow-400 text-xs pointer-events-none">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15a5 5 0 100-10 5 5 0 000 10zm0 2a7 7 0 110-14 7 7 0 010 14zm0-16a1 1 0 011 1v1a1 1 0 11-2 0V2a1 1 0 011-1zm0 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm8-7a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-16 0a1 1 0 01-1 1H1a1 1 0 110-2h1a1 1 0 011 1zm12.071-5.071a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zm-10.142 0a1 1 0 010 1.414l-.707.707A1 1 0 113.22 5.636l.707-.707a1 1 0 011.414 0zm10.142 10.142a1 1 0 00-1.414 0l-.707.707a1 1 0 101.414 1.414l.707-.707a1 1 0 000-1.414zm-10.142 0a1 1 0 00-1.414 0l-.707.707a1 1 0 101.414 1.414l.707-.707a1 1 0 000-1.414z"/></svg>
+                </span>
+                {/* Moon icon (right) */}
+                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-blue-300 text-xs pointer-events-none">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                </span>
+              </div>
+            </label>
             {/* User Dropdown */}
             {user ? (
               <div className="relative group">
