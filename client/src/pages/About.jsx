@@ -64,7 +64,7 @@ const About = () => {
 
   // Statement of faith points
   const statementOfFaith = [
-    'We believe in the Trinity: one God eternally existing in three persons - Father, Son, and Holy Spirit.',
+    'We believe in one true and living God, our Father, who has revealed Himself to us through Jesus Christ and is always with us by His Spirit.',
     'We believe in the deity and humanity of Jesus Christ, His virgin birth, sinless life, atoning death, and bodily resurrection.',
     'We believe the Bible is the inspired, infallible, and authoritative Word of God.',
     'We believe in salvation by grace through faith in Jesus Christ alone.',
