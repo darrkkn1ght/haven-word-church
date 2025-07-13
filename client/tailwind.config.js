@@ -8,55 +8,57 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Haven Word Church Brand Colors
+        // Haven Word Church Brand Colors (Enhanced)
         primary: {
           50: '#e6f2ff',
           100: '#cce5ff',
           200: '#99ccff',
           300: '#66b2ff',
           400: '#3399ff',
-          500: '#003DA5', // Main Primary - Deep Blue
-          600: '#002f84',
-          700: '#002B7A', // Dark Blue
-          800: '#001f5c',
+          500: '#2563eb', // Vibrant Blue
+          600: '#1e40af', // Deep Blue
+          700: '#0f172a', // Slate/Dark Blue
+          800: '#0a2540',
           900: '#00143d',
         },
-        secondary: {
-          50: '#fff4ed',
-          100: '#ffe6d6', // Light Orange
-          200: '#ffccad',
-          300: '#ffb385',
-          400: '#ff9a5c',
-          500: '#FF6A13', // Main Secondary - Bright Orange
-          600: '#e55a0f',
-          700: '#cc4b0b',
-          800: '#b23c07',
-          900: '#992d03',
+        accent: {
+          50: '#e0f7fa',
+          100: '#b2ebf2',
+          200: '#80deea',
+          300: '#4dd0e1',
+          400: '#26c6da',
+          500: '#06b6d4', // Cyan
+          600: '#0891b2',
+          700: '#0e7490',
+          800: '#155e75',
+          900: '#164e63',
         },
-        // Supporting Colors
-        lightBlue: '#E6F2FF',
-        darkBlue: '#002B7A',
-        lightOrange: '#FFE6D6',
+        // Remove purple, keep only blue/cyan/neutral
         // Neutral Colors
         gray: {
-          50: '#f9fafb',
+          50: '#f8fafc',
           100: '#f3f4f6',
           200: '#e5e7eb',
           300: '#d1d5db',
           400: '#9ca3af',
-          500: '#6B7280', // Main Gray
+          500: '#6B7280',
           600: '#4b5563',
-          700: '#374151', // Dark Gray
-          800: '#1f2937',
-          900: '#111827',
-        }
+          700: '#374151',
+          800: '#1e293b',
+          900: '#0f172a',
+        },
+        success: '#22c55e',
+        warning: '#f59e42',
+        error: '#ef4444',
+        white: '#ffffff',
+        black: '#000000',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'Poppins', 'system-ui', 'sans-serif'],
         serif: ['Georgia', 'serif'],
-        display: ['Poppins', 'sans-serif'],
+        display: ['Poppins', 'Inter', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
-        accent: ['Poppins', 'sans-serif'], // Added for font-accent
+        accent: ['Poppins', 'Inter', 'sans-serif'],
       },
       fontSize: {
         'xs': '0.75rem',

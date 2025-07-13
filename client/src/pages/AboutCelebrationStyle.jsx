@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
+import Button from '../components/ui/Button';
 
 const heroImg = 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80';
 const openViewImg = 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=1440&q=80';
@@ -98,7 +99,13 @@ export default function AboutCelebrationStyle() {
           <img src="/logo.jpeg" alt="Logo" className="mb-6 h-10 w-auto" />
           <h2 className="text-2xl font-black uppercase tracking-widest mb-4">Our Lead Pastor</h2>
           <p className="font-medium leading-7 mb-6">Apostle Emmanuel Iren is the visionary founder and Lead Pastor of Celebration Church International (CCI), a fast-growing global ministry... (replace with your own pastor&apos;s info)</p>
-          <button className="mx-auto mt-4 block rounded-full border border-white bg-transparent px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-primary-900 transition">Read More</button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="mx-auto mt-4 block rounded-full border border-white bg-transparent px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-primary-900 transition"
+          >
+            Read More
+          </Button>
         </div>
       </section>
 

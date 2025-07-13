@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
+import NotificationBell from './NotificationBell';
 
 /**
  * Header Component
@@ -100,6 +101,14 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
+            {user && user.role === 'admin' && (
+              <Link
+                to="/admin/dashboard"
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-red-600 dark:text-red-400 hover:text-white hover:bg-red-600 dark:hover:bg-red-700`}
+              >
+                Admin
+              </Link>
+            )}
             {!user && (
               <Link
                 to="/login"
@@ -112,6 +121,9 @@ const Header = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
+            {/* Notification Bell - only show for authenticated users */}
+            {user && <NotificationBell />}
+            
             {/* Spread City Logo - right side */}
             <div className="hidden md:block">
               <img

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { validateEmail, validatePhone, validateRequired, validateLength } from '../../utils/validators';
 import LoadingSpinner from '../common/LoadingSpinner';
+import Button from '../ui/Button';
 import { submitRSVP, getEventDetails } from '../../services/api';
 
 /**
@@ -990,25 +991,19 @@ const RSVPForm = ({
 
         {/* Submit Button */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center"
+            loading={isSubmitting}
+            variant="primary"
+            size="lg"
+            className="flex-1"
           >
-            {isSubmitting ? (
-              <>
-                <LoadingSpinner size="sm" className="mr-2" />
-                {formData.attendance === 'yes' ? 'Confirming RSVP...' : 'Submitting Response...'}
-              </>
-            ) : (
-              <>
-                {formData.attendance === 'yes' ? '✅ Confirm My RSVP' : '📝 Submit Response'}
-              </>
-            )}
-          </button>
+            {formData.attendance === 'yes' ? '✅ Confirm My RSVP' : '📝 Submit Response'}
+          </Button>
 
           {/* Reset Button */}
-          <button
+          <Button
             type="button"
             onClick={() => {
               setFormData({
@@ -1035,10 +1030,11 @@ const RSVPForm = ({
               // setTouched({}); // removed unused touched state
             }}
             disabled={isSubmitting}
-            className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 disabled:opacity-50"
+            variant="outline"
+            size="lg"
           >
             Reset Form
-          </button>
+          </Button>
         </div>
 
         {/* Form Footer */}

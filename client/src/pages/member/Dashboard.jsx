@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import Button from '../../components/ui/Button';
 import { useAuth } from '../../hooks/useAuth';
 import { formatDate, formatCurrency } from '../../utils/helpers';
 import { getDashboard } from '../../services/memberService';
@@ -43,12 +44,13 @@ const Dashboard = () => {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h2>
           <p className="text-gray-600 mb-6">{error}</p>
-          <button
+          <Button
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            variant="primary"
+            size="md"
           >
             Try Again
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -240,15 +242,27 @@ const Dashboard = () => {
                             <p className="text-sm text-gray-500">{sermon.duration}</p>
                           </div>
                           <div className="flex space-x-2">
-                            <button className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                            >
                               <Eye className="w-4 h-4" />
-                            </button>
-                            <button className="p-2 text-gray-400 hover:text-green-600 rounded-lg hover:bg-green-50">
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50"
+                            >
                               <Download className="w-4 h-4" />
-                            </button>
-                            <button className="p-2 text-gray-400 hover:text-purple-600 rounded-lg hover:bg-purple-50">
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50"
+                            >
                               <Share2 className="w-4 h-4" />
-                            </button>
+                            </Button>
                           </div>
                         </div>
                       ))}

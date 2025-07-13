@@ -1,5 +1,6 @@
 import React from 'react';
 import { formatDate } from '../../utils/helpers';
+import Button from '../ui/Button';
 
 /**
  * MinistryCard Component
@@ -366,13 +367,15 @@ const MinistryCard = ({
               </div>
               
               {(leader.phone || leader.email) && (
-                <button
+                <Button
                   onClick={handleContact}
+                  variant="ghost"
+                  size="sm"
                   className="text-xs text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-400 font-medium"
                   aria-label={`Contact ${leader.name}`}
                 >
                   Contact
-                </button>
+                </Button>
               )}
             </div>
           </div>
@@ -381,22 +384,25 @@ const MinistryCard = ({
         {/* Action Buttons */}
         {isActive && showJoinButton && (
           <div className="flex gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
-            <button
+            <Button
               onClick={handleJoin}
-              className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+              variant="primary"
+              size="sm"
+              className="flex-1"
               aria-label={`Join ${displayName || 'Ministry'} ministry`}
             >
               Join Ministry
-            </button>
+            </Button>
             
             {onClick && (
-              <button
+              <Button
                 onClick={handleCardClick}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                variant="outline"
+                size="sm"
                 aria-label={`Learn more about ${displayName || 'Ministry'}`}
               >
                 Learn More
-              </button>
+              </Button>
             )}
           </div>
         )}

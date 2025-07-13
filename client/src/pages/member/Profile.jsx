@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useNotification } from '../../context/NotificationContext';
-import { memberService } from '../../services/api';
+import { useAuth } from '../../hooks/useAuth';
+import { useNotifications } from '../../context/NotificationContext';
+import { 
+  getProfile, 
+  updateProfile, 
+  changePassword,
+  uploadProfilePhoto
+} from '../../services/memberService';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import SEOHead from '../../components/common/SEOHead';
+import Button from '../../components/ui/Button';
 import { 
   User, 
   Mail, 
@@ -37,7 +43,7 @@ import {
  */
 const Profile = () => {
   const { user, updateUser } = useAuth();
-  const { showNotification } = useNotification();
+  const { showNotification } = useNotifications();
   
   // State management
   const [loading, setLoading] = useState(true);
@@ -70,7 +76,7 @@ const Profile = () => {
   const fetchProfileData = async () => {
     try {
       setLoading(true);
-      const response = await memberService.getProfile();
+      const response = await getProfile();
       setProfileData(response.data);
       setEditedData(response.data);
     } catch (error) {
@@ -105,7 +111,7 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('photo', file);
 
-      const response = await memberService.uploadProfilePhoto(formData);
+      const response = await uploadProfilePhoto(formData);
       
       setProfileData(prev => ({
         ...prev,
@@ -127,7 +133,7 @@ const Profile = () => {
   const handleProfileUpdate = async () => {
     try {
       setLoading(true);
-      const response = await memberService.updateProfile(editedData);
+      const response = await updateProfile(editedData);
       
       setProfileData(response.data);
       setIsEditing(false);
@@ -158,7 +164,7 @@ const Profile = () => {
 
     try {
       setLoading(true);
-      await memberService.changePassword(passwordData);
+      await changePassword(passwordData);
       
       setPasswordData({
         currentPassword: '',
@@ -308,22 +314,15 @@ const Profile = () => {
                   <h3 className="text-lg font-semibold text-gray-900">
                     Personal Information
                   </h3>
-                  <button
+                  <Button
                     onClick={() => setIsEditing(!isEditing)}
-                    className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    variant="ghost"
+                    size="sm"
+                    leftIcon={isEditing ? <X className="w-4 h-4" /> : <Edit2 className="w-4 h-4" />}
+                    className="text-blue-600 hover:bg-blue-50"
                   >
-                    {isEditing ? (
-                      <>
-                        <X className="w-4 h-4" />
-                        Cancel
-                      </>
-                    ) : (
-                      <>
-                        <Edit2 className="w-4 h-4" />
-                        Edit
-                      </>
-                    )}
-                  </button>
+                    {isEditing ? 'Cancel' : 'Edit'}
+                  </Button>
                 </div>
 
                 <div className="p-6">
@@ -463,14 +462,16 @@ const Profile = () => {
                   {/* Save Button */}
                   {isEditing && (
                     <div className="mt-6 flex gap-3">
-                      <button
+                      <Button
                         onClick={handleProfileUpdate}
                         disabled={loading}
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                        loading={loading}
+                        variant="primary"
+                        size="md"
+                        leftIcon={<Save className="w-4 h-4" />}
                       >
-                        <Save className="w-4 h-4" />
-                        {loading ? 'Saving...' : 'Save Changes'}
-                      </button>
+                        Save Changes
+                      </Button>
                     </div>
                   )}
                 </div>
@@ -514,13 +515,15 @@ const Profile = () => {
                   <h3 className="text-lg font-semibold text-gray-900">
                     Security Settings
                   </h3>
-                  <button
+                  <Button
                     onClick={() => setShowPasswordForm(!showPasswordForm)}
-                    className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    variant="ghost"
+                    size="sm"
+                    leftIcon={<Shield className="w-4 h-4" />}
+                    className="text-blue-600 hover:bg-blue-50"
                   >
-                    <Shield className="w-4 h-4" />
                     Change Password
-                  </button>
+                  </Button>
                 </div>
 
                 {showPasswordForm && (
@@ -542,17 +545,19 @@ const Profile = () => {
                             className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="Enter current password"
                           />
-                          <button
+                          <Button
                             type="button"
                             onClick={() => togglePasswordVisibility('current')}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
                           >
                             {showPasswords.current ? (
                               <EyeOff className="w-4 h-4" />
                             ) : (
                               <Eye className="w-4 h-4" />
                             )}
-                          </button>
+                          </Button>
                         </div>
                       </div>
 
@@ -572,17 +577,19 @@ const Profile = () => {
                             className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="Enter new password"
                           />
-                          <button
+                          <Button
                             type="button"
                             onClick={() => togglePasswordVisibility('new')}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
                           >
                             {showPasswords.new ? (
                               <EyeOff className="w-4 h-4" />
                             ) : (
                               <Eye className="w-4 h-4" />
                             )}
-                          </button>
+                          </Button>
                         </div>
                       </div>
 
@@ -602,28 +609,33 @@ const Profile = () => {
                             className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="Confirm new password"
                           />
-                          <button
+                          <Button
                             type="button"
                             onClick={() => togglePasswordVisibility('confirm')}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
                           >
                             {showPasswords.confirm ? (
                               <EyeOff className="w-4 h-4" />
                             ) : (
                               <Eye className="w-4 h-4" />
                             )}
-                          </button>
+                          </Button>
                         </div>
                       </div>
 
                       {/* Update Password Button */}
-                      <button
+                      <Button
                         onClick={handlePasswordChange}
                         disabled={loading || !passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword}
-                        className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        loading={loading}
+                        variant="primary"
+                        size="md"
+                        fullWidth
                       >
-                        {loading ? 'Updating...' : 'Update Password'}
-                      </button>
+                        Update Password
+                      </Button>
                     </div>
                   </div>
                 )}

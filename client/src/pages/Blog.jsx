@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Search, Filter, Tag } from 'lucide-react';
+import { Search, Filter, Tag, Plus } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import BlogCard from '../components/cards/BlogCard';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import Button from '../components/ui/Button';
 
 /**
  * Blog Page Component
@@ -10,6 +13,7 @@ import LoadingSpinner from '../components/common/LoadingSpinner';
  * Features categories, tags, search functionality, and responsive design
  */
 const Blog = () => {
+  const { user } = useAuth();
   // State management
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -134,12 +138,14 @@ const Blog = () => {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h2>
           <p className="text-gray-600 mb-6">{error}</p>
-          <button
+          <Button
             onClick={fetchPosts}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            variant="primary"
+            size="md"
+            className="mt-4"
           >
             Try Again
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -215,37 +221,53 @@ const Blog = () => {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Categories:</span>
                 {categories.map((category) => (
-                  <button
+                  <Button
                     key={category}
                     onClick={() => handleCategoryChange(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      selectedCategory === category
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-                    }`}
+                    variant={selectedCategory === category ? 'primary' : 'outline'}
+                    size="sm"
+                    className="rounded-full text-sm font-medium"
                   >
                     {category === 'all' ? 'All' : category}
-                  </button>
+                  </Button>
                 ))}
               </div>
 
               {/* Filter Toggle & Clear */}
               <div className="flex items-center gap-4">
-                <button
+                {/* Create Blog Button - Only show for authenticated users */}
+                {user && (
+                  <Link to="/blog/create">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="flex items-center gap-2"
+                    >
+                      <Plus className="w-4 h-4" />
+                      Create Blog
+                    </Button>
+                  </Link>
+                )}
+                
+                <Button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors lg:hidden"
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2 lg:hidden"
                 >
                   <Filter className="w-4 h-4" />
                   Filters
-                </button>
+                </Button>
                 
                 {(searchTerm || selectedCategory !== 'all' || selectedTag) && (
-                  <button
+                  <Button
                     onClick={clearFilters}
-                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-sm"
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
                   >
                     Clear Filters
-                  </button>
+                  </Button>
                 )}
                 
                 <span className="text-sm text-gray-600 dark:text-gray-300">
@@ -259,18 +281,16 @@ const Blog = () => {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Tags:</span>
                 {allTags.map((tag) => (
-                  <button
+                  <Button
                     key={tag}
                     onClick={() => handleTagChange(tag)}
-                    className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                      selectedTag === tag
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-700'
-                    }`}
+                    variant={selectedTag === tag ? 'primary' : 'outline'}
+                    size="sm"
+                    className="rounded-full text-sm flex items-center gap-1 border"
                   >
                     <Tag className="w-3 h-3 inline mr-1" />
                     {tag.replace('-', ' ')}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -294,35 +314,34 @@ const Blog = () => {
                 {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="flex justify-center items-center gap-2">
-                    <button
+                    <Button
                       onClick={() => paginate(currentPage - 1)}
                       disabled={currentPage === 1}
-                      className="px-4 py-2 rounded-lg border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                      variant="outline"
+                      size="sm"
                     >
                       Previous
-                    </button>
+                    </Button>
                     
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                      <button
+                      <Button
                         key={number}
                         onClick={() => paginate(number)}
-                        className={`px-4 py-2 rounded-lg transition-colors ${
-                          currentPage === number
-                            ? 'bg-blue-600 text-white'
-                            : 'border hover:bg-gray-50'
-                        }`}
+                        variant={currentPage === number ? 'primary' : 'outline'}
+                        size="sm"
                       >
                         {number}
-                      </button>
+                      </Button>
                     ))}
                     
-                    <button
+                    <Button
                       onClick={() => paginate(currentPage + 1)}
                       disabled={currentPage === totalPages}
-                      className="px-4 py-2 rounded-lg border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                      variant="outline"
+                      size="sm"
                     >
                       Next
-                    </button>
+                    </Button>
                   </div>
                 )}
               </>
@@ -334,12 +353,14 @@ const Blog = () => {
                   <p className="text-gray-600 dark:text-gray-300 mb-6">
                     Try adjusting your search terms or filters to find what you&apos;re looking for.
                   </p>
-                  <button
+                  <Button
                     onClick={clearFilters}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                    variant="primary"
+                    size="md"
+                    className="mt-6"
                   >
                     Clear All Filters
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
@@ -362,12 +383,14 @@ const Blog = () => {
                   className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20"
                   required
                 />
-                <button
+                <Button
                   type="submit"
-                  className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap"
+                  variant="primary"
+                  size="lg"
+                  className="font-semibold whitespace-nowrap"
                 >
                   Subscribe
-                </button>
+                </Button>
               </form>
               
               <p className="text-sm opacity-75 mt-4">

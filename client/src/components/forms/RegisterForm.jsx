@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../ui/Button';
 
 const RegisterForm = ({ onRegister, loading }) => {
   const [form, setForm] = useState({
@@ -63,13 +64,16 @@ const RegisterForm = ({ onRegister, loading }) => {
         <option value="staff">Staff</option>
       </select>
       {error && <div className="text-red-500 text-sm">{error}</div>}
-      <button
+      <Button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         disabled={loading}
+        loading={loading}
+        variant="primary"
+        size="lg"
+        fullWidth
       >
-        {loading ? 'Registering...' : 'Register'}
-      </button>
+        Register
+      </Button>
     </form>
   );
 };

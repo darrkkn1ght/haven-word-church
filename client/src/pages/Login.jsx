@@ -6,6 +6,7 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import SEOHead from '../components/SEOHead';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import Button from '../components/ui/Button';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,7 +24,8 @@ const Login = () => {
     firstName: '',
     lastName: '',
     phone: '',
-    dateOfBirth: ''
+    dateOfBirth: '',
+    role: 'member' // Default role
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
@@ -68,6 +70,7 @@ const Login = () => {
       if (!formData.confirmPassword) newErrors.confirmPassword = 'Please confirm your password';
       if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
       if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required';
+      if (!formData.role) newErrors.role = 'Role is required';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -97,7 +100,7 @@ const Login = () => {
           name: `${formData.firstName} ${formData.lastName}`.trim(),
           email: formData.email,
           password: formData.password,
-          role: 'member',
+          role: formData.role,
         };
         await register(regData);
         setMessage('Registration successful! You can now log in.');
@@ -126,7 +129,8 @@ const Login = () => {
       firstName: '',
       lastName: '',
       phone: '',
-      dateOfBirth: ''
+      dateOfBirth: '',
+      role: 'member' // Reset role to default
     });
   };
 
@@ -164,26 +168,26 @@ const Login = () => {
           {/* Tab Navigation */}
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
             <div className="flex mb-6">
-              <button
+              <Button
                 onClick={() => switchTab('login')}
-                className={`flex-1 py-2 px-4 text-center font-medium rounded-l-lg transition-colors ${
-                  activeTab === 'login'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                variant={activeTab === 'login' ? 'primary' : 'outline'}
+                size="md"
+                className={`flex-1 rounded-l-lg rounded-r-none ${
+                  activeTab === 'login' ? '' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 Sign In
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => switchTab('register')}
-                className={`flex-1 py-2 px-4 text-center font-medium rounded-r-lg transition-colors ${
-                  activeTab === 'register'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                variant={activeTab === 'register' ? 'primary' : 'outline'}
+                size="md"
+                className={`flex-1 rounded-r-lg rounded-l-none ${
+                  activeTab === 'register' ? '' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 Register
-              </button>
+              </Button>
             </div>
             {/* Message Display */}
             {message && (
@@ -282,6 +286,18 @@ const Login = () => {
                       <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth}</p>
                     )}
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                    <select
+                      name="role"
+                      value={formData.role || 'member'}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                    >
+                      <option value="member">Member</option>
+                      <option value="pastor">Pastor</option>
+                    </select>
+                  </div>
                 </>
               )}
               {/* Email Field */}
@@ -320,15 +336,17 @@ const Login = () => {
                     }`}
                     placeholder={activeTab === 'register' ? 'At least 8 characters' : 'Enter your password'}
                   />
-                  <button
+                  <Button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+                    ariaLabel={showPassword ? 'Hide password' : 'Show password'}
                     title={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
+                  </Button>
                 </div>
                 {errors.password && (
                   <p className="text-red-500 text-xs mt-1">{errors.password}</p>
@@ -350,15 +368,17 @@ const Login = () => {
                       }`}
                       placeholder="Confirm your password"
                     />
-                    <button
+                    <Button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                      aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+                      ariaLabel={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
                       title={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
                     >
                       {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                    </button>
+                    </Button>
                   </div>
                   {errors.confirmPassword && (
                     <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
@@ -366,20 +386,18 @@ const Login = () => {
                 </div>
               )}
               {/* Submit Button */}
-              <button
+              <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center"
+                loading={isSubmitting}
+                variant="primary"
+                size="lg"
+                fullWidth
+                rightIcon={<ArrowRight className="w-4 h-4" />}
+                className="bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700"
               >
-                {isSubmitting ? (
-                  <LoadingSpinner size="sm" color="white" />
-                ) : (
-                  <>
-                    {activeTab === 'login' ? 'Sign In' : 'Create Account'}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </>
-                )}
-              </button>
+                {activeTab === 'login' ? 'Sign In' : 'Create Account'}
+              </Button>
             </form>
           </div>
           {/* Church Info */}

@@ -436,20 +436,11 @@ const About = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/events">
-                  <Button 
-                    variant="primary" 
-                    size="lg"
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:text-white"
-                  >
+                  <Button variant="primary" size="lg">
                     Join Us Sunday
                   </Button>
                 </Link>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  onClick={() => setIsContactOpen(true)}
-                  className="border-white text-white hover:bg-white hover:text-gray-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-white"
-                >
+                <Button variant="outline" size="lg" onClick={() => setIsContactOpen(true)}>
                   Get in Touch
                 </Button>
               </div>
@@ -512,7 +503,9 @@ const About = () => {
             <img src="/assets/images/logo-placeholder.jpg" alt="Logo" className="mb-6 h-10 w-auto" />
             <h2 className="text-2xl font-black uppercase tracking-widest mb-4">Our Lead Pastor</h2>
             <p className="font-medium leading-7 mb-6">[Pastor&apos;s name and bio here. Replace this text with your lead pastor&apos;s real info and message.]</p>
-            <button className="mx-auto mt-4 block rounded-full border border-white bg-transparent px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-blue-900 transition">Read More</button>
+            <Button variant="outline" size="md" className="mx-auto mt-4 block">
+              Read More
+            </Button>
           </div>
         </section>
 

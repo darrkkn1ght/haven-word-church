@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../ui/Button';
 
 const LoginForm = ({ onLogin, loading, error }) => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -34,13 +35,16 @@ const LoginForm = ({ onLogin, loading, error }) => {
         required
       />
       {error && <div className="text-red-500 text-sm">{error}</div>}
-      <button
+      <Button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         disabled={loading}
+        loading={loading}
+        variant="primary"
+        size="lg"
+        fullWidth
       >
-        {loading ? 'Logging in...' : 'Login'}
-      </button>
+        Login
+      </Button>
     </form>
   );
 };

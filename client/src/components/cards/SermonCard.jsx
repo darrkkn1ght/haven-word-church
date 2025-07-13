@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { formatDate, formatDuration, truncateText } from '../../utils/helpers';
+import Button from '../ui/Button';
 // import { CHURCH_CONFIG } from '../../utils/constants';
 
 /**
@@ -171,8 +172,10 @@ const SermonCard = ({
           </div>
           
           {(hasAudio || hasVideo) && (
-            <button
+            <Button
               onClick={handlePlay}
+              variant="ghost"
+              size="sm"
               className="flex-shrink-0 p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors duration-200"
               aria-label={isPlaying ? 'Pause sermon' : 'Play sermon'}
             >
@@ -185,7 +188,7 @@ const SermonCard = ({
                   <path d="M8 5v14l11-7z"/>
                 </svg>
               )}
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -249,8 +252,10 @@ const SermonCard = ({
         {/* Play Button Overlay */}
         {(hasAudio || hasVideo) && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <button
+            <Button
               onClick={handlePlay}
+              variant="ghost"
+              size="sm"
               className="w-16 h-16 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 group"
               aria-label={isPlaying ? 'Pause sermon' : 'Play sermon'}
             >
@@ -263,7 +268,7 @@ const SermonCard = ({
                   <path d="M8 5v14l11-7z"/>
                 </svg>
               )}
-            </button>
+            </Button>
           </div>
         )}
 
@@ -375,69 +380,75 @@ const SermonCard = ({
         {showActions && (
           <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t border-gray-100">
             {/* Play/View Button */}
-            <button
+            <Button
               onClick={handleViewDetails}
-              className="flex-1 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+              variant="outline"
+              size="sm"
+              className="flex-1"
               aria-label={`View details for ${title}`}
             >
               View Details
-            </button>
+            </Button>
 
             {/* Download Options */}
             {(hasAudio || hasVideo || hasNotes) && (
               <div className="flex gap-2">
                 {hasAudio && (
-                  <button
+                  <Button
                     onClick={(e) => handleDownload(e, 'audio')}
-                    className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200"
+                    variant="ghost"
+                    size="sm"
                     aria-label="Download audio"
                     title="Download Audio"
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
                     </svg>
-                  </button>
+                  </Button>
                 )}
                 
                 {hasVideo && (
-                  <button
+                  <Button
                     onClick={(e) => handleDownload(e, 'video')}
-                    className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200"
+                    variant="ghost"
+                    size="sm"
                     aria-label="Download video"
                     title="Download Video"
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/>
                     </svg>
-                  </button>
+                  </Button>
                 )}
 
                 {hasNotes && (
-                  <button
+                  <Button
                     onClick={(e) => handleDownload(e, 'notes')}
-                    className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200"
+                    variant="ghost"
+                    size="sm"
                     aria-label="Download sermon notes"
                     title="Download Notes"
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                     </svg>
-                  </button>
+                  </Button>
                 )}
               </div>
             )}
 
             {/* Share Button */}
-            <button
+            <Button
               onClick={handleShare}
-              className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200"
+              variant="ghost"
+              size="sm"
               aria-label={`Share ${title}`}
               title="Share Sermon"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
               </svg>
-            </button>
+            </Button>
           </div>
         )}
       </div>

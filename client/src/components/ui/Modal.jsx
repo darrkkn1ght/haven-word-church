@@ -223,8 +223,10 @@ const Modal = ({
             )}
             
             {showCloseButton && (
-              <button
+              <Button
                 onClick={onClose}
+                variant="ghost"
+                size="sm"
                 className="
                   ml-auto flex-shrink-0 p-2 -mr-2
                   text-gray-400 hover:text-gray-600
@@ -248,7 +250,7 @@ const Modal = ({
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-              </button>
+              </Button>
             )}
           </div>
         )}

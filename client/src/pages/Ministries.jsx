@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import MinistryCard from '../components/cards/MinistryCard';
+import Button from '../components/ui/Button';
 import PropTypes from 'prop-types';
 
 /**
@@ -215,12 +216,14 @@ const Ministries = () => {
             alt={ministry.title}
             className="w-full h-64 object-cover rounded-t-lg"
           />
-          <button
+          <Button
             onClick={onClose}
-            className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors"
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 right-4"
           >
             ×
-          </button>
+          </Button>
         </div>
         
         <div className="p-6">
@@ -315,14 +318,20 @@ const Ministries = () => {
           )}
           
           <div className="flex gap-4">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
-              <UserCheck className="h-5 w-5" />
+            <Button
+              variant="primary"
+              size="md"
+              leftIcon={<UserCheck className="h-5 w-5" />}
+            >
               Join Ministry
-            </button>
-            <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2">
-              <Mail className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="outline"
+              size="md"
+              leftIcon={<Mail className="h-5 w-5" />}
+            >
               Contact Leader
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -351,12 +360,13 @@ const Ministries = () => {
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h2>
           <p className="text-gray-600 mb-4">{error}</p>
-          <button 
+          <Button 
             onClick={() => window.location.reload()}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            variant="primary"
+            size="md"
           >
             Try Again
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -382,14 +392,22 @@ const Ministries = () => {
               Every believer has a unique calling and gifting to contribute to the body of Christ.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2 justify-center">
-                <Users className="h-5 w-5" />
+              <Button
+                variant="primary"
+                size="lg"
+                leftIcon={<Users className="h-5 w-5" />}
+                className="bg-white text-primary-600 hover:bg-gray-100"
+              >
                 Find Your Ministry
-              </button>
-              <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors flex items-center gap-2 justify-center">
-                <Heart className="h-5 w-5" />
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                leftIcon={<Heart className="h-5 w-5" />}
+                className="border-2 border-white text-white hover:bg-white hover:text-primary-600"
+              >
                 Volunteer Today
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -412,14 +430,16 @@ const Ministries = () => {
             </div>
 
             {/* Filter Toggle for Mobile */}
-            <button
+            <Button
               onClick={() => setShowFilters(!showFilters)}
-              className="lg:hidden flex items-center gap-2 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
+              variant="outline"
+              size="md"
+              leftIcon={<Filter className="h-5 w-5" />}
+              rightIcon={showFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+              className="lg:hidden"
             >
-              <Filter className="h-5 w-5" />
               Filters
-              {showFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-            </button>
+            </Button>
 
             {/* Category Filter */}
             <div className={`${showFilters ? 'block' : 'hidden'} lg:block w-full lg:w-auto`}>
@@ -427,18 +447,16 @@ const Ministries = () => {
                 {categories.map((category) => {
                   const Icon = category.icon;
                   return (
-                    <button
+                    <Button
                       key={category.value}
                       onClick={() => setSelectedCategory(category.value)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
-                      selectedCategory === category.value
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'
-                      }`}
+                      variant={selectedCategory === category.value ? 'primary' : 'outline'}
+                      size="sm"
+                      leftIcon={<Icon className="h-4 w-4" />}
+                      className="text-sm font-medium"
                     >
-                      <Icon className="h-4 w-4" />
-                      <span className="text-sm font-medium">{category.label}</span>
-                    </button>
+                      {category.label}
+                    </Button>
                   );
                 })}
               </div>
@@ -465,15 +483,17 @@ const Ministries = () => {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Try adjusting your search terms or category filter.
               </p>
-              <button
+              <Button
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedCategory('all');
                 }}
-                className="text-blue-600 hover:underline"
+                variant="ghost"
+                size="sm"
+                className="text-primary-600 hover:underline"
               >
                 Clear all filters
-              </button>
+              </Button>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

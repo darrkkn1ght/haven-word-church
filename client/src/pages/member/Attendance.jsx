@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useNotification } from '../../context/NotificationContext';
-import { memberService } from '../../services/api';
+import { useAuth } from '../../hooks/useAuth';
+import { useNotifications } from '../../context/NotificationContext';
+import { getAttendance, exportAttendance } from '../../services/memberService';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import SEOHead from '../../components/common/SEOHead';
+import Button from '../../components/ui/Button';
 import { 
   Calendar, 
   Clock, 
@@ -39,7 +40,7 @@ import {
  */
 const Attendance = () => {
   const { user } = useAuth();
-  const { showNotification } = useNotification();
+  const { showNotification } = useNotifications();
   
   // State management
   const [loading, setLoading] = useState(true);
@@ -87,7 +88,7 @@ const Attendance = () => {
   const fetchAttendanceData = async () => {
     try {
       setLoading(true);
-      const response = await memberService.getAttendance(filters);
+      const response = await getAttendance(filters);
       setAttendanceData(response.data.records);
       setStatistics(response.data.statistics);
     } catch (error) {
@@ -243,7 +244,7 @@ const Attendance = () => {
    */
   const exportAttendance = async () => {
     try {
-      const response = await memberService.exportAttendance(filters);
+      const response = await exportAttendance(filters);
       
       // Create download link
       const blob = new Blob([response.data], { type: 'text/csv' });
@@ -293,13 +294,14 @@ const Attendance = () => {
                 <h2 className="text-lg font-semibold text-blue-900">
                   Current Services - Check In Available
                 </h2>
-                <button
+                <Button
                   onClick={() => setShowQRScanner(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  variant="primary"
+                  size="md"
+                  leftIcon={<QrCode className="w-4 h-4" />}
                 >
-                  <QrCode className="w-4 h-4" />
                   Scan QR Code
-                </button>
+                </Button>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -328,32 +330,18 @@ const Attendance = () => {
                       </div>
                     </div>
                     
-                    <button
+                    <Button
                       onClick={() => handleCheckIn(service._id)}
                       disabled={checkingIn || service.checkedIn}
-                      className={`w-full px-4 py-2 rounded-lg font-medium transition-colors ${
-                        service.checkedIn
-                          ? 'bg-green-100 text-green-800 cursor-not-allowed'
-                          : 'bg-blue-600 text-white hover:bg-blue-700'
-                      }`}
+                      loading={checkingIn}
+                      variant={service.checkedIn ? 'outline' : 'primary'}
+                      size="md"
+                      fullWidth
+                      leftIcon={service.checkedIn ? <CheckCircle className="w-4 h-4" /> : <Smartphone className="w-4 h-4" />}
+                      className={service.checkedIn ? 'bg-green-100 text-green-800 border-green-200' : ''}
                     >
-                      {checkingIn ? (
-                        <span className="flex items-center justify-center gap-2">
-                          <LoadingSpinner size="small" />
-                          Checking In...
-                        </span>
-                      ) : service.checkedIn ? (
-                        <span className="flex items-center justify-center gap-2">
-                          <CheckCircle className="w-4 h-4" />
-                          Checked In
-                        </span>
-                      ) : (
-                        <span className="flex items-center justify-center gap-2">
-                          <Smartphone className="w-4 h-4" />
-                          Check In
-                        </span>
-                      )}
-                    </button>
+                      {service.checkedIn ? 'Checked In' : 'Check In'}
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -488,13 +476,15 @@ const Attendance = () => {
               </div>
 
               {/* Export Button */}
-              <button
+              <Button
                 onClick={exportAttendance}
-                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                variant="primary"
+                size="md"
+                leftIcon={<Download className="w-4 h-4" />}
+                className="bg-green-600 hover:bg-green-700"
               >
-                <Download className="w-4 h-4" />
                 Export Data
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -631,12 +621,14 @@ const Attendance = () => {
               <h3 className="text-lg font-semibold text-gray-900">
                 Scan QR Code
               </h3>
-              <button
+              <Button
                 onClick={() => setShowQRScanner(false)}
+                variant="ghost"
+                size="sm"
                 className="text-gray-400 hover:text-gray-600"
               >
                 <XCircle className="w-6 h-6" />
-              </button>
+              </Button>
             </div>
             
             <div className="text-center py-8">
@@ -644,12 +636,14 @@ const Attendance = () => {
               <p className="text-gray-600 mb-4">
                 QR Code scanner would be implemented here using a camera library like react-qr-scanner
               </p>
-              <button
+              <Button
                 onClick={() => setShowQRScanner(false)}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                variant="outline"
+                size="md"
+                className="bg-gray-600 text-white hover:bg-gray-700 border-gray-600"
               >
                 Close
-              </button>
+              </Button>
             </div>
           </div>
         </div>

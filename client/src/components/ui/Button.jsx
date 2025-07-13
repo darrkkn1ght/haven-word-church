@@ -48,54 +48,47 @@ const Button = ({
   // Base button classes
   const baseClasses = `
     inline-flex items-center justify-center
-    font-medium rounded-lg border
-    transition-all duration-200 ease-in-out
-    focus:outline-none focus:ring-2 focus:ring-offset-2
+    font-semibold rounded-2xl
+    transition-all duration-300 ease-in-out
+    focus:outline-none focus:ring-4 focus:ring-primary-300 dark:focus:ring-accent-700
     disabled:opacity-50 disabled:cursor-not-allowed
-    active:scale-[0.98] hover:shadow-md
+    active:scale-95 hover:scale-105
+    shadow-xl hover:shadow-2xl
     ${fullWidth ? 'w-full' : ''}
   `.trim();
 
-  // Variant styles with Nigerian church context
+  // Variant styles (modern, blue/cyan, 3D)
   const variantClasses = {
     primary: `
-      bg-blue-600 hover:bg-blue-700 
-      text-white border-blue-600 hover:border-blue-700
-      focus:ring-blue-500
-      shadow-lg hover:shadow-blue-500/25
-    `,
-    secondary: `
-      bg-green-600 hover:bg-green-700 
-      text-white border-green-600 hover:border-green-700
-      focus:ring-green-500
-      shadow-lg hover:shadow-green-500/25
+      bg-gradient-to-r from-primary-500 via-accent-500 to-primary-600
+      text-white
+      shadow-[0_4px_24px_0_rgba(37,99,235,0.18)]
+      hover:from-primary-400 hover:via-accent-400 hover:to-primary-500
+      dark:bg-gradient-to-r dark:from-primary-600 dark:via-accent-700 dark:to-primary-800
+      dark:text-white
+      dark:shadow-[0_4px_24px_0_rgba(6,182,212,0.18)]
     `,
     outline: `
-      bg-transparent hover:bg-blue-50 
-      text-blue-600 hover:text-blue-700
-      border-blue-600 hover:border-blue-700
-      focus:ring-blue-500
+      bg-transparent border-2 border-primary-500 text-primary-600
+      hover:bg-primary-50 hover:text-primary-700
+      dark:border-accent-500 dark:text-accent-300 dark:hover:bg-accent-900/20
     `,
     ghost: `
-      bg-transparent hover:bg-gray-100 
-      text-gray-700 hover:text-gray-900
-      border-transparent hover:border-gray-200
-      focus:ring-gray-500
+      bg-transparent text-primary-600 hover:bg-primary-50
+      dark:text-accent-300 dark:hover:bg-accent-900/20
     `,
     danger: `
-      bg-red-600 hover:bg-red-700 
-      text-white border-red-600 hover:border-red-700
-      focus:ring-red-500
+      bg-error text-white border-error hover:bg-error/90
       shadow-lg hover:shadow-red-500/25
     `
   };
 
   // Size classes
   const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm gap-1.5 min-h-[32px]',
-    md: 'px-4 py-2 text-base gap-2 min-h-[40px]',
-    lg: 'px-6 py-3 text-lg gap-2.5 min-h-[48px]',
-    xl: 'px-8 py-4 text-xl gap-3 min-h-[56px]'
+    sm: 'px-4 py-2 text-sm gap-1.5 min-h-[36px]',
+    md: 'px-5 py-2.5 text-base gap-2 min-h-[44px]',
+    lg: 'px-7 py-3 text-lg gap-2.5 min-h-[52px]',
+    xl: 'px-9 py-4 text-xl gap-3 min-h-[60px]'
   };
 
   // Loading state adjustments

@@ -218,11 +218,13 @@ const Calendar = ({
     }
 
     return (
-      <button
+      <Button
         key={date.toISOString()}
         className={dayClasses}
         onClick={() => handleDateClick(date)}
         disabled={isDisabled}
+        variant="ghost"
+        size="sm"
         aria-label={`${date.getDate()} ${currentLocale.months[date.getMonth()]} ${date.getFullYear()}`}
         aria-pressed={isSelected}
       >
@@ -250,7 +252,7 @@ const Calendar = ({
             </div>
           </div>
         )}
-      </button>
+      </Button>
     );
   };
 

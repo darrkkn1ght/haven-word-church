@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
+import Button from '../components/ui/Button';
 
 const heroBg = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80'; // Placeholder
 const aboutImg = 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80';
@@ -113,7 +114,9 @@ export default function HomeCelebrationStyle() {
           <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 max-w-2xl mx-auto">We promise not to spam you, but send you edifying and amazing content regularly from Haven Word Church.</p>
           <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4 justify-center">
             <input type="email" placeholder="Email address" className="flex-1 px-4 py-3 rounded-full text-gray-900 border-2 border-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-400 dark:bg-primary-800 dark:text-white" required />
-            <button type="submit" className="px-8 py-3 rounded-full bg-secondary-500 text-white font-semibold shadow hover:bg-secondary-600 transition">Submit</button>
+            <Button type="submit" variant="primary" size="lg" className="px-8 py-3 rounded-full bg-secondary-500 text-white font-semibold shadow hover:bg-secondary-600 transition">
+              Submit
+            </Button>
           </form>
         </div>
       </section>

@@ -4,6 +4,7 @@ import { Play, Download, Share2, Calendar, Clock, User, BookOpen, Search, Chevro
 import SEOHead from '../components/SEOHead';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import SermonCard from '../components/cards/SermonCard';
+import Button from '../components/ui/Button';
 
 /**
  * Sermons Page Component
@@ -318,24 +319,29 @@ const Sermons = () => {
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    <button
+                    <Button
                       onClick={() => handlePlayAudio(featuredSermon)}
-                      className="flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors"
+                      variant="primary"
+                      size="md"
+                      leftIcon={<Play className="w-5 h-5" />}
                     >
-                      <Play className="w-5 h-5" />
                       {currentlyPlaying === featuredSermon.id ? 'Playing...' : 'Listen Now'}
-                    </button>
-                    <button className="flex items-center gap-2 border border-purple-600 text-purple-600 dark:border-purple-400 dark:text-purple-300 px-6 py-3 rounded-lg font-medium hover:bg-purple-600 hover:text-white dark:hover:bg-purple-800 dark:hover:text-white transition-colors">
-                      <Download className="w-5 h-5" />
-                      Download
-                    </button>
-                    <button
-                      onClick={() => handleShare(featuredSermon)}
-                      className="flex items-center gap-2 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="md"
+                      leftIcon={<Download className="w-5 h-5" />}
                     >
-                      <Share2 className="w-5 h-5" />
+                      Download
+                    </Button>
+                    <Button
+                      onClick={() => handleShare(featuredSermon)}
+                      variant="outline"
+                      size="md"
+                      leftIcon={<Share2 className="w-5 h-5" />}
+                    >
                       Share
-                    </button>
+                    </Button>
                   </div>
                 </div>
                 <div className="relative">
@@ -345,12 +351,14 @@ const Sermons = () => {
                     className="w-full h-64 object-cover rounded-lg shadow-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg flex items-center justify-center">
-                    <button
+                    <Button
                       onClick={() => handlePlayAudio(featuredSermon)}
-                      className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center text-purple-600 hover:bg-opacity-100 transition-all"
+                      variant="primary"
+                      size="lg"
+                      className="w-16 h-16 rounded-full bg-white bg-opacity-90 hover:bg-opacity-100 text-primary-600"
                     >
                       <Play className="w-8 h-8 ml-1" />
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -381,17 +389,15 @@ const Sermons = () => {
             <div className="flex flex-wrap gap-2">
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Sort by:</label>
               {filterOptions.map((option) => (
-                <button
+                <Button
                   key={option.key}
                   onClick={() => setActiveFilter(option.key)}
-                  className={`px-4 py-2 rounded-full font-medium transition-all ${
-                    activeFilter === option.key
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                  }`}
+                  variant={activeFilter === option.key ? 'primary' : 'outline'}
+                  size="sm"
+                  className="rounded-full font-medium"
                 >
                   {option.label}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
@@ -400,17 +406,15 @@ const Sermons = () => {
           <div className="flex flex-wrap justify-center gap-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-2">Series:</label>
             {sermonSeries.slice(0, 6).map((series) => (
-              <button
+              <Button
                 key={series.key}
                 onClick={() => setSelectedSeries(series.key)}
-                className={`px-4 py-2 rounded-full font-medium transition-all ${
-                  selectedSeries === series.key
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                }`}
+                variant={selectedSeries === series.key ? 'primary' : 'outline'}
+                size="sm"
+                className="rounded-full font-medium"
               >
                 {series.label}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
@@ -453,12 +457,14 @@ const Sermons = () => {
                 }
               </p>
               {searchTerm && (
-                <button
+                <Button
                   onClick={() => setSearchTerm('')}
-                  className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium"
+                  variant="ghost"
+                  size="sm"
+                  className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
                 >
                   Clear search
-                </button>
+                </Button>
               )}
             </div>
           )}
@@ -466,35 +472,34 @@ const Sermons = () => {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center space-x-2">
-              <button
+              <Button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="p-2 rounded-lg border border-gray-300 dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-800"
+                variant="outline"
+                size="sm"
               >
                 <ChevronLeft className="w-5 h-5" />
-              </button>
+              </Button>
               
               {[...Array(totalPages)].map((_, index) => (
-                <button
+                <Button
                   key={index + 1}
                   onClick={() => setCurrentPage(index + 1)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    currentPage === index + 1
-                      ? 'bg-purple-600 text-white'
-                      : 'border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                  }`}
+                  variant={currentPage === index + 1 ? 'primary' : 'outline'}
+                  size="sm"
                 >
                   {index + 1}
-                </button>
+                </Button>
               ))}
               
-              <button
+              <Button
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="p-2 rounded-lg border border-gray-300 dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-800"
+                variant="outline"
+                size="sm"
               >
                 <ChevronRight className="w-5 h-5" />
-              </button>
+              </Button>
             </div>
           )}
         </div>
@@ -510,12 +515,18 @@ const Sermons = () => {
             Subscribe to our podcast or follow us to get the latest sermons delivered directly to your device.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-purple-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+            <Button
+              variant="primary"
+              size="lg"
+            >
               Subscribe to Podcast
-            </button>
-            <button className="border border-purple-600 text-purple-600 px-8 py-3 rounded-lg font-medium hover:bg-purple-600 hover:text-white transition-colors dark:border-purple-400 dark:text-purple-300 dark:hover:bg-purple-800 dark:hover:text-white">
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+            >
               Download App
-            </button>
+            </Button>
           </div>
           <div className="mt-8 flex justify-center gap-6 text-gray-500 dark:text-gray-300">
             <span className="flex items-center gap-2">

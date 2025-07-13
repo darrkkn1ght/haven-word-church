@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { validateEmail, validatePhone, validateRequired, validateLength } from '../../utils/validators';
 import LoadingSpinner from '../common/LoadingSpinner';
+import Button from '../ui/Button';
 import { sendContactMessage } from '../../services/api';
 
 /**
@@ -536,14 +537,16 @@ const ContactForm = ({
                   <span className="text-sm text-gray-700 dark:text-gray-300 truncate">
                     {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
                   </span>
-                  <button
+                  <Button
                     type="button"
                     onClick={() => removeAttachment(index)}
+                    variant="ghost"
+                    size="sm"
                     className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
                     disabled={isSubmitting}
                   >
                     Remove
-                  </button>
+                  </Button>
                 </div>
               ))}
             </div>
@@ -632,25 +635,21 @@ const ContactForm = ({
 
         {/* Submit Button */}
         <div className="pt-4">
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+            loading={isSubmitting}
+            variant="primary"
+            size="lg"
+            fullWidth
+            icon={
+              <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            }
           >
-            {isSubmitting ? (
-              <>
-                <LoadingSpinner size="sm" className="mr-2" />
-                Sending Message...
-              </>
-            ) : (
-              <>
-                <svg className="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-                Send Message
-              </>
-            )}
-          </button>
+            Send Message
+          </Button>
         </div>
 
         {/* Contact Info */}

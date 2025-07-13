@@ -29,6 +29,7 @@ import Ministries from './pages/Ministries';
 import MinistryDetails from './pages/MinistryDetails';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import BlogCreate from './pages/BlogCreate';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import HomeCelebrationStyle from './pages/HomeCelebrationStyle';
@@ -39,7 +40,14 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import ManageContent from './pages/admin/ManageContent';
+import AnalyticsDashboard from './pages/admin/AnalyticsDashboard';
 import MemberDashboard from './pages/member/Dashboard';
+import Attendance from './pages/member/Attendance';
+import Profile from './pages/member/Profile';
+import PrayerRequests from './pages/member/PrayerRequests';
+import MyDonations from './pages/member/MyDonations';
+import MyEvents from './pages/member/MyEvents';
 
 // Error Pages
 import NotFound from './pages/errors/NotFound';
@@ -87,6 +95,7 @@ import PropTypes from 'prop-types';
 const AppLayout = ({ children, showHeader = true, showFooter = true }) => {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+      <ScrollToTop />
       {showHeader && <Header />}
       <main className="flex-grow">
         {children}
@@ -241,6 +250,16 @@ function App() {
       ),
     },
     {
+      path: '/blog/create',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['member', 'pastor', 'admin']}>
+            <BlogCreate />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
       path: '/gallery',
       element: (
         <AppLayout>
@@ -307,11 +326,81 @@ function App() {
       ),
     },
     {
+      path: '/admin/manage-content',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['admin']}>
+            <ManageContent />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/admin/analytics',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['admin']}>
+            <AnalyticsDashboard />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
       path: '/member/dashboard',
       element: (
         <AppLayout>
           <ProtectedRoute roles={['member', 'pastor', 'staff', 'admin']}>
             <MemberDashboard />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/member/attendance',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['member', 'pastor', 'staff', 'admin']}>
+            <Attendance />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/member/profile',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['member', 'pastor', 'staff', 'admin']}>
+            <Profile />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/member/prayer-requests',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['member', 'pastor', 'staff', 'admin']}>
+            <PrayerRequests />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/member/my-donations',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['member', 'pastor', 'staff', 'admin']}>
+            <MyDonations />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/member/my-events',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['member', 'pastor', 'staff', 'admin']}>
+            <MyEvents />
           </ProtectedRoute>
         </AppLayout>
       ),
@@ -357,7 +446,6 @@ function App() {
         <ThemeProvider>
           <AuthProvider>
             <NotificationProvider>
-              <ScrollToTop />
               <div className="App">
                 <RouterProvider router={router} />
               </div>
