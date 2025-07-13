@@ -68,9 +68,6 @@ const About = () => {
     'We believe in the deity and humanity of Jesus Christ, His virgin birth, sinless life, atoning death, and bodily resurrection.',
     'We believe the Bible is the inspired, infallible, and authoritative Word of God.',
     'We believe in salvation by grace through faith in Jesus Christ alone.',
-    'We believe in the ministry of the Holy Spirit in conviction, regeneration, sanctification, and empowerment.',
-    'We believe in the resurrection of both the saved and the lost - the saved unto eternal life and the lost unto eternal judgment.',
-    'We believe in the spiritual unity of believers in our Lord Jesus Christ and the importance of local church fellowship.',
     'We believe in the Great Commission and our responsibility to make disciples of all nations.'
   ];
 
