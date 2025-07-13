@@ -65,10 +65,10 @@ const About = () => {
   // Statement of faith points
   const statementOfFaith = [
     'We believe in one true and living God, our Father, who has revealed Himself to us through Jesus Christ and is always with us by His Spirit.',
-    'We believe in the deity and humanity of Jesus Christ, His virgin birth, sinless life, atoning death, and bodily resurrection.',
-    'We believe the Bible is the inspired, infallible, and authoritative Word of God.',
-    'We believe in salvation by grace through faith in Jesus Christ alone.',
-    'We believe in the Great Commission and our responsibility to make disciples of all nations.'
+    'We believe that Jesus is God\'s Son, sent because of His great love for us. He lived a sinless life, died for our sins, and rose again. Through Him, we see the Father and receive eternal life.',
+    'We believe the Bible is God\'s inspired Word. It builds us, trains us, and equips us for the work of ministry.',
+    'We believe that whoever believes in Jesus will not perish but have everlasting life. Salvation is a gift of grace, not something we earn. Once a man believes, he is saved forever and made new.',
+    'We believe we are sent to preach Christ — from one man to another, one city to the next — until the whole earth is filled with His glory.'
   ];
 
   const handleLeaderClick = (leader) => {

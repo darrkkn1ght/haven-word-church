@@ -101,22 +101,6 @@ const Contact = () => {
       email: 'havenwordchurch@gmail.com',
       image: '/images/pastor-michael.jpg',
       availability: 'Mon-Fri: 9AM-5PM'
-    },
-    {
-      name: 'Mrs. Grace Okafor',
-      role: 'Church Administrator',
-      phone: '+234 803 123 4567',
-      email: 'havenwordchurch@gmail.com',
-      image: '/images/grace-okafor.jpg',
-      availability: 'Mon-Fri: 8AM-4PM'
-    },
-    {
-      name: 'Pastor Anthonia Amadi',
-      role: 'Youth Pastor',
-      phone: '+234 807 555 0123',
-      email: 'havenwordchurch@gmail.com',
-      image: '/images/pastor-david.jpg',
-      availability: 'Tue-Sat: 2PM-8PM'
     }
   ];
 
@@ -125,26 +109,22 @@ const Contact = () => {
     {
       icon: Facebook,
       name: 'Facebook',
-      url: 'https://facebook.com/havenwordchurch',
-      followers: '2.5K'
+      url: 'https://facebook.com/havenwordchurch'
     },
     {
       icon: Instagram,
       name: 'Instagram',
-      url: 'https://instagram.com/havenwordchurch',
-      followers: '1.8K'
+      url: 'https://instagram.com/havenwordchurch'
     },
     {
       icon: Twitter,
       name: 'Twitter',
-      url: 'https://twitter.com/havenwordchurch',
-      followers: '1.2K'
+      url: 'https://twitter.com/havenwordchurch'
     },
     {
       icon: Youtube,
       name: 'YouTube',
-      url: 'https://youtube.com/havenwordchurch',
-      followers: '3.1K'
+      url: 'https://youtube.com/havenwordchurch'
     }
   ];
 
@@ -426,7 +406,6 @@ const Contact = () => {
                       <IconComponent className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">{social.name}</h3>
-                    <p className="text-gray-600">{social.followers} followers</p>
                   </a>
                 );
               })}
