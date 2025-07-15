@@ -191,6 +191,13 @@ export const endpoints = {
     getHistory: (params) => api.get('/admin/export/history', { params }),
     delete: (jobId) => api.delete(`/admin/export/${jobId}`),
   },
+
+  // Admin Activity Logs
+  adminActivityLogs: {
+    get: (params) => api.get('/admin/activity-logs', { params }),
+    export: (params) => api.get('/admin/activity-logs/export', { params, responseType: 'blob' }),
+    delete: (id) => api.delete(`/admin/activity-logs/${id}`),
+  },
 };
 
 // Utility functions (authentication and user utilities removed)

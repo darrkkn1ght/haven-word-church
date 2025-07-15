@@ -53,6 +53,17 @@ const AdminDashboard = () => (
           Export Content
         </Link>
       </div>
+      {/* User Activity Logs */}
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow p-6">
+        <h2 className="text-xl font-semibold mb-2 text-pink-700 dark:text-pink-300">User Activity Logs</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-4">View, search, and export user activity and system event logs.</p>
+        <Link
+          to="/admin/activity-logs"
+          className="inline-block px-4 py-2 rounded bg-pink-600 text-white font-medium hover:bg-pink-700 transition"
+        >
+          View Activity Logs
+        </Link>
+      </div>
     </div>
     <div className="mt-12 text-center text-gray-400 text-sm">More admin features coming soon...</div>
   </div>

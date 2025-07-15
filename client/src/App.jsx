@@ -50,6 +50,7 @@ import PrayerRequests from './pages/member/PrayerRequests';
 import MyDonations from './pages/member/MyDonations';
 import MyEvents from './pages/member/MyEvents';
 import ExportContent from './pages/admin/ExportContent';
+import ActivityLogs from './pages/admin/ActivityLogs';
 
 // Error Pages
 import NotFound from './pages/errors/NotFound';
@@ -353,6 +354,16 @@ function App() {
         <AppLayout>
           <ProtectedRoute roles={['admin']}>
             <ExportContent />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/admin/activity-logs',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['admin']}>
+            <ActivityLogs />
           </ProtectedRoute>
         </AppLayout>
       ),
