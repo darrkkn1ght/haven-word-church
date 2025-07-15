@@ -111,7 +111,7 @@ const ManageUsers = () => {
                       {getRoleAction(user, currentUser)}
                     </button>
                     <button
-                      className={`px-2 py-1 rounded text-xs font-semibold ${user.active ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'} ${currentUser && currentUser.id === user._id ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-200 hover:bg-green-200'}`}
+                      className={`px-2 py-1 rounded text-xs font-semibold ${user.active ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200'} ${currentUser && currentUser.id === user._id ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={currentUser && currentUser.id === user._id}
                       onClick={() => handleStatusChange(user)}
                     >

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useApi } from '../../hooks/useApi';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
@@ -21,11 +21,7 @@ const ManageContent = () => {
   const [moderationNotes, setModerationNotes] = useState('');
 
   // Load content based on active tab
-  useEffect(() => {
-    loadContent();
-  }, [activeTab, statusFilter, currentPage, loadContent]);
-
-  const loadContent = async () => {
+  const loadContent = useCallback(async () => {
     setLoading(true);
     try {
       const endpoint = activeTab === 'blogs' ? '/admin/blogs' : '/admin/sermons';
@@ -43,7 +39,11 @@ const ManageContent = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeTab, statusFilter, currentPage, apiCall]);
+
+  useEffect(() => {
+    loadContent();
+  }, [activeTab, statusFilter, currentPage, loadContent]);
 
   const handleAction = async (action, itemId, itemType) => {
     try {

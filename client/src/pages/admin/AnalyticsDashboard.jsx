@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useApi } from '../../hooks/useApi';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
@@ -8,7 +8,6 @@ import {
   Eye, 
   Heart, 
   TrendingUp, 
-  Calendar,
   Activity,
   BarChart3,
   PieChart,
@@ -29,13 +28,7 @@ const AnalyticsDashboard = () => {
     recentActivity: []
   });
 
-  useEffect(() => {
-    if (user && user.role === 'admin') {
-      loadAnalytics();
-    }
-  }, [user, timeRange]);
-
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async () => {
     setLoading(true);
     try {
       const response = await apiCall('GET', `/admin/analytics?timeRange=${timeRange}`);
@@ -45,7 +38,13 @@ const AnalyticsDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [apiCall, timeRange]);
+
+  useEffect(() => {
+    if (user && user.role === 'admin') {
+      loadAnalytics();
+    }
+  }, [user, timeRange, loadAnalytics]);
 
   const formatNumber = (num) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';

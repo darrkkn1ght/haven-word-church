@@ -42,7 +42,7 @@ export const useContentSearch = (contentType, options = {}) => {
   const suggestionsKey = `search_suggestions_${contentType}`;
 
   // Default filters for different content types
-  const defaultFilters = {
+  const defaultFilters = useMemo(() => ({
     blog: {
       category: '',
       author: '',
@@ -75,7 +75,7 @@ export const useContentSearch = (contentType, options = {}) => {
       status: 'active',
       featured: false
     }
-  };
+  }), []);
 
   // Search suggestions for different content types
   const defaultSearchSuggestions = useMemo(() => ({
