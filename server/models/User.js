@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     enum: ['admin', 'member', 'pastor', 'staff'],
     default: 'member',
   },
+  active: { type: Boolean, default: true },
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../ui/Button';
+import PropTypes from 'prop-types';
 
 const RegisterForm = ({ onRegister, loading }) => {
   const [form, setForm] = useState({
@@ -32,8 +33,10 @@ const RegisterForm = ({ onRegister, loading }) => {
         placeholder="Full Name"
         value={form.name}
         onChange={handleChange}
-        className="w-full p-2 border rounded"
+        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
         required
+        aria-label="Full Name"
+        autoComplete="name"
       />
       <input
         type="email"
@@ -41,8 +44,10 @@ const RegisterForm = ({ onRegister, loading }) => {
         placeholder="Email"
         value={form.email}
         onChange={handleChange}
-        className="w-full p-2 border rounded"
+        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
         required
+        aria-label="Email address"
+        autoComplete="email"
       />
       <input
         type="password"
@@ -50,20 +55,23 @@ const RegisterForm = ({ onRegister, loading }) => {
         placeholder="Password"
         value={form.password}
         onChange={handleChange}
-        className="w-full p-2 border rounded"
+        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
         required
+        aria-label="Password"
+        autoComplete="new-password"
       />
       <select
         name="role"
         value={form.role}
         onChange={handleChange}
-        className="w-full p-2 border rounded"
+        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+        aria-label="Role"
       >
         <option value="member">Member</option>
         <option value="pastor">Pastor</option>
         <option value="staff">Staff</option>
       </select>
-      {error && <div className="text-red-500 text-sm">{error}</div>}
+      {error && <div className="text-red-600 dark:text-red-400 text-sm font-medium" role="alert">{error}</div>}
       <Button
         type="submit"
         disabled={loading}
@@ -78,7 +86,7 @@ const RegisterForm = ({ onRegister, loading }) => {
   );
 };
 
-import PropTypes from 'prop-types';
+
 
 RegisterForm.propTypes = {
   onRegister: PropTypes.func,

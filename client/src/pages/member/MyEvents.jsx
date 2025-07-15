@@ -13,15 +13,12 @@ import {
   Calendar, 
   Clock, 
   MapPin, 
-  Users, 
   Filter,
   CheckCircle,
   XCircle,
   HelpCircle,
   Edit,
   Eye,
-  Share2,
-  Download,
   ChevronRight
 } from 'lucide-react';
 

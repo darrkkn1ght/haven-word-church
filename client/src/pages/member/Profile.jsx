@@ -42,7 +42,7 @@ import {
  * @returns {JSX.Element} Profile page component
  */
 const Profile = () => {
-  const { user, updateUser } = useAuth();
+  const { updateUser } = useAuth();
   const { showNotification } = useNotifications();
   
   // State management

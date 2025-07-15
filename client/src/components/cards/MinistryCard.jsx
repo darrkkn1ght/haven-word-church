@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatDate } from '../../utils/helpers';
 import Button from '../ui/Button';
+import PropTypes from 'prop-types';
 
 /**
  * MinistryCard Component
@@ -419,8 +420,6 @@ const MinistryCard = ({
     </div>
   );
 };
-
-import PropTypes from 'prop-types';
 
 MinistryCard.propTypes = {
   ministry: PropTypes.shape({

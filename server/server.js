@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const http = require('http');
+const socketIo = require('socket.io');
 require('dotenv').config();
 
 // Import database connection
@@ -25,8 +27,61 @@ const membersDashboardRoutes = require('./routes/members');
 const ministryRoutes = require('./routes/ministries');
 const settingsRoutes = require('./routes/settings');
 const spiritualGrowthRoutes = require('./routes/spiritualGrowth');
+const usersRoutes = require('./routes/users');
+const adminRoutes = require('./routes/admin');
+const uploadRoutes = require('./routes/upload');
+const notificationRoutes = require('./routes/notifications');
+const prayerRequestRoutes = require('./routes/prayerRequests');
 
 const app = express();
+const server = http.createServer(app);
+
+// Socket.io setup
+const io = socketIo(server, {
+  cors: {
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
+
+// Socket.io connection handling
+const connectedUsers = new Map();
+
+io.on('connection', (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  // Handle user authentication
+  socket.on('authenticate', (userId) => {
+    connectedUsers.set(userId, socket.id);
+    socket.userId = userId;
+    console.log(`User ${userId} authenticated on socket ${socket.id}`);
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    if (socket.userId) {
+      connectedUsers.delete(socket.userId);
+      console.log(`User ${socket.userId} disconnected`);
+    }
+  });
+
+  // Handle join room (for specific notifications)
+  socket.on('join-room', (room) => {
+    socket.join(room);
+    console.log(`Socket ${socket.id} joined room: ${room}`);
+  });
+
+  // Handle leave room
+  socket.on('leave-room', (room) => {
+    socket.leave(room);
+    console.log(`Socket ${socket.id} left room: ${room}`);
+  });
+});
+
+// Make io available globally
+global.io = io;
+global.connectedUsers = connectedUsers;
 
 // Connect to database
 connectDB();
@@ -96,6 +151,11 @@ app.use('/api/members', membersDashboardRoutes);
 app.use('/api/ministries', ministryRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/spiritual-growth', spiritualGrowthRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/prayer-requests', prayerRequestRoutes);
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
@@ -140,14 +200,15 @@ process.on('uncaughtException', (err) => {
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`
 🚀 Haven Word Church Server is running!
 📍 Environment: ${process.env.NODE_ENV || 'development'}
 🌐 Port: ${PORT}
 📡 API: http://localhost:${PORT}/api
+🔌 WebSocket: ws://localhost:${PORT}
 💾 Database: ${process.env.MONGODB_URI ? 'Connected' : 'Not configured'}
   `);
 });
 
-module.exports = app;
+module.exports = { app, server, io };

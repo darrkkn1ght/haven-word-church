@@ -7,7 +7,6 @@ import {
   Settings, 
   Palette, 
   Globe, 
-  Mail, 
   Shield, 
   Save,
   RefreshCw
@@ -109,6 +108,7 @@ const SiteSettings = () => {
   };
 
   const resetSettings = async () => {
+    // TODO: Replace with custom confirmation modal
     if (confirm('Are you sure you want to reset all settings to default? This action cannot be undone.')) {
       setLoading(true);
       try {

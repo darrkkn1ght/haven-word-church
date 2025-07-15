@@ -20,16 +20,12 @@ import {
   Clock, 
   Filter,
   Search,
-  Eye,
-  EyeOff,
   CheckCircle,
-  XCircle,
   AlertCircle,
   Archive
 } from 'lucide-react';
 
 const PrayerRequests = () => {
-  const { user } = useAuth();
   const { showNotification } = useNotifications();
   
   // State management

@@ -78,12 +78,12 @@ const BlogCard = ({
 
   // Determine card classes based on variant
   const getCardClasses = () => {
-    const baseClasses = 'group relative bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-200 hover:border-primary-200';
+    const baseClasses = 'group relative bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-400';
     
     const variantClasses = {
       default: 'cursor-pointer',
       compact: 'cursor-pointer',
-      featured: 'cursor-pointer ring-2 ring-primary-100',
+      featured: 'cursor-pointer ring-2 ring-primary-100 dark:ring-primary-400',
       minimal: 'cursor-pointer shadow-none border-0 hover:shadow-sm'
     };
 
@@ -153,7 +153,7 @@ const BlogCard = ({
         <div className="relative h-48 bg-gray-200 overflow-hidden">
           <img
             src={featuredImage}
-            alt={`Featured image for ${title}`}
+            alt={title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
             onError={(e) => {
@@ -212,13 +212,13 @@ const BlogCard = ({
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-200 line-clamp-2">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200 line-clamp-2">
           {title}
         </h3>
 
         {/* Excerpt */}
         {displayExcerpt && (
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
             {displayExcerpt}
           </p>
         )}
@@ -243,7 +243,7 @@ const BlogCard = ({
         )}
 
         {/* Author & Date */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
           {showAuthor && author && (
             <div className="flex items-center">
               {authorImage ? (
@@ -265,7 +265,7 @@ const BlogCard = ({
                 </div>
               )}
               <div>
-                <p className="text-sm font-medium text-gray-900">{typeof author === 'string' ? author : (author && typeof author.name === 'string' ? author.name : 'Haven Word Church')}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">{typeof author === 'string' ? author : (author && typeof author.name === 'string' ? author.name : 'Haven Word Church')}</p>
               </div>
             </div>
           )}
@@ -273,7 +273,7 @@ const BlogCard = ({
           {publishedAt && (
             <time
               dateTime={publishedAt}
-              className="text-xs text-gray-500"
+              className="text-xs text-gray-500 dark:text-gray-400"
             >
               {formatDate(publishedAt)}
             </time>

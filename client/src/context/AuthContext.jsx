@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { setToken, removeToken, getUserFromToken } from '../services/storageService';
 import { login as loginService } from '../services/authService';
+import PropTypes from 'prop-types';
 
 export const AuthContext = createContext();
 
-import PropTypes from 'prop-types';
+
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getUserFromToken());

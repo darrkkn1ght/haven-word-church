@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNotifications } from '../../context/NotificationContext';
-import { Bell, Check, X, Wifi, WifiOff } from 'lucide-react';
+import { Bell, Wifi, WifiOff, X } from 'lucide-react';
 
 const NotificationBell = () => {
   const { notifications, unreadCount, isConnected, markAsRead, deleteNotification } = useNotifications();

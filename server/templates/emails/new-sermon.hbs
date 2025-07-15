@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Sermon Available - Haven Word Church</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e3f2fd;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .church-name {
+            color: #1976d2;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .church-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        .sermon-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .sermon-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .sermon-speaker {
+            font-size: 18px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        .sermon-date {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .sermon-scripture {
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .sermon-description {
+            background-color: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            text-align: left;
+        }
+        .new-badge {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .sermon-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .stat {
+            flex: 1;
+            padding: 10px;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1976d2;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 10px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #1565c0;
+        }
+        .button.secondary {
+            background-color: #6c757d;
+        }
+        .button.secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{churchLogo}}" alt="Haven Word Church Logo" class="logo">
+            <h1 class="church-name">Haven Word Church</h1>
+            <p class="church-subtitle">Spreading God's Word, Building His Kingdom</p>
+        </div>
+
+        <h2>New Sermon Available</h2>
+        <p>Dear {{memberName}},</p>
+        
+        <div class="new-badge">
+            🎵 New Sermon Available
+        </div>
+
+        <div class="sermon-card">
+            <div class="sermon-title">{{sermon.title}}</div>
+            <div class="sermon-speaker">by {{sermon.speaker}}</div>
+            <div class="sermon-date">{{sermon.date}}</div>
+            {{#if sermon.scripture}}
+            <div class="sermon-scripture">"{{sermon.scripture}}"</div>
+            {{/if}}
+            
+            {{#if sermon.description}}
+            <div class="sermon-description">
+                {{sermon.description}}
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="sermon-stats">
+            <div class="stat">
+                <div class="stat-number">{{sermon.duration}}</div>
+                <div class="stat-label">Duration</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">{{sermon.views}}</div>
+                <div class="stat-label">Views</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">{{sermon.downloads}}</div>
+                <div class="stat-label">Downloads</div>
+            </div>
+        </div>
+
+        <p>We hope this message blesses you and strengthens your faith. Feel free to share it with friends and family.</p>
+
+        <div style="text-align: center;">
+            <a href="{{sermonUrl}}" class="button">Listen Now</a>
+            <a href="{{downloadUrl}}" class="button secondary">Download</a>
+        </div>
+
+        <p>May God's Word continue to transform your life,<br>
+        <strong>The Haven Word Church Team</strong></p>
+
+        <div class="footer">
+            <p>Haven Word Church<br>
+            {{churchAddress}}<br>
+            Phone: {{churchPhone}} | Email: {{churchEmail}}</p>
+            
+            <p>© {{currentYear}} Haven Word Church. All rights reserved.</p>
+            
+            <p>
+                <a href="{{unsubscribeUrl}}">Unsubscribe from email notifications</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

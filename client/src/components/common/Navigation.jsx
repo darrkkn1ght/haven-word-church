@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 // import { useAuth } from '../../hooks/useAuth';
 
 /**
@@ -16,7 +16,6 @@ const Navigation = ({
   maxItems = 5 
 }) => {
   const location = useLocation();
-  const navigate = useNavigate();
   // (Removed: user and useAuth)
   
   // Auto-generate breadcrumb from current path if no items provided

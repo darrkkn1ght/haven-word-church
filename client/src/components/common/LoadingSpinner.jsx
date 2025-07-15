@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * LoadingSpinner Component
@@ -18,7 +19,8 @@ const LoadingSpinner = ({
   text = '', 
   overlay = false, 
   className = '',
-  color = 'primary'
+  color = 'primary',
+  ...props
 }) => {
   // Size configurations
   const sizeClasses = {
@@ -44,7 +46,7 @@ const LoadingSpinner = ({
   };
 
   const spinnerElement = (
-    <div className={`flex flex-col items-center justify-center ${className}`}>
+    <div className={`flex flex-col items-center justify-center ${className}`} data-testid={props['data-testid']}>
       {/* Spinner */}
       <div
         className={`
@@ -115,8 +117,6 @@ const LoadingSpinner = ({
  * 
  * Table skeleton for loading states
  */
-
-import PropTypes from 'prop-types';
 
 LoadingSpinner.propTypes = {
   size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),

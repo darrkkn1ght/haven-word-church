@@ -3,6 +3,7 @@ import { validateEmail, validatePhone, validateRequired, validateLength } from '
 import LoadingSpinner from '../common/LoadingSpinner';
 import Button from '../ui/Button';
 import { submitRSVP, getEventDetails } from '../../services/api';
+import PropTypes from 'prop-types';
 
 /**
  * RSVPForm Component - Event RSVP form for Haven Word Church
@@ -552,15 +553,13 @@ const RSVPForm = ({
               value={formData.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.firstName ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="Enter your first name"
               disabled={isSubmitting}
               aria-describedby={errors.firstName ? 'firstName-error' : undefined}
             />
             {errors.firstName && (
-              <p id="firstName-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+              <p id="firstName-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                 {errors.firstName}
               </p>
             )}
@@ -577,15 +576,13 @@ const RSVPForm = ({
               value={formData.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.lastName ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="Enter your last name"
               disabled={isSubmitting}
               aria-describedby={errors.lastName ? 'lastName-error' : undefined}
             />
             {errors.lastName && (
-              <p id="lastName-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+              <p id="lastName-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                 {errors.lastName}
               </p>
             )}
@@ -604,15 +601,13 @@ const RSVPForm = ({
               value={formData.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="your.email@example.com"
               disabled={isSubmitting}
               aria-describedby={errors.email ? 'email-error' : undefined}
             />
             {errors.email && (
-              <p id="email-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+              <p id="email-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                 {errors.email}
               </p>
             )}
@@ -629,15 +624,13 @@ const RSVPForm = ({
               value={formData.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.phone ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="+234-803-123-4567"
               disabled={isSubmitting}
               aria-describedby={errors.phone ? 'phone-error' : undefined}
             />
             {errors.phone && (
-              <p id="phone-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+              <p id="phone-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                 {errors.phone}
               </p>
             )}
@@ -661,14 +654,12 @@ const RSVPForm = ({
                   max={maxGuests}
                   value={formData.guestCount}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                    errors.guestCount ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                   disabled={isSubmitting}
                   aria-describedby={errors.guestCount ? 'guestCount-error' : undefined}
                 />
                 {errors.guestCount && (
-                  <p id="guestCount-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+                  <p id="guestCount-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                     {errors.guestCount}
                   </p>
                 )}
@@ -691,9 +682,7 @@ const RSVPForm = ({
                               type="text"
                               value={guest.name}
                               onChange={(e) => handleGuestChange(index, 'name', e.target.value)}
-                              className={`w-full px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white ${
-                                errors[`guest_${index}_name`] ? 'border-red-500' : 'border-gray-300'
-                              }`}
+                              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                               placeholder="Guest name"
                               disabled={isSubmitting}
                             />
@@ -713,7 +702,7 @@ const RSVPForm = ({
                               max="120"
                               value={guest.age}
                               onChange={(e) => handleGuestChange(index, 'age', e.target.value)}
-                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                               placeholder="Age"
                               disabled={isSubmitting}
                             />
@@ -726,7 +715,7 @@ const RSVPForm = ({
                               type="text"
                               value={guest.dietary}
                               onChange={(e) => handleGuestChange(index, 'dietary', e.target.value)}
-                              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                               placeholder="Any dietary needs"
                               disabled={isSubmitting}
                             />
@@ -751,7 +740,7 @@ const RSVPForm = ({
                   rows="3"
                   value={formData.dietaryRestrictions}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                   placeholder="Any dietary restrictions or food allergies..."
                   disabled={isSubmitting}
                 />
@@ -767,7 +756,7 @@ const RSVPForm = ({
                   rows="3"
                   value={formData.accessibilityNeeds}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                   placeholder="Wheelchair access, sign language, etc..."
                   disabled={isSubmitting}
                 />
@@ -810,9 +799,7 @@ const RSVPForm = ({
                     value={formData.pickupLocation}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                      errors.pickupLocation ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                     disabled={isSubmitting}
                     aria-describedby={errors.pickupLocation ? 'pickupLocation-error' : undefined}
                   >
@@ -824,7 +811,7 @@ const RSVPForm = ({
                     ))}
                   </select>
                   {errors.pickupLocation && (
-                    <p id="pickupLocation-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p id="pickupLocation-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                       {errors.pickupLocation}
                     </p>
                   )}
@@ -849,15 +836,13 @@ const RSVPForm = ({
                     value={formData.emergencyContact}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                      errors.emergencyContact ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                     placeholder="Full name of emergency contact"
                     disabled={isSubmitting}
                     aria-describedby={errors.emergencyContact ? 'emergencyContact-error' : undefined}
                   />
                   {errors.emergencyContact && (
-                    <p id="emergencyContact-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p id="emergencyContact-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                       {errors.emergencyContact}
                     </p>
                   )}
@@ -874,15 +859,13 @@ const RSVPForm = ({
                     value={formData.emergencyPhone}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                      errors.emergencyPhone ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                     placeholder="+234-xxx-xxx-xxxx"
                     disabled={isSubmitting}
                     aria-describedby={errors.emergencyPhone ? 'emergencyPhone-error' : undefined}
                   />
                   {errors.emergencyPhone && (
-                    <p id="emergencyPhone-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p id="emergencyPhone-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
                       {errors.emergencyPhone}
                     </p>
                   )}
@@ -945,7 +928,7 @@ const RSVPForm = ({
                 rows="4"
                 value={formData.comments}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                 placeholder="Anything else you&apos;d like us to know? Questions about the event? Special requests?"
                 disabled={isSubmitting}
               />
@@ -1056,7 +1039,7 @@ const RSVPForm = ({
   );
 };
 
-import PropTypes from 'prop-types';
+
 
 RSVPForm.propTypes = {
   eventId: PropTypes.string,

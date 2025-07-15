@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { formatDate, formatDuration, truncateText } from '../../utils/helpers';
 import Button from '../ui/Button';
-// import { CHURCH_CONFIG } from '../../utils/constants';
+import PropTypes from 'prop-types';
 
 /**
  * SermonCard Component
@@ -148,7 +148,7 @@ const SermonCard = ({
   if (compact) {
     return (
       <div 
-        className={`bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer ${className}`}
+        className={`bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer ${className}`}
         onClick={handleViewDetails}
         role="button"
         tabIndex={0}
@@ -162,10 +162,10 @@ const SermonCard = ({
       >
         <div className="flex items-center justify-between">
           <div className="flex-1 min-w-0 mr-3">
-            <h3 className="text-sm font-semibold text-gray-900 truncate">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
               {title}
             </h3>
-            <p className="text-xs text-gray-600 mt-1">
+            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
               {speaker} • {formatSermonDate(date)}
               {duration > 0 && ` • ${formatSermonDuration(duration)}`}
             </p>
@@ -198,8 +198,7 @@ const SermonCard = ({
   // Render full card
   return (
     <article 
-      className={`bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 ${className}`}
-      role="article"
+      className={`bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all duration-300 ${className}`}
       aria-labelledby={`sermon-title-${id}`}
     >
       {/* Thumbnail */}
@@ -455,8 +454,6 @@ const SermonCard = ({
     </article>
   );
 };
-
-import PropTypes from 'prop-types';
 
 SermonCard.propTypes = {
   sermon: PropTypes.shape({

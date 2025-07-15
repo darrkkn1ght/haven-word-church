@@ -87,12 +87,12 @@ const Home = () => {
             {/* Modern Uiverse.io-inspired Button */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="relative group">
-                <Button
+              <Button 
                   className="relative inline-block font-semibold leading-6 text-white bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 dark:from-blue-700 dark:via-cyan-600 dark:to-purple-700 shadow-2xl shadow-blue-400/40 dark:shadow-cyan-900/60 rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 text-base px-8 py-3 min-w-[160px] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-800 before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-blue-400 before:via-cyan-300 before:to-purple-400 before:opacity-0 group-hover:before:opacity-30 before:transition-opacity before:duration-300 after:absolute after:inset-0 after:rounded-2xl after:shadow-[0_8px_30px_0_rgba(59,130,246,0.25)] after:opacity-80 after:pointer-events-none"
                   style={{ boxShadow: '0 6px 24px 0 rgba(59,130,246,0.25), 0 1.5px 4px 0 rgba(59,130,246,0.15)' }}
                   onClick={() => setIsRSVPOpen(true)}
-                  variant="primary"
-                  size="lg"
+                variant="primary" 
+                size="lg"
                   icon={
                     <svg
                       className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 drop-shadow"
@@ -110,10 +110,10 @@ const Home = () => {
                 >
                   <span className="relative z-10 flex items-center space-x-2">
                     <span className="transition-all duration-500 group-hover:translate-x-1 text-sm md:text-base font-bold drop-shadow-lg">
-                      Join Us This Sunday
+                Join Us This Sunday
                     </span>
                   </span>
-                </Button>
+              </Button>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
+const cloudinary = require('cloudinary').v2;
 
 /**
  * File Upload Utility for Haven Word Church
@@ -378,6 +379,52 @@ const processFile = async (file, options = {}) => {
   }
 };
 
+/**
+ * Upload file to Cloudinary
+ * 
+ * @param {string} filePath - Path to file to upload
+ * @param {string} folder - Cloudinary folder
+ * @param {Object} options - Upload options
+ * @returns {Promise<Object>} Upload result
+ */
+const uploadToCloudinary = async (filePath, folder = 'haven-word-church/general', options = {}) => {
+  try {
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder: folder,
+      resource_type: 'auto',
+      ...options
+    });
+    
+    // Clean up local file after successful upload
+    await deleteFile(filePath);
+    
+    return result;
+  } catch (error) {
+    console.error('Cloudinary upload error:', error);
+    throw new Error(`Failed to upload to Cloudinary: ${error.message}`);
+  }
+};
+
+/**
+ * Delete file from Cloudinary
+ * 
+ * @param {string} publicId - Cloudinary public ID
+ * @param {string} resourceType - Resource type (image, video, raw)
+ * @returns {Promise<Object>} Deletion result
+ */
+const deleteFromCloudinary = async (publicId, resourceType = 'image') => {
+  try {
+    const result = await cloudinary.uploader.destroy(publicId, {
+      resource_type: resourceType
+    });
+    
+    return result;
+  } catch (error) {
+    console.error('Cloudinary deletion error:', error);
+    throw new Error(`Failed to delete from Cloudinary: ${error.message}`);
+  }
+};
+
 // Initialize directories on module load
 ensureDirectories().catch(console.error);
 
@@ -393,6 +440,8 @@ module.exports = {
   validateFile,
   processFile,
   generateFileName,
+  uploadToCloudinary,
+  deleteFromCloudinary,
   FILE_SIZE_LIMITS,
   ALLOWED_TYPES,
   UPLOAD_DIRS

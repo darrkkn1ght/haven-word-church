@@ -23,7 +23,7 @@ const ManageContent = () => {
   // Load content based on active tab
   useEffect(() => {
     loadContent();
-  }, [activeTab, statusFilter, currentPage]);
+  }, [activeTab, statusFilter, currentPage, loadContent]);
 
   const loadContent = async () => {
     setLoading(true);
@@ -107,7 +107,6 @@ const ManageContent = () => {
         keyVerse: item.keyVerse || '',
         speaker: item.speaker || {},
         serviceType: item.serviceType || '',
-        category: item.category || ''
       });
     }
   };

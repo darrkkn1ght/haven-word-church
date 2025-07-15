@@ -189,7 +189,7 @@ const Ministries = () => {
     };
 
     loadMinistries();
-  }, []);
+  }, [mockMinistries]);
 
   // Filter ministries based on search and category
   const filteredMinistries = ministries.filter(ministry => {

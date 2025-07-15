@@ -1,151 +1,123 @@
-# Haven Word Church - API Documentation
+# Haven Word Church API Documentation
 
 ## Overview
 
-The Haven Word Church API provides endpoints for managing church operations including events, testimonies, prayer requests, donations, and user authentication. The API follows REST principles and returns JSON responses.
+The Haven Word Church API provides a comprehensive REST API for managing church operations, member engagement, and administrative functions. This API is designed to support both public access and authenticated member/admin features.
 
-**Base URL:** `http://localhost:5000/api` (development)  
-**API Version:** v1  
+**Base URL:** `https://api.havenwordchurch.org`  
+**Version:** v1  
 **Content-Type:** `application/json`
+
+## Table of Contents
+
+1. [Authentication](#authentication)
+2. [Error Handling](#error-handling)
+3. [Rate Limiting](#rate-limiting)
+4. [Public Endpoints](#public-endpoints)
+5. [Authentication Endpoints](#authentication-endpoints)
+6. [Member Endpoints](#member-endpoints)
+7. [Admin Endpoints](#admin-endpoints)
+8. [Webhooks](#webhooks)
+9. [SDKs & Libraries](#sdks--libraries)
 
 ## Authentication
 
+### JWT Token Authentication
+
 Most endpoints require authentication using JWT tokens. Include the token in the Authorization header:
 
-```
+```http
 Authorization: Bearer <your-jwt-token>
 ```
 
-### Authentication Flow
+### Token Format
 
-1. Register/Login to receive JWT token
-2. Include token in subsequent requests
-3. Token expires after 7 days
+```json
+{
+  "id": "user-id",
+  "email": "user@example.com",
+  "role": "member|admin|pastor",
+  "iat": 1640995200,
+  "exp": 1641600000
+}
+```
+
+### Role-Based Access
+
+- **Public**: No authentication required
+- **Member**: Authenticated users with member role
+- **Admin**: Authenticated users with admin role
+- **Pastor**: Authenticated users with pastor role
 
 ## Error Handling
 
-All errors follow a consistent format:
+### Standard Error Response
 
 ```json
 {
   "success": false,
   "message": "Error description",
-  "error": "Detailed error information (development only)"
+  "errors": {
+    "field": "Field-specific error message"
+  },
+  "code": "ERROR_CODE",
+  "timestamp": "2024-01-01T12:00:00Z"
 }
 ```
 
-**HTTP Status Codes:**
-- `200` - Success
-- `201` - Created
-- `400` - Bad Request
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Not Found
-- `500` - Internal Server Error
+### HTTP Status Codes
 
-## Endpoints
+| Code | Description |
+|------|-------------|
+| 200 | Success |
+| 201 | Created |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 422 | Validation Error |
+| 429 | Rate Limited |
+| 500 | Internal Server Error |
 
-### Authentication
+### Common Error Codes
 
-#### Register User
+| Code | Description |
+|------|-------------|
+| `INVALID_CREDENTIALS` | Invalid email/password |
+| `TOKEN_EXPIRED` | JWT token has expired |
+| `INSUFFICIENT_PERMISSIONS` | User lacks required permissions |
+| `VALIDATION_ERROR` | Request validation failed |
+| `RESOURCE_NOT_FOUND` | Requested resource not found |
+| `DUPLICATE_ENTRY` | Resource already exists |
+
+## Rate Limiting
+
+- **Public endpoints**: 100 requests per minute
+- **Authenticated endpoints**: 1000 requests per minute
+- **Admin endpoints**: 2000 requests per minute
+
+Rate limit headers are included in responses:
+
 ```http
-POST /api/auth/register
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 1640995200
 ```
 
-**Request Body:**
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "SecurePass123!",
-  "phone": "+234 803 123 4567"
-}
-```
+## Public Endpoints
 
-**Response:**
-```json
-{
-  "success": true,
-  "message": "User registered successfully",
-  "data": {
-    "user": {
-      "id": "user_id",
-      "name": "John Doe",
-      "email": "john@example.com",
-      "phone": "+234 803 123 4567",
-      "role": "member",
-      "createdAt": "2025-06-16T10:30:00.000Z"
-    },
-    "token": "jwt_token_here"
-  }
-}
-```
+### Get Events
 
-#### Login User
-```http
-POST /api/auth/login
-```
-
-**Request Body:**
-```json
-{
-  "email": "john@example.com",
-  "password": "SecurePass123!"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "Login successful",
-  "data": {
-    "user": {
-      "id": "user_id",
-      "name": "John Doe",
-      "email": "john@example.com",
-      "role": "member"
-    },
-    "token": "jwt_token_here"
-  }
-}
-```
-
-#### Get Current User
-```http
-GET /api/auth/me
-```
-*Requires Authentication*
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "user": {
-      "id": "user_id",
-      "name": "John Doe",
-      "email": "john@example.com",
-      "phone": "+234 803 123 4567",
-      "role": "member",
-      "createdAt": "2025-06-16T10:30:00.000Z"
-    }
-  }
-}
-```
-
-### Events
-
-#### Get All Events
 ```http
 GET /api/events
 ```
 
 **Query Parameters:**
-- `page` (optional) - Page number (default: 1)
-- `limit` (optional) - Items per page (default: 10)
-- `category` (optional) - Filter by category
-- `upcoming` (optional) - Filter upcoming events (true/false)
+- `page` (number): Page number (default: 1)
+- `limit` (number): Items per page (default: 10)
+- `category` (string): Filter by category
+- `upcoming` (boolean): Show only upcoming events
+- `featured` (boolean): Show only featured events
 
 **Response:**
 ```json
@@ -154,22 +126,25 @@ GET /api/events
   "data": {
     "events": [
       {
-        "id": "event_id",
+        "_id": "event-id",
         "title": "Sunday Service",
-        "description": "Weekly worship service",
-        "date": "2025-06-22T08:00:00.000Z",
-        "time": "08:00",
-        "location": "Haven Word Church, Ibadan",
-        "category": "worship",
-        "capacity": 500,
-        "registeredCount": 250,
-        "createdAt": "2025-06-16T10:30:00.000Z"
+        "description": "Weekly Sunday service",
+        "date": "2024-01-07T10:00:00Z",
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "location": {
+          "venue": "Main Auditorium",
+          "address": "123 Church Street, Lagos"
+        },
+        "category": "service",
+        "isFeatured": true,
+        "status": "published"
       }
     ],
     "pagination": {
       "currentPage": 1,
       "totalPages": 5,
-      "totalItems": 50,
+      "totalEvents": 50,
       "hasNext": true,
       "hasPrev": false
     }
@@ -177,129 +152,47 @@ GET /api/events
 }
 ```
 
-#### Get Single Event
+### Get Sermons
+
 ```http
-GET /api/events/:id
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "event": {
-      "id": "event_id",
-      "title": "Sunday Service",
-      "description": "Weekly worship service",
-      "date": "2025-06-22T08:00:00.000Z",
-      "time": "08:00",
-      "location": "Haven Word Church, Ibadan",
-      "category": "worship",
-      "capacity": 500,
-      "registeredCount": 250,
-      "createdAt": "2025-06-16T10:30:00.000Z"
-    }
-  }
-}
-```
-
-#### Create Event
-```http
-POST /api/events
-```
-*Requires Authentication (Admin/Pastor)*
-
-**Request Body:**
-```json
-{
-  "title": "Prayer Night",
-  "description": "Special prayer session for the community",
-  "date": "2025-06-25T19:00:00.000Z",
-  "time": "19:00",
-  "location": "Haven Word Church, Ibadan",
-  "category": "prayer",
-  "capacity": 200
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "Event created successfully",
-  "data": {
-    "event": {
-      "id": "new_event_id",
-      "title": "Prayer Night",
-      "description": "Special prayer session for the community",
-      "date": "2025-06-25T19:00:00.000Z",
-      "time": "19:00",
-      "location": "Haven Word Church, Ibadan",
-      "category": "prayer",
-      "capacity": 200,
-      "registeredCount": 0,
-      "createdAt": "2025-06-16T10:30:00.000Z"
-    }
-  }
-}
-```
-
-#### Register for Event
-```http
-POST /api/events/:id/register
-```
-*Requires Authentication*
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "Successfully registered for event",
-  "data": {
-    "registration": {
-      "id": "registration_id",
-      "eventId": "event_id",
-      "userId": "user_id",
-      "registeredAt": "2025-06-16T10:30:00.000Z"
-    }
-  }
-}
-```
-
-### Testimonies
-
-#### Get All Testimonies
-```http
-GET /api/testimonies
+GET /api/sermons
 ```
 
 **Query Parameters:**
-- `page` (optional) - Page number (default: 1)
-- `limit` (optional) - Items per page (default: 10)
-- `approved` (optional) - Filter by approval status
+- `page` (number): Page number (default: 1)
+- `limit` (number): Items per page (default: 10)
+- `series` (string): Filter by sermon series
+- `preacher` (string): Filter by preacher
+- `featured` (boolean): Show only featured sermons
 
 **Response:**
 ```json
 {
   "success": true,
   "data": {
-    "testimonies": [
+    "sermons": [
       {
-        "id": "testimony_id",
-        "title": "God's Faithfulness",
-        "content": "I want to share how God has been faithful...",
-        "author": {
-          "name": "John Doe",
-          "id": "user_id"
+        "_id": "sermon-id",
+        "title": "Walking in Faith",
+        "description": "A message about faith",
+        "preacher": "Pastor Anthonia Amadi",
+        "date": "2024-01-07T10:00:00Z",
+        "scriptureReference": "Hebrews 11:1",
+        "duration": 45,
+        "media": {
+          "audio": {
+            "url": "https://example.com/sermon.mp3",
+            "duration": 2700
+          }
         },
-        "approved": true,
-        "createdAt": "2025-06-16T10:30:00.000Z"
+        "views": 150,
+        "downloads": 25
       }
     ],
     "pagination": {
       "currentPage": 1,
       "totalPages": 3,
-      "totalItems": 25,
+      "totalSermons": 30,
       "hasNext": true,
       "hasPrev": false
     }
@@ -307,113 +200,347 @@ GET /api/testimonies
 }
 ```
 
-#### Create Testimony
-```http
-POST /api/testimonies
-```
-*Requires Authentication*
+### Get Ministries
 
-**Request Body:**
-```json
-{
-  "title": "Healing Testimony",
-  "content": "I want to share how God healed me from illness..."
-}
+```http
+GET /api/ministries
 ```
 
 **Response:**
 ```json
 {
   "success": true,
-  "message": "Testimony submitted successfully",
   "data": {
-    "testimony": {
-      "id": "new_testimony_id",
-      "title": "Healing Testimony",
-      "content": "I want to share how God healed me from illness...",
-      "author": {
-        "name": "John Doe",
-        "id": "user_id"
-      },
-      "approved": false,
-      "createdAt": "2025-06-16T10:30:00.000Z"
-    }
+    "ministries": [
+      {
+        "_id": "ministry-id",
+        "name": "Youth Ministry",
+        "description": "Ministry for young people",
+        "category": "youth",
+        "leader": {
+          "name": "John Doe",
+          "email": "john@example.com"
+        },
+        "memberCount": 45,
+        "meetingSchedule": {
+          "frequency": "weekly",
+          "dayOfWeek": "friday",
+          "time": "18:00"
+        }
+      }
+    ]
   }
 }
 ```
 
-#### Approve Testimony
+### Get Blog Posts
+
 ```http
-PUT /api/testimonies/:id/approve
+GET /api/blog
 ```
-*Requires Authentication (Admin/Pastor)*
 
 **Response:**
 ```json
 {
   "success": true,
-  "message": "Testimony approved successfully"
+  "data": {
+    "posts": [
+      {
+        "_id": "post-id",
+        "title": "Church News Update",
+        "excerpt": "Latest updates from our church",
+        "content": "Full blog post content...",
+        "author": {
+          "name": "Pastor Anthonia Amadi",
+          "role": "Senior Pastor"
+        },
+        "publishedAt": "2024-01-01T12:00:00Z",
+        "category": "news",
+        "tags": ["church", "news", "update"],
+        "views": 120
+      }
+    ]
+  }
+}
+```
+
+## Authentication Endpoints
+
+### Register User
+
+```http
+POST /api/auth/register
+```
+
+**Request Body:**
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "password": "SecurePass123!",
+  "phone": "+2348012345678",
+  "dateOfBirth": "1990-01-01",
+  "gender": "male",
+  "address": "123 Test Street, Lagos"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "user": {
+      "_id": "user-id",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "role": "member",
+      "isActive": true,
+      "emailVerified": false
+    },
+    "token": "jwt-token-here"
+  }
+}
+```
+
+### Login User
+
+```http
+POST /api/auth/login
+```
+
+**Request Body:**
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "SecurePass123!"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "user": {
+      "_id": "user-id",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "role": "member"
+    },
+    "token": "jwt-token-here"
+  }
+}
+```
+
+### Forgot Password
+
+```http
+POST /api/auth/forgot-password
+```
+
+**Request Body:**
+```json
+{
+  "email": "john.doe@example.com"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Password reset email sent"
+}
+```
+
+### Reset Password
+
+```http
+POST /api/auth/reset-password
+```
+
+**Request Body:**
+```json
+{
+  "token": "reset-token",
+  "password": "NewSecurePass123!"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Password reset successful"
+}
+```
+
+### Get Current User
+
+```http
+GET /api/auth/me
+```
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "user-id",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "role": "member",
+    "phone": "+2348012345678",
+    "profilePicture": "https://example.com/avatar.jpg"
+  }
+}
+```
+
+### Update Profile
+
+```http
+PUT /api/auth/profile
+```
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
+
+**Request Body:**
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "+2348098765432",
+  "address": "456 Updated Street, Lagos"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "user-id",
+    "firstName": "John",
+    "lastName": "Doe",
+    "phone": "+2348098765432",
+    "address": "456 Updated Street, Lagos"
+  }
+}
+```
+
+## Member Endpoints
+
+### Get Member Dashboard
+
+```http
+GET /api/members/dashboard
+```
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "user": {
+      "_id": "user-id",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "stats": {
+      "attendanceRate": 85,
+      "totalServices": 52,
+      "attendedServices": 44,
+      "prayerRequests": 5,
+      "donations": 150000
+    },
+    "recentActivity": [
+      {
+        "type": "attendance",
+        "date": "2024-01-07",
+        "description": "Attended Sunday Service"
+      }
+    ],
+    "upcomingEvents": [
+      {
+        "_id": "event-id",
+        "title": "Youth Conference",
+        "date": "2024-01-15T10:00:00Z"
+      }
+    ]
+  }
 }
 ```
 
 ### Prayer Requests
 
-#### Get All Prayer Requests
+#### Get Prayer Requests
+
 ```http
-GET /api/prayer-requests
+GET /api/prayers
 ```
 
-**Query Parameters:**
-- `page` (optional) - Page number (default: 1)
-- `limit` (optional) - Items per page (default: 10)
-- `category` (optional) - Filter by category
-- `urgent` (optional) - Filter urgent requests (true/false)
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
 
 **Response:**
 ```json
 {
   "success": true,
   "data": {
-    "prayerRequests": [
+    "prayers": [
       {
-        "id": "prayer_request_id",
-        "title": "Prayer for Healing",
-        "description": "Please pray for my mother's recovery",
-        "category": "health",
-        "urgent": true,
+        "_id": "prayer-id",
+        "title": "Health Prayer",
+        "description": "Prayer for good health",
+        "category": "personal",
+        "urgency": "normal",
+        "status": "pending",
         "anonymous": false,
-        "author": {
-          "name": "John Doe",
-          "id": "user_id"
-        },
-        "prayedCount": 15,
-        "createdAt": "2025-06-16T10:30:00.000Z"
+        "createdAt": "2024-01-01T12:00:00Z"
       }
-    ],
-    "pagination": {
-      "currentPage": 1,
-      "totalPages": 4,
-      "totalItems": 35,
-      "hasNext": true,
-      "hasPrev": false
-    }
+    ]
   }
 }
 ```
 
 #### Create Prayer Request
+
 ```http
-POST /api/prayer-requests
+POST /api/prayers
 ```
-*Requires Authentication*
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
 
 **Request Body:**
 ```json
 {
-  "title": "Prayer for Job",
-  "description": "Please pray for me as I search for employment",
-  "category": "career",
-  "urgent": false,
+  "title": "Health Prayer",
+  "description": "Prayer for good health",
+  "category": "personal",
+  "urgency": "normal",
   "anonymous": false
 }
 ```
@@ -422,56 +549,94 @@ POST /api/prayer-requests
 ```json
 {
   "success": true,
-  "message": "Prayer request submitted successfully",
   "data": {
-    "prayerRequest": {
-      "id": "new_prayer_request_id",
-      "title": "Prayer for Job",
-      "description": "Please pray for me as I search for employment",
-      "category": "career",
-      "urgent": false,
-      "anonymous": false,
-      "author": {
-        "name": "John Doe",
-        "id": "user_id"
-      },
-      "prayedCount": 0,
-      "createdAt": "2025-06-16T10:30:00.000Z"
-    }
+    "_id": "prayer-id",
+    "title": "Health Prayer",
+    "status": "pending",
+    "createdAt": "2024-01-01T12:00:00Z"
   }
 }
 ```
 
-#### Add Prayer
+### Attendance
+
+#### Get Attendance History
+
 ```http
-POST /api/prayer-requests/:id/pray
+GET /api/attendance
 ```
-*Requires Authentication*
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
 
 **Response:**
 ```json
 {
   "success": true,
-  "message": "Prayer added successfully",
   "data": {
-    "prayedCount": 16
+    "attendance": [
+      {
+        "_id": "attendance-id",
+        "serviceDate": "2024-01-07",
+        "serviceType": "Sunday Service",
+        "status": "present",
+        "recordedAt": "2024-01-07T10:00:00Z"
+      }
+    ],
+    "stats": {
+      "totalServices": 52,
+      "attended": 44,
+      "attendanceRate": 85
+    }
+  }
+}
+```
+
+#### Check In
+
+```http
+POST /api/attendance/checkin
+```
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
+
+**Request Body:**
+```json
+{
+  "serviceId": "service-id",
+  "location": "Main Auditorium"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Check-in successful",
+  "data": {
+    "attendanceId": "attendance-id",
+    "checkInTime": "2024-01-07T10:00:00Z"
   }
 }
 ```
 
 ### Donations
 
-#### Get All Donations
-```http
-GET /api/donations
-```
-*Requires Authentication (Admin/Pastor)*
+#### Get Donation History
 
-**Query Parameters:**
-- `page` (optional) - Page number (default: 1)
-- `limit` (optional) - Items per page (default: 10)
-- `purpose` (optional) - Filter by purpose
-- `status` (optional) - Filter by status
+```http
+GET /api/donations/history
+```
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
 
 **Response:**
 ```json
@@ -480,47 +645,42 @@ GET /api/donations
   "data": {
     "donations": [
       {
-        "id": "donation_id",
+        "_id": "donation-id",
         "amount": 50000,
-        "currency": "NGN",
-        "purpose": "tithe",
-        "donor": {
-          "name": "John Doe",
-          "email": "john@example.com"
-        },
+        "category": "tithe",
+        "paymentMethod": "bank_transfer",
         "status": "completed",
-        "paymentMethod": "paystack",
-        "reference": "ps_ref_123456",
-        "createdAt": "2025-06-16T10:30:00.000Z"
+        "date": "2024-01-01T12:00:00Z",
+        "reference": "TXN123456"
       }
     ],
-    "pagination": {
-      "currentPage": 1,
-      "totalPages": 10,
-      "totalItems": 95,
-      "hasNext": true,
-      "hasPrev": false
+    "summary": {
+      "totalAmount": 150000,
+      "totalDonations": 3,
+      "thisYear": 150000
     }
   }
 }
 ```
 
 #### Create Donation
+
 ```http
 POST /api/donations
 ```
-*Requires Authentication*
+
+**Headers:**
+```http
+Authorization: Bearer <jwt-token>
+```
 
 **Request Body:**
 ```json
 {
-  "amount": 25000,
-  "currency": "NGN",
-  "purpose": "offering",
-  "donorName": "John Doe",
-  "donorEmail": "john@example.com",
-  "donorPhone": "+234 803 123 4567",
-  "paymentMethod": "paystack"
+  "amount": 50000,
+  "category": "tithe",
+  "paymentMethod": "card",
+  "description": "Monthly tithe"
 }
 ```
 
@@ -528,49 +688,53 @@ POST /api/donations
 ```json
 {
   "success": true,
-  "message": "Donation initiated successfully",
   "data": {
-    "donation": {
-      "id": "new_donation_id",
-      "amount": 25000,
-      "currency": "NGN",
-      "purpose": "offering",
-      "status": "pending",
-      "paymentUrl": "https://checkout.paystack.com/...",
-      "reference": "ps_ref_789012",
-      "createdAt": "2025-06-16T10:30:00.000Z"
-    }
+    "donationId": "donation-id",
+    "paymentUrl": "https://checkout.paystack.com/...",
+    "reference": "TXN123456"
   }
 }
 ```
 
-#### Verify Donation
+## Admin Endpoints
+
+### Get Admin Dashboard
+
 ```http
-POST /api/donations/verify
+GET /api/admin/dashboard
 ```
 
-**Request Body:**
-```json
-{
-  "reference": "ps_ref_789012"
-}
+**Headers:**
+```http
+Authorization: Bearer <admin-jwt-token>
 ```
 
 **Response:**
 ```json
 {
   "success": true,
-  "message": "Donation verified successfully",
   "data": {
-    "donation": {
-      "id": "donation_id",
-      "amount": 25000,
-      "currency": "NGN",
-      "purpose": "offering",
-      "status": "completed",
-      "reference": "ps_ref_789012",
-      "verifiedAt": "2025-06-16T10:35:00.000Z"
-    }
+    "stats": {
+      "totalMembers": 250,
+      "activeMembers": 200,
+      "newMembersThisMonth": 15,
+      "totalDonations": 5000000,
+      "attendanceRate": 75
+    },
+    "recentActivity": [
+      {
+        "type": "new_member",
+        "user": "John Doe",
+        "date": "2024-01-01T12:00:00Z"
+      }
+    ],
+    "upcomingEvents": [
+      {
+        "_id": "event-id",
+        "title": "Youth Conference",
+        "registrations": 45
+      }
+    ]
   }
 }
 ```
@@ -578,15 +742,22 @@ POST /api/donations/verify
 ### User Management
 
 #### Get All Users
+
 ```http
-GET /api/users
+GET /api/admin/users
 ```
-*Requires Authentication (Admin)*
+
+**Headers:**
+```http
+Authorization: Bearer <admin-jwt-token>
+```
 
 **Query Parameters:**
-- `page` (optional) - Page number (default: 1)
-- `limit` (optional) - Items per page (default: 10)
-- `role` (optional) - Filter by role
+- `page` (number): Page number
+- `limit` (number): Items per page
+- `role` (string): Filter by role
+- `status` (string): Filter by status (active/inactive)
+- `search` (string): Search by name or email
 
 **Response:**
 ```json
@@ -595,30 +766,35 @@ GET /api/users
   "data": {
     "users": [
       {
-        "id": "user_id",
-        "name": "John Doe",
-        "email": "john@example.com",
-        "phone": "+234 803 123 4567",
+        "_id": "user-id",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@example.com",
         "role": "member",
-        "createdAt": "2025-06-16T10:30:00.000Z"
+        "isActive": true,
+        "lastLogin": "2024-01-01T12:00:00Z",
+        "createdAt": "2023-01-01T12:00:00Z"
       }
     ],
     "pagination": {
       "currentPage": 1,
-      "totalPages": 8,
-      "totalItems": 75,
-      "hasNext": true,
-      "hasPrev": false
+      "totalPages": 10,
+      "totalUsers": 250
     }
   }
 }
 ```
 
 #### Update User Role
+
 ```http
-PUT /api/users/:id/role
+PUT /api/admin/users/:userId/role
 ```
-*Requires Authentication (Admin)*
+
+**Headers:**
+```http
+Authorization: Bearer <admin-jwt-token>
+```
 
 **Request Body:**
 ```json
@@ -631,96 +807,177 @@ PUT /api/users/:id/role
 ```json
 {
   "success": true,
-  "message": "User role updated successfully",
   "data": {
-    "user": {
-      "id": "user_id",
-      "name": "John Doe",
-      "email": "john@example.com",
-      "role": "pastor",
-      "updatedAt": "2025-06-16T10:30:00.000Z"
-    }
+    "_id": "user-id",
+    "role": "pastor",
+    "updatedAt": "2024-01-01T12:00:00Z"
   }
 }
 ```
 
-## Data Models
+### Content Management
 
-### User Roles
-- `admin` - Full system access
-- `pastor` - Can manage events, approve testimonies
-- `member` - Basic user access
+#### Get All Blog Posts (Admin)
 
-### Event Categories
-- `worship` - Worship services
-- `prayer` - Prayer meetings
-- `fellowship` - Fellowship gatherings
-- `conference` - Conferences and seminars
-- `outreach` - Community outreach
-- `youth` - Youth programs
-- `children` - Children's programs
+```http
+GET /api/admin/blog
+```
 
-### Prayer Request Categories
-- `health` - Health and healing
-- `family` - Family matters
-- `career` - Career and employment
-- `spiritual` - Spiritual growth
-- `financial` - Financial needs
-- `general` - General requests
+**Headers:**
+```http
+Authorization: Bearer <admin-jwt-token>
+```
 
-### Donation Purposes
-- `tithe` - Tithe payments
-- `offering` - General offerings
-- `building` - Building fund
-- `missions` - Missions support
-- `welfare` - Welfare assistance
-- `special` - Special projects
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "posts": [
+      {
+        "_id": "post-id",
+        "title": "Church News Update",
+        "status": "published",
+        "author": "Pastor Anthonia Amadi",
+        "publishedAt": "2024-01-01T12:00:00Z",
+        "views": 120,
+        "moderationStatus": "approved"
+      }
+    ]
+  }
+}
+```
 
-## Nigerian Context
+#### Approve/Reject Content
 
-### Timezone
-All timestamps are stored in UTC but should be displayed in West Africa Time (WAT, UTC+1) for Nigerian users.
+```http
+PUT /api/admin/content/:contentId/moderate
+```
 
-### Currency
-- Primary currency: Nigerian Naira (NGN)
-- Minimum donation amount: ₦1,000
-- Maximum donation amount: ₦10,000,000
+**Headers:**
+```http
+Authorization: Bearer <admin-jwt-token>
+```
 
-### Phone Numbers
-Phone numbers should be in Nigerian format: `+234 XXX XXX XXXX`
+**Request Body:**
+```json
+{
+  "action": "approve",
+  "notes": "Content approved for publication"
+}
+```
 
-### Payment Integration
-The API integrates with Paystack for payment processing, which is optimized for Nigerian users and supports:
-- Bank transfers
-- Card payments
-- USSD
-- Bank deposits
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "content-id",
+    "moderationStatus": "approved",
+    "moderatedBy": "admin-id",
+    "moderatedAt": "2024-01-01T12:00:00Z"
+  }
+}
+```
 
-## Rate Limiting
+## Webhooks
 
-- Authentication endpoints: 5 requests per minute
-- General endpoints: 100 requests per minute
-- File upload endpoints: 10 requests per minute
+### Paystack Webhook
 
-## Development Notes
+```http
+POST /api/webhooks/paystack
+```
 
-### Testing
-Use the following test credentials for development:
-- **Admin User:** admin@havenword.com / AdminPass123!
-- **Pastor User:** pastor@havenword.com / PastorPass123!
-- **Member User:** member@havenword.com / MemberPass123!
+**Headers:**
+```http
+X-Paystack-Signature: <signature>
+```
 
-### Environment Variables
-Required environment variables:
-- `NODE_ENV`
-- `PORT`
-- `MONGODB_URI`
-- `JWT_SECRET`
-- `PAYSTACK_SECRET_KEY`
-- `PAYSTACK_PUBLIC_KEY`
+**Request Body:**
+```json
+{
+  "event": "charge.success",
+  "data": {
+    "reference": "TXN123456",
+    "amount": 50000,
+    "status": "success"
+  }
+}
+```
 
-### Webhooks
-Paystack webhook endpoint: `POST /api/donations/webhook`
-- Verifies payment completion
-- Updates donation status
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Webhook processed successfully"
+}
+```
+
+## SDKs & Libraries
+
+### JavaScript/Node.js
+
+```bash
+npm install haven-word-church-api
+```
+
+```javascript
+const HavenChurchAPI = require('haven-word-church-api');
+
+const api = new HavenChurchAPI({
+  baseUrl: 'https://api.havenwordchurch.org',
+  token: 'your-jwt-token'
+});
+
+// Get events
+const events = await api.events.getAll();
+
+// Create prayer request
+const prayer = await api.prayers.create({
+  title: 'Health Prayer',
+  description: 'Prayer for good health'
+});
+```
+
+### Python
+
+```bash
+pip install haven-word-church-api
+```
+
+```python
+from haven_church_api import HavenChurchAPI
+
+api = HavenChurchAPI(
+    base_url='https://api.havenwordchurch.org',
+    token='your-jwt-token'
+)
+
+# Get events
+events = api.events.get_all()
+
+# Create prayer request
+prayer = api.prayers.create({
+    'title': 'Health Prayer',
+    'description': 'Prayer for good health'
+})
+```
+
+## Support
+
+For API support and questions:
+
+- **Email:** api-support@havenwordchurch.org
+- **Documentation:** https://docs.havenwordchurch.org
+- **Status Page:** https://status.havenwordchurch.org
+- **GitHub:** https://github.com/haven-word-church/api
+
+## Changelog
+
+### v1.0.0 (2024-01-01)
+- Initial API release
+- Authentication system
+- Member management
+- Content management
+- Payment integration
 - Sends confirmation notifications

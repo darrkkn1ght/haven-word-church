@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/common/SEOHead';
 import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import ContactForm from '../components/forms/ContactForm';
@@ -447,8 +446,6 @@ const About = () => {
             </div>
           </div>
         </section>
-
-        <Footer />
 
         {/* Leadership Details Modal */}
         <Modal

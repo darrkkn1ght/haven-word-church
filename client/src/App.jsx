@@ -1,3 +1,4 @@
+// Move all import statements to the top of the file, before any code.
 import React, { Suspense, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

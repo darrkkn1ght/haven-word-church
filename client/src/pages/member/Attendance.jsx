@@ -9,19 +9,18 @@ import {
   Calendar, 
   Clock, 
   MapPin, 
-  Users, 
   TrendingUp, 
   CheckCircle, 
   XCircle, 
   Award,
   Target,
   BarChart3,
-  Filter,
   Download,
   QrCode,
   Smartphone,
   Church
 } from 'lucide-react';
+import memberService from '../../services/memberService';
 
 /**
  * Member Attendance Page Component
@@ -132,25 +131,6 @@ const Attendance = () => {
       showNotification(message, 'error');
     } finally {
       setCheckingIn(false);
-    }
-  };
-
-  /**
-   * Handle QR code scan for check-in
-   * @param {string} qrData - QR code data
-   */
-  const handleQRScan = async (qrData) => {
-    try {
-      const serviceId = extractServiceIdFromQR(qrData);
-      if (serviceId) {
-        await handleCheckIn(serviceId);
-      } else {
-        showNotification('Invalid QR code', 'error');
-      }
-    } catch (error) {
-      showNotification('Failed to process QR code', 'error');
-    } finally {
-      setShowQRScanner(false);
     }
   };
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /**
  * Haven Word Church - Service Worker
  * Provides offline functionality and caching for PWA
@@ -434,14 +435,14 @@ self.addEventListener('notificationclick', (event) => {
   }
   const url = event.notification.data?.url || '/';
   event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((clientList) => {
+    self.clients.matchAll({ type: 'window' }).then((clientList) => {
       for (const client of clientList) {
         if (client.url === url && 'focus' in client) {
           return client.focus();
         }
       }
-      if (clients.openWindow) {
-        return clients.openWindow(url);
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(url);
       }
     })
   );

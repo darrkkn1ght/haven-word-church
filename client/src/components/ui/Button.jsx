@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 
 /**
@@ -43,6 +44,7 @@ const Button = ({
   className = '',
   ariaLabel,
   ariaDescribedBy,
+  href,
   ...rest
 }) => {
   // Base button classes
@@ -146,45 +148,80 @@ const Button = ({
   };
 
   return (
-    <button
-      type={type}
-      className={buttonClasses}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      disabled={disabled || loading}
-      aria-label={ariaLabel}
-      aria-describedby={ariaDescribedBy}
-      aria-busy={loading}
-      role="button"
-      tabIndex={disabled ? -1 : 0}
-      {...rest}
-    >
-      {/* Left Icon or Loading Spinner */}
-      {loading ? (
-        <LoadingSpinner 
-          size={getSpinnerSize()} 
-          className="animate-spin" 
-        />
-      ) : leftIcon ? (
-        <span className={`${getIconSize()} flex-shrink-0`} aria-hidden="true">
-          {leftIcon}
-        </span>
-      ) : null}
-
-      {/* Button Content */}
-      {children && (
-        <span className={loading ? 'opacity-70' : ''}>
-          {children}
-        </span>
-      )}
-
-      {/* Right Icon */}
-      {!loading && rightIcon && (
-        <span className={`${getIconSize()} flex-shrink-0`} aria-hidden="true">
-          {rightIcon}
-        </span>
-      )}
-    </button>
+    href ? (
+      <a
+        href={href}
+        className={buttonClasses}
+        aria-label={ariaLabel}
+        aria-describedby={ariaDescribedBy}
+        aria-disabled={disabled || loading}
+        aria-busy={loading}
+        role="link"
+        tabIndex={disabled ? -1 : 0}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        {...rest}
+      >
+        {loading ? (
+          <LoadingSpinner 
+            size={getSpinnerSize()} 
+            className="animate-spin" 
+            data-testid="spinner"
+          />
+        ) : leftIcon ? (
+          <span className={`${getIconSize()} flex-shrink-0`} aria-hidden="true" data-testid="icon">
+            {leftIcon}
+          </span>
+        ) : null}
+        {children && (
+          <span className={loading ? 'opacity-70' : ''}>
+            {children}
+          </span>
+        )}
+        {!loading && rightIcon && (
+          <span className={`${getIconSize()} flex-shrink-0`} aria-hidden="true" data-testid="icon">
+            {rightIcon}
+          </span>
+        )}
+      </a>
+    ) : (
+      <button
+        type={type}
+        className={buttonClasses}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        disabled={disabled || loading}
+        aria-label={ariaLabel}
+        aria-describedby={ariaDescribedBy}
+        aria-disabled={disabled || loading}
+        aria-busy={loading}
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        {...rest}
+      >
+        {loading ? (
+          <LoadingSpinner 
+            size={getSpinnerSize()} 
+            className="animate-spin" 
+            data-testid="spinner"
+          />
+        ) : leftIcon ? (
+          <span className={`${getIconSize()} flex-shrink-0`} aria-hidden="true" data-testid="icon">
+            {leftIcon}
+          </span>
+        ) : null}
+        {children && (
+          <span className={loading ? 'opacity-70' : ''}>
+            {children}
+          </span>
+        )}
+        {!loading && rightIcon && (
+          <span className={`${getIconSize()} flex-shrink-0`} aria-hidden="true" data-testid="icon">
+            {rightIcon}
+          </span>
+        )}
+      </button>
+    )
   );
 };
 
@@ -261,8 +298,6 @@ const ButtonExamples = () => {
   );
 };
 
-import PropTypes from 'prop-types';
-
 Button.propTypes = {
   variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'ghost', 'danger']),
   size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
@@ -276,7 +311,8 @@ Button.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
   ariaLabel: PropTypes.string,
-  ariaDescribedBy: PropTypes.string
+  ariaDescribedBy: PropTypes.string,
+  href: PropTypes.string
 };
 
 export default Button;

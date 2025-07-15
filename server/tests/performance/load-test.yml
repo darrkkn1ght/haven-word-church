@@ -1,0 +1,279 @@
+# Artillery Load Testing Configuration for Haven Word Church API
+# Tests API performance under various load conditions
+
+config:
+  target: 'http://localhost:5000'
+  phases:
+    # Warm-up phase
+    - duration: 60
+      arrivalRate: 1
+      name: "Warm-up"
+    
+    # Ramp-up phase
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 20
+      name: "Ramp-up"
+    
+    # Sustained load phase
+    - duration: 300
+      arrivalRate: 20
+      name: "Sustained load"
+    
+    # Peak load phase
+    - duration: 120
+      arrivalRate: 20
+      rampTo: 50
+      name: "Peak load"
+    
+    # Cool-down phase
+    - duration: 60
+      arrivalRate: 50
+      rampTo: 1
+      name: "Cool-down"
+
+  # Global variables
+  variables:
+    baseUrl: 'http://localhost:5000'
+    apiVersion: 'v1'
+    
+  # Custom functions
+  processor: './load-test-functions.js'
+  
+  # HTTP settings
+  http:
+    timeout: 10
+    pool: 10
+    maxSockets: 50
+    
+  # Plugins
+  plugins:
+    metrics-by-endpoint: {}
+    expect: {}
+    
+  # Environment-specific settings
+  environments:
+    development:
+      target: 'http://localhost:5000'
+    staging:
+      target: 'https://staging-api.havenwordchurch.org'
+    production:
+      target: 'https://api.havenwordchurch.org'
+
+# Test scenarios
+scenarios:
+  # Public API endpoints
+  - name: "Public API Load Test"
+    weight: 40
+    flow:
+      # Homepage
+      - get:
+          url: "/"
+          expect:
+            - statusCode: 200
+            - contentType: json
+      
+      # Get events
+      - get:
+          url: "/api/events"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "data"
+      
+      # Get sermons
+      - get:
+          url: "/api/sermons"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "data"
+      
+      # Get ministries
+      - get:
+          url: "/api/ministries"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "data"
+      
+      # Get blog posts
+      - get:
+          url: "/api/blog"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "data"
+
+  # Authentication endpoints
+  - name: "Authentication Load Test"
+    weight: 20
+    flow:
+      # User registration
+      - post:
+          url: "/api/auth/register"
+          json:
+            firstName: "{{ $randomString() }}"
+            lastName: "{{ $randomString() }}"
+            email: "{{ $randomEmail() }}"
+            password: "SecurePass123!"
+            phone: "+2348012345678"
+            dateOfBirth: "1990-01-01"
+            gender: "male"
+            address: "123 Test Street, Lagos"
+          expect:
+            - statusCode: [201, 400] # 400 for duplicate email
+            - contentType: json
+      
+      # User login
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "test@havenword.com"
+            password: "TestPass123!"
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - hasProperty: "data.token"
+      
+      # Get user profile
+      - get:
+          url: "/api/auth/me"
+          headers:
+            Authorization: "Bearer {{ $processEnvironment.JWT_TOKEN }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+
+  # Member features
+  - name: "Member Features Load Test"
+    weight: 25
+    flow:
+      # Login first
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "member@havenword.com"
+            password: "MemberPass123!"
+          capture:
+            - json: "$.data.token"
+              as: "authToken"
+          expect:
+            - statusCode: 200
+      
+      # Get member dashboard
+      - get:
+          url: "/api/members/dashboard"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+      
+      # Get prayer requests
+      - get:
+          url: "/api/prayers"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+      
+      # Create prayer request
+      - post:
+          url: "/api/prayers"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          json:
+            title: "Load Test Prayer Request"
+            description: "This is a prayer request created during load testing"
+            category: "personal"
+            urgency: "normal"
+            anonymous: false
+          expect:
+            - statusCode: 201
+            - contentType: json
+      
+      # Get attendance history
+      - get:
+          url: "/api/attendance"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+
+  # Admin features
+  - name: "Admin Features Load Test"
+    weight: 15
+    flow:
+      # Admin login
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "admin@havenword.com"
+            password: "AdminPass123!"
+          capture:
+            - json: "$.data.token"
+              as: "adminToken"
+          expect:
+            - statusCode: 200
+      
+      # Get admin dashboard
+      - get:
+          url: "/api/admin/dashboard"
+          headers:
+            Authorization: "Bearer {{ adminToken }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+      
+      # Get user management
+      - get:
+          url: "/api/admin/users"
+          headers:
+            Authorization: "Bearer {{ adminToken }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+      
+      # Get analytics
+      - get:
+          url: "/api/admin/analytics"
+          headers:
+            Authorization: "Bearer {{ adminToken }}"
+          expect:
+            - statusCode: 200
+            - contentType: json
+
+# Custom metrics
+metrics:
+  # Response time thresholds
+  responseTime:
+    p95: 1000  # 95% of requests should complete within 1 second
+    p99: 2000  # 99% of requests should complete within 2 seconds
+    max: 5000  # No request should take longer than 5 seconds
+  
+  # Error rate thresholds
+  errorRate:
+    max: 0.05  # Maximum 5% error rate
+  
+  # Throughput thresholds
+  throughput:
+    min: 10    # Minimum 10 requests per second
+    target: 50 # Target 50 requests per second
+
+# Reporting
+reporting:
+  # Generate HTML report
+  html:
+    output: "reports/load-test-report.html"
+  
+  # Generate JSON report
+  json:
+    output: "reports/load-test-results.json"
+  
+  # Console output
+  console:
+    enabled: true
+    format: "detailed" 

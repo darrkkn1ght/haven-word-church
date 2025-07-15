@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { validateEmail, validatePhone, validateRequired, validateLength } from '../../utils/validators';
-import LoadingSpinner from '../common/LoadingSpinner';
 import Button from '../ui/Button';
 import { sendContactMessage } from '../../services/api';
+import PropTypes from 'prop-types';
 
 /**
  * ContactForm Component - Comprehensive contact form for Haven Word Church
@@ -343,9 +343,7 @@ const ContactForm = ({
               value={formData.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.firstName ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="Enter your first name"
               disabled={isSubmitting}
               aria-describedby={errors.firstName ? 'firstName-error' : undefined}
@@ -368,9 +366,7 @@ const ContactForm = ({
               value={formData.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.lastName ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="Enter your last name"
               disabled={isSubmitting}
               aria-describedby={errors.lastName ? 'lastName-error' : undefined}
@@ -396,9 +392,7 @@ const ContactForm = ({
               value={formData.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="your.email@example.com"
               disabled={isSubmitting}
               aria-describedby={errors.email ? 'email-error' : undefined}
@@ -421,9 +415,7 @@ const ContactForm = ({
               value={formData.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.phone ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="+234-803-123-4567"
               disabled={isSubmitting}
               aria-describedby={errors.phone ? 'phone-error' : undefined}
@@ -449,9 +441,7 @@ const ContactForm = ({
               value={formData.subject}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                errors.subject ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               placeholder="What&apos;s this about?"
               disabled={isSubmitting}
               aria-describedby={errors.subject ? 'subject-error' : undefined}
@@ -472,7 +462,7 @@ const ContactForm = ({
               name="category"
               value={formData.category}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               disabled={isSubmitting}
             >
               {categories.map(cat => (
@@ -496,9 +486,7 @@ const ContactForm = ({
             value={formData.message}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white resize-vertical ${
-              errors.message ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
             placeholder="Please share your message with us..."
             disabled={isSubmitting}
             aria-describedby={errors.message ? 'message-error' : undefined}
@@ -677,7 +665,7 @@ const ContactForm = ({
   );
 };
 
-import PropTypes from 'prop-types';
+
 
 ContactForm.propTypes = {
   onSuccess: PropTypes.func,

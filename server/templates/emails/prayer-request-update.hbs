@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Request Update - Haven Word Church</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e3f2fd;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .church-name {
+            color: #1976d2;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .church-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0 0 0;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin: 20px 0;
+        }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-approved { background-color: #d4edda; color: #155724; }
+        .status-rejected { background-color: #f8d7da; color: #721c24; }
+        .status-in-progress { background-color: #cce5ff; color: #004085; }
+        .status-completed { background-color: #d1ecf1; color: #0c5460; }
+        .prayer-details {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1976d2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .prayer-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        .prayer-message {
+            color: #555;
+            line-height: 1.8;
+        }
+        .admin-response {
+            background-color: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .admin-response h4 {
+            color: #28a745;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1976d2;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{churchLogo}}" alt="Haven Word Church Logo" class="logo">
+            <h1 class="church-name">Haven Word Church</h1>
+            <p class="church-subtitle">Spreading God's Word, Building His Kingdom</p>
+        </div>
+
+        <h2>Prayer Request Update</h2>
+        <p>Dear {{memberName}},</p>
+        
+        <p>Your prayer request has been updated. Here are the details:</p>
+
+        <div class="prayer-details">
+            <div class="prayer-title">{{prayerRequest.title}}</div>
+            <div class="prayer-message">{{prayerRequest.message}}</div>
+        </div>
+
+        <div class="status-badge status-{{status}}">
+            Status: {{status}}
+        </div>
+
+        {{#if adminResponse}}
+        <div class="admin-response">
+            <h4>Response from Church Leadership:</h4>
+            <p>{{adminResponse}}</p>
+        </div>
+        {{/if}}
+
+        <p>We continue to pray for you and your request. If you have any questions or need further assistance, please don't hesitate to contact us.</p>
+
+        <div style="text-align: center;">
+            <a href="{{dashboardUrl}}" class="button">View My Prayer Requests</a>
+        </div>
+
+        <p>May God bless you abundantly,<br>
+        <strong>The Haven Word Church Team</strong></p>
+
+        <div class="footer">
+            <p>Haven Word Church<br>
+            {{churchAddress}}<br>
+            Phone: {{churchPhone}} | Email: {{churchEmail}}</p>
+            
+            <p>© {{currentYear}} Haven Word Church. All rights reserved.</p>
+            
+            <p>
+                <a href="{{unsubscribeUrl}}">Unsubscribe from email notifications</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

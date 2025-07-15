@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatDate, formatTime, truncateText } from '../../utils/helpers';
 import Button from '../ui/Button';
-// import { CHURCH_CONFIG } from '../../utils/constants';
+import PropTypes from 'prop-types';
 
 /**
  * EventCard Component
@@ -122,7 +122,7 @@ const EventCard = ({
   if (compact) {
     return (
       <div 
-        className={`bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer ${className}`}
+        className={`bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer ${className}`}
         onClick={handleViewDetails}
         role="button"
         tabIndex={0}
@@ -154,8 +154,7 @@ const EventCard = ({
   // Render full card
   return (
     <article 
-      className={`bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 ${className}`}
-      role="article"
+      className={`bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all duration-300 ${className}`}
       aria-labelledby={`event-title-${id}`}
     >
       {/* Event Image */}
@@ -163,7 +162,7 @@ const EventCard = ({
         <div className="relative h-48 bg-gray-200 overflow-hidden">
           <img
             src={image}
-            alt={`${title} event image`}
+            alt={event.title || 'Event'}
             className="w-full h-full object-cover"
             loading="lazy"
             onError={(e) => {
@@ -191,7 +190,7 @@ const EventCard = ({
         <div className="mb-4">
           <h3 
             id={`event-title-${id}`}
-            className="text-xl font-bold text-gray-900 mb-2 line-clamp-2"
+            className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2"
           >
             {title}
           </h3>
@@ -246,7 +245,7 @@ const EventCard = ({
 
         {/* Description */}
         {description && (
-          <p className="text-gray-700 mb-4 line-clamp-3">
+          <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">
             {truncateText(description, 150)}
           </p>
         )}
@@ -301,8 +300,6 @@ const EventCard = ({
     </article>
   );
 };
-
-import PropTypes from 'prop-types';
 
 EventCard.propTypes = {
   event: PropTypes.shape({
