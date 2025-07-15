@@ -16,7 +16,6 @@ export const useBulkActions = (contentType, options = {}) => {
     maxSelection = 100,
     enableProgressTracking = true,
     enableUndo = true,
-    enableValidation = true,
     batchSize = 10
   } = options;
 
@@ -206,12 +205,27 @@ export const useBulkActions = (contentType, options = {}) => {
             errors.push('Role is required');
           }
           break;
+        default:
+          // No additional validation for other actions
+          break;
       }
     }
 
     setValidationErrors(errors);
     return errors.length === 0;
   }, [maxSelection]);
+
+  /**
+   * Save action history
+   */
+  const saveActionHistory = useCallback((history) => {
+    try {
+      storageService.setLocal(actionHistoryKey, history);
+      setActionHistory(history);
+    } catch (error) {
+      console.error('Error saving action history:', error);
+    }
+  }, [actionHistoryKey]);
 
   /**
    * Execute bulk action
@@ -343,7 +357,7 @@ export const useBulkActions = (contentType, options = {}) => {
       setIsProcessing(false);
       setBulkAction(null);
     }
-  }, [selectedItems, contentType, validateBulkAction, validationErrors, batchSize, actionHistory, deselectAll]);
+  }, [selectedItems, contentType, validateBulkAction, validationErrors, batchSize, actionHistory, deselectAll, saveActionHistory]);
 
   /**
    * Cancel bulk action
@@ -378,18 +392,6 @@ export const useBulkActions = (contentType, options = {}) => {
     // Execute reverse action
     return await executeBulkAction(reverseAction, lastAction.additionalData);
   }, [enableUndo, actionHistory, executeBulkAction]);
-
-  /**
-   * Save action history
-   */
-  const saveActionHistory = useCallback((history) => {
-    try {
-      storageService.setLocal(actionHistoryKey, history);
-      setActionHistory(history);
-    } catch (error) {
-      console.error('Error saving action history:', error);
-    }
-  }, [actionHistoryKey]);
 
   /**
    * Clear action history

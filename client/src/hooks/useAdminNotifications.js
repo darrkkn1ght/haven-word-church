@@ -16,9 +16,7 @@ export const useAdminNotifications = (options = {}) => {
     enableEmailNotifications = true,
     enablePushNotifications = true,
     maxNotifications = 100,
-    autoMarkReadDelay = 5000,
-    enableSound = true,
-    enableDesktopNotifications = true
+    enableSound = true
   } = options;
 
   // State
@@ -343,9 +341,10 @@ export const useAdminNotifications = (options = {}) => {
 
   // Cleanup on unmount
   useEffect(() => {
+    const timeoutId = notificationTimeoutRef.current;
     return () => {
-      if (notificationTimeoutRef.current) {
-        clearTimeout(notificationTimeoutRef.current);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
     };
   }, []);

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { debounce } from 'lodash';
 import { storageService } from '../services/storageService';
 
@@ -78,7 +78,7 @@ export const useContentSearch = (contentType, options = {}) => {
   };
 
   // Search suggestions for different content types
-  const searchSuggestions = {
+  const defaultSearchSuggestions = useMemo(() => ({
     blog: [
       'faith', 'prayer', 'bible study', 'testimony', 'devotional', 'church news',
       'family', 'marriage', 'youth', 'children', 'ministry', 'outreach',
@@ -98,7 +98,7 @@ export const useContentSearch = (contentType, options = {}) => {
       'worship', 'youth', 'children', 'men', 'women', 'outreach',
       'discipleship', 'prayer', 'music', 'media', 'hospitality'
     ]
-  };
+  }), []);
 
   /**
    * Load search history and suggestions
@@ -112,13 +112,13 @@ export const useContentSearch = (contentType, options = {}) => {
       }
 
       if (enableSuggestions) {
-        const suggestions = storageService.getLocal(suggestionsKey) || searchSuggestions[contentType] || [];
+        const suggestions = storageService.getLocal(suggestionsKey) || defaultSearchSuggestions[contentType] || [];
         setSearchSuggestions(suggestions);
       }
     } catch (error) {
       console.error('Error loading search data:', error);
     }
-  }, [contentType, enableHistory, enableSuggestions, historyKey, suggestionsKey]);
+  }, [contentType, enableHistory, enableSuggestions, historyKey, suggestionsKey, defaultSearchSuggestions]);
 
   /**
    * Save search to history
@@ -189,12 +189,12 @@ export const useContentSearch = (contentType, options = {}) => {
     }
 
     const normalizedQuery = query.toLowerCase();
-    const suggestions = searchSuggestions[contentType] || [];
+    const suggestions = defaultSearchSuggestions[contentType] || [];
     
     return suggestions
       .filter(suggestion => suggestion.toLowerCase().includes(normalizedQuery))
       .slice(0, 8);
-  }, [enableSuggestions, minSearchLength, searchSuggestions, contentType]);
+  }, [enableSuggestions, minSearchLength, defaultSearchSuggestions, contentType]);
 
   /**
    * Perform search with API call
@@ -258,15 +258,9 @@ export const useContentSearch = (contentType, options = {}) => {
     }
   }, [contentType, minSearchLength, saveToHistory]);
 
-  /**
-   * Debounced search function
-   */
-  const debouncedSearch = useCallback(
-    debounce((query, filters) => {
-      performSearch(query, filters);
-    }, debounceDelay),
-    [performSearch, debounceDelay]
-  );
+  const debouncedSearch = useMemo(() => debounce((query, filters) => {
+    performSearch(query, filters);
+  }, debounceDelay), [performSearch, debounceDelay]);
 
   /**
    * Handle search query change
@@ -308,7 +302,7 @@ export const useContentSearch = (contentType, options = {}) => {
     if (searchQuery && searchQuery.length >= minSearchLength) {
       performSearch(searchQuery, defaultFilters[contentType] || {});
     }
-  }, [contentType, searchQuery, minSearchLength, performSearch]);
+  }, [contentType, searchQuery, minSearchLength, performSearch, defaultFilters]);
 
   /**
    * Get filter options for content type
@@ -421,16 +415,17 @@ export const useContentSearch = (contentType, options = {}) => {
   useEffect(() => {
     loadSearchData();
     setActiveFilters(defaultFilters[contentType] || {});
-  }, [loadSearchData, contentType]);
+  }, [loadSearchData, contentType, defaultFilters]);
 
   // Cleanup on unmount
   useEffect(() => {
+    const timeoutId = searchTimeoutRef.current;
     return () => {
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
       }
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
     };
   }, []);
