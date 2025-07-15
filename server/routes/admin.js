@@ -5,6 +5,7 @@ const role = require('../middleware/role');
 const Blog = require('../models/Blog');
 const Sermon = require('../models/Sermon');
 const { getAnalytics, getUserActivityChart, getContentPerformanceChart } = require('../controllers/analyticsController');
+const exportController = require('../controllers/exportController');
 
 // Middleware to ensure admin access
 const adminOnly = [auth, role(['admin'])];
@@ -272,5 +273,13 @@ router.delete('/sermons/:id', adminOnly, async (req, res) => {
     res.status(500).json({ message: 'Error deleting sermon', error: error.message });
   }
 });
+
+// Content Export (Backup/Migration)
+router.get('/export/options', adminOnly, exportController.getExportOptions);
+router.post('/export', adminOnly, exportController.createExport);
+router.get('/export/:jobId', adminOnly, exportController.getExportStatus);
+router.get('/export/:jobId/download', adminOnly, exportController.downloadExport);
+router.get('/export/history', adminOnly, exportController.getExportHistory);
+router.delete('/export/:jobId', adminOnly, exportController.deleteExport);
 
 module.exports = router; 

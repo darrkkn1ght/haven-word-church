@@ -42,6 +42,17 @@ const AdminDashboard = () => (
           View Analytics
         </Link>
       </div>
+      {/* Content Export & Backup */}
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow p-6">
+        <h2 className="text-xl font-semibold mb-2 text-orange-700 dark:text-orange-300">Content Export & Backup</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-4">Export all church data for backup, migration, or analysis.</p>
+        <Link
+          to="/admin/export-content"
+          className="inline-block px-4 py-2 rounded bg-orange-600 text-white font-medium hover:bg-orange-700 transition"
+        >
+          Export Content
+        </Link>
+      </div>
     </div>
     <div className="mt-12 text-center text-gray-400 text-sm">More admin features coming soon...</div>
   </div>

@@ -49,6 +49,7 @@ import Profile from './pages/member/Profile';
 import PrayerRequests from './pages/member/PrayerRequests';
 import MyDonations from './pages/member/MyDonations';
 import MyEvents from './pages/member/MyEvents';
+import ExportContent from './pages/admin/ExportContent';
 
 // Error Pages
 import NotFound from './pages/errors/NotFound';
@@ -59,7 +60,7 @@ import ServerError from './pages/errors/ServerError';
 import './styles/globals.css';
 import './styles/components.css';
 import './App.css';
-
+import PropTypes from 'prop-types';
 /**
  * React Query Client Configuration
  * Optimized for church website needs with appropriate caching strategies
@@ -91,7 +92,7 @@ const queryClient = new QueryClient({
  * App Layout Component
  * Provides consistent layout structure for all pages
  */
-import PropTypes from 'prop-types';
+
 
 const AppLayout = ({ children, showHeader = true, showFooter = true }) => {
   return (
@@ -342,6 +343,16 @@ function App() {
         <AppLayout>
           <ProtectedRoute roles={['admin']}>
             <AnalyticsDashboard />
+          </ProtectedRoute>
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/admin/export-content',
+      element: (
+        <AppLayout>
+          <ProtectedRoute roles={['admin']}>
+            <ExportContent />
           </ProtectedRoute>
         </AppLayout>
       ),

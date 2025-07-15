@@ -181,6 +181,16 @@ export const endpoints = {
     get: () => api.get('/members/dashboard').then(res => res.data.spiritualGrowth),
     update: (data) => api.post('/spiritual-growth', data),
   },
+
+  // Admin Export (Backup/Migration)
+  adminExport: {
+    getOptions: () => api.get('/admin/export/options'),
+    create: (exportData) => api.post('/admin/export', exportData),
+    getStatus: (jobId) => api.get(`/admin/export/${jobId}`),
+    download: (jobId) => api.get(`/admin/export/${jobId}/download`, { responseType: 'blob' }),
+    getHistory: (params) => api.get('/admin/export/history', { params }),
+    delete: (jobId) => api.delete(`/admin/export/${jobId}`),
+  },
 };
 
 // Utility functions (authentication and user utilities removed)
