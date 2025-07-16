@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import Button from '../ui/Button';
+import PropTypes from 'prop-types';
 
 /**
  * Comprehensive Modal/Dialog Component for Haven Word Church
@@ -475,8 +476,6 @@ const ModalExamples = () => {
     </div>
   );
 };
-
-import PropTypes from 'prop-types';
 
 Modal.propTypes = {
   isOpen: PropTypes.bool,

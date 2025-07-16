@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -8,8 +9,6 @@ const ProtectedRoute = ({ children, roles }) => {
   if (roles && !roles.includes(user.role)) return <Navigate to="/unauthorized" />;
   return children;
 };
-
-import PropTypes from 'prop-types';
 
 ProtectedRoute.propTypes = {
   children: PropTypes.node,

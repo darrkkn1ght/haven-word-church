@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import Button from '../ui/Button';
+import PropTypes from 'prop-types';
 
 /**
  * Comprehensive Calendar Component for Haven Word Church
@@ -443,8 +444,6 @@ const CalendarExamples = () => {
     </div>
   );
 };
-
-import PropTypes from 'prop-types';
 
 Calendar.propTypes = {
   selectedDate: PropTypes.instanceOf(Date),
