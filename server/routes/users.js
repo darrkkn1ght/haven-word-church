@@ -9,5 +9,9 @@ router.get('/', auth, userController.listUsers);
 router.patch('/:id/role', auth, userController.updateUserRole);
 // PATCH /api/users/:id/status - Update user status (admin only)
 router.patch('/:id/status', auth, userController.updateUserStatus);
+// GET /api/users/profile - Get current user's profile
+router.get('/profile', auth, userController.getProfile);
+// PUT /api/users/profile - Update current user's profile
+router.put('/profile', auth, userController.updateProfile);
 
 module.exports = router; 
