@@ -32,6 +32,7 @@ const activityLogSchema = new mongoose.Schema({
       'view',
       'get', // Added get as a valid action
       'head', // Added head as a valid action
+      'registration', // Added registration as a valid action
       'approve', 'reject', 'export', 'import',
       'bulk_action', 'settings_change', 'password_change',
       'error', 'other'
