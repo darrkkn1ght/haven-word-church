@@ -233,6 +233,14 @@ export function submitRSVP() {
   return Promise.resolve({ success: true });
 }
 
+export function getBlogPostById(id) {
+  return endpoints.blog.getById(id).then(res => res.data);
+}
+
+export function getSermonById(id) {
+  return endpoints.sermons.getById(id).then(res => res.data);
+}
+
 export { api };
 
 // Direct exports for Site Settings

@@ -14,6 +14,7 @@ const { connectDB } = require('./config/database');
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');
 const { corsMiddleware } = require('./middleware/cors');
+const activityLogger = require('./middleware/activityLogger');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -126,6 +127,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Activity logging middleware
+app.use(activityLogger);
+
 // Static files middleware
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -158,18 +162,17 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/prayer-requests', prayerRequestRoutes);
 
 // Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  });
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../client/build')));
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../client/build/index.html'));
+//   });
+// }
 
 // Serve React app for all other routes (SPA support)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+// });
 
 // 404 handler for API routes
 app.use('/api/*', (req, res) => {
@@ -183,7 +186,7 @@ app.use('/api/*', (req, res) => {
 app.use(errorHandler);
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
+process.on('unhandledRejection', (err) => {
   console.log(`Error: ${err.message}`);
   // Close server & exit process
   server.close(() => {

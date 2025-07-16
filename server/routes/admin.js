@@ -4,8 +4,10 @@ const auth = require('../middleware/auth');
 const role = require('../middleware/role');
 const Blog = require('../models/Blog');
 const Sermon = require('../models/Sermon');
+const ActivityLog = require('../models/ActivityLog');
 const { getAnalytics, getUserActivityChart, getContentPerformanceChart } = require('../controllers/analyticsController');
 const exportController = require('../controllers/exportController');
+const { Parser } = require('json2csv');
 
 // Middleware to ensure admin access
 const adminOnly = [auth, role(['admin'])];
@@ -281,5 +283,70 @@ router.get('/export/:jobId', adminOnly, exportController.getExportStatus);
 router.get('/export/:jobId/download', adminOnly, exportController.downloadExport);
 router.get('/export/history', adminOnly, exportController.getExportHistory);
 router.delete('/export/:jobId', adminOnly, exportController.deleteExport);
+
+// Admin: Get activity logs (with filters/search)
+router.get('/activity-logs', adminOnly, async (req, res) => {
+  try {
+    const { user, action, targetType, status, q, page = 1, limit = 20, sort = '-createdAt' } = req.query;
+    const query = {};
+    if (user) query.user = user;
+    if (action) query.action = action;
+    if (targetType) query.targetType = targetType;
+    if (status) query.status = status;
+    if (q) query.$or = [
+      { description: { $regex: q, $options: 'i' } },
+      { 'metadata': { $regex: q, $options: 'i' } }
+    ];
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const logs = await ActivityLog.find(query)
+      .populate('user', 'name email role')
+      .sort(sort)
+      .skip(skip)
+      .limit(parseInt(limit));
+    const total = await ActivityLog.countDocuments(query);
+    res.json({
+      success: true,
+      data: logs,
+      pagination: {
+        page: parseInt(page),
+        totalPages: Math.ceil(total / limit),
+        total
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching activity logs', error: error.message });
+  }
+});
+
+// Admin: Export activity logs (CSV/JSON)
+router.get('/activity-logs/export', adminOnly, async (req, res) => {
+  try {
+    const { format = 'csv', ...filters } = req.query;
+    const logs = await ActivityLog.find(filters).populate('user', 'name email role').lean();
+    if (format === 'json') {
+      res.setHeader('Content-Disposition', 'attachment; filename="activity_logs.json"');
+      res.json(logs);
+    } else {
+      const fields = ['createdAt', 'user.name', 'user.email', 'action', 'targetType', 'targetId', 'description', 'status', 'ip', 'userAgent'];
+      const parser = new Parser({ fields });
+      const csv = parser.parse(logs);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename="activity_logs.csv"');
+      res.send(csv);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error exporting activity logs', error: error.message });
+  }
+});
+
+// Admin: Delete activity log
+router.delete('/activity-logs/:id', adminOnly, async (req, res) => {
+  try {
+    await ActivityLog.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Activity log deleted' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting activity log', error: error.message });
+  }
+});
 
 module.exports = router; 

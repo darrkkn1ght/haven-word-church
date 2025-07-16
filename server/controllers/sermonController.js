@@ -1,6 +1,7 @@
 const Sermon = require('../models/Sermon');
 const { validationResult } = require('express-validator');
 const getTelegramSermons = require('./getTelegramSermons');
+const { logActivity } = require('../utils/activityLogger');
 
 /**
  * Sermon Controller for Haven Word Church

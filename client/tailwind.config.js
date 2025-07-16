@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         // Haven Word Church Brand Colors (Enhanced)
         primary: {
+          DEFAULT: '#2563eb', // Makes bg-primary available
           50: '#e6f2ff',
           100: '#cce5ff',
           200: '#99ccff',
@@ -20,6 +21,20 @@ module.exports = {
           700: '#0f172a', // Slate/Dark Blue
           800: '#0a2540',
           900: '#00143d',
+          dark: '#1e40af', // Alias for bg-primary-dark
+        },
+        'primary-dark': '#1e40af', // Deep Blue (keep for bg-primary-dark)
+        secondary: {
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
+          300: '#cbd5e1',
+          400: '#94a3b8',
+          500: '#64748b',
+          600: '#475569',
+          700: '#334155', // For to-secondary-700
+          800: '#1e293b',
+          900: '#0f172a',
         },
         accent: {
           50: '#e0f7fa',
@@ -158,11 +173,11 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms')({
-      strategy: 'class',
-    }),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
+   plugins: [
+     require('@tailwindcss/forms')({
+       strategy: 'class',
+     }),
+     require('@tailwindcss/typography'),
+     require('@tailwindcss/aspect-ratio'),
+   ],
 }

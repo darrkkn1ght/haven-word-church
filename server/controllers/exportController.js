@@ -10,6 +10,7 @@ const path = require('path');
 const archiver = require('archiver');
 const { Parser } = require('json2csv');
 const xml2js = require('xml2js');
+const { logActivity } = require('../utils/activityLogger');
 
 /**
  * Content Export Controller for Haven Word Church

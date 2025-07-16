@@ -1,6 +1,7 @@
 const Settings = require('../models/Settings');
 const path = require('path');
 const fs = require('fs');
+const { logActivity } = require('../utils/activityLogger');
 
 // GET /api/settings
 exports.getSettings = async (req, res) => {
@@ -43,8 +44,10 @@ exports.updateSettings = async (req, res) => {
     });
 
     await settings.save();
+    await logActivity({ user: req.user?._id, action: 'settings_change', targetType: 'Settings', status: 'success', ip: req.ip, userAgent: req.get('User-Agent') });
     res.json(settings);
   } catch (err) {
+    await logActivity({ user: req.user?._id, action: 'settings_change', targetType: 'Settings', status: 'failure', ip: req.ip, userAgent: req.get('User-Agent'), error: err.message });
     res.status(500).json({ message: 'Failed to update settings', error: err.message });
   }
 };

@@ -19,8 +19,7 @@ const blogSchema = new mongoose.Schema({
     required: true,
     unique: true,
     lowercase: true,
-    trim: true,
-    index: true
+    trim: true
   },
   
   excerpt: {
@@ -297,7 +296,6 @@ const blogSchema = new mongoose.Schema({
 });
 
 // Indexes for performance
-blogSchema.index({ slug: 1 });
 blogSchema.index({ category: 1, status: 1 });
 blogSchema.index({ publishedAt: -1 });
 blogSchema.index({ featured: 1, pinned: 1 });

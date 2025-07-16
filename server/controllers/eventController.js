@@ -1,5 +1,6 @@
 const Event = require('../models/Event');
 const { validationResult } = require('express-validator');
+const { logActivity } = require('../utils/activityLogger');
 
 /**
  * Event Controller for Haven Word Church

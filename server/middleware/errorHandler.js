@@ -91,17 +91,18 @@ const errorHandler = (err, req, res) => {
   const message = error.message || 'Server Error';
 
   // Send error response
-  res.status(statusCode).json({
-    success: false,
-    error: message,
-    ...(process.env.NODE_ENV === 'development' && { 
-      stack: err.stack,
-      details: error
-    }),
-    timestamp: new Date().toISOString(),
-    path: req.path,
-    method: req.method
-  });
+  if (typeof res.status === 'function') {
+    res.status(statusCode).json({
+      success: false,
+      message,
+      error: process.env.NODE_ENV === 'development' ? err : undefined,
+      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
+    });
+  } else {
+    // Fallback: log error if res is not a real Express response object
+    console.error('Error handler called with invalid res object:', res);
+    console.error('Error:', err);
+  }
 };
 
 // Async handler wrapper to catch async errors

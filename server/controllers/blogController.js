@@ -1,5 +1,6 @@
 const Blog = require('../models/Blog');
 const User = require('../models/User');
+const { logActivity } = require('../utils/activityLogger');
 
 /**
  * Blog Controller for Haven Word Church

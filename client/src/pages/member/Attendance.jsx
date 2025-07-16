@@ -20,7 +20,7 @@ import {
   Smartphone,
   Church
 } from 'lucide-react';
-import memberService from '../../services/memberService';
+import { memberService } from '../../services/memberService';
 
 /**
  * Member Attendance Page Component
