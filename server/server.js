@@ -84,8 +84,20 @@ io.on('connection', (socket) => {
 global.io = io;
 global.connectedUsers = connectedUsers;
 
-// Connect to database
-connectDB();
+// Connect to database and start server only after DB is ready
+connectDB().then(() => {
+  const PORT = process.env.PORT || 5000;
+  server.listen(PORT, () => {
+    console.log(`
+🚀 Haven Word Church Server is running!
+📍 Environment: ${process.env.NODE_ENV || 'development'}
+🌐 Port: ${PORT}
+📡 API: http://localhost:${PORT}/api
+🔌 WebSocket: ws://localhost:${PORT}
+💾 Database: ${process.env.MONGODB_URI ? 'Connected' : 'Not configured'}
+    `);
+  });
+});
 
 // Security middleware
 app.use(helmet({
@@ -199,19 +211,6 @@ process.on('uncaughtException', (err) => {
   console.log(`Error: ${err.message}`);
   console.log('Shutting down the server due to uncaught exception');
   process.exit(1);
-});
-
-const PORT = process.env.PORT || 5000;
-
-server.listen(PORT, () => {
-  console.log(`
-🚀 Haven Word Church Server is running!
-📍 Environment: ${process.env.NODE_ENV || 'development'}
-🌐 Port: ${PORT}
-📡 API: http://localhost:${PORT}/api
-🔌 WebSocket: ws://localhost:${PORT}
-💾 Database: ${process.env.MONGODB_URI ? 'Connected' : 'Not configured'}
-  `);
 });
 
 module.exports = { app, server, io };
