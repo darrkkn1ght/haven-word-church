@@ -442,201 +442,80 @@ const RSVPForm = ({
   }
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 ${className}`}>
+    <div className={`bg-white/90 dark:bg-gray-900/90 rounded-2xl shadow-2xl p-6 md:p-10 max-w-lg mx-auto backdrop-blur-md border border-gray-200 dark:border-gray-700 ${className}`}>
       {/* Event Information */}
       {event && (
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/50 rounded-lg border border-blue-200 dark:border-blue-800">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+        <div className="mb-6 p-4 bg-blue-50/80 dark:bg-blue-900/60 rounded-xl border border-blue-200 dark:border-blue-800 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
             {event.title}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
-            <div className="flex items-center">
-              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              {event.date} at {event.time}
-            </div>
-            <div className="flex items-center">
-              <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {event.location}
-            </div>
-            {event.capacity && (
-              <div className="flex items-center">
-                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                {event.currentAttendees || 0} / {event.capacity} registered
-              </div>
-            )}
-            {event.cost && (
-              <div className="flex items-center">
-                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                </svg>
-                {event.cost === 0 ? 'Free Event' : `₦${event.cost.toLocaleString()}`}
-              </div>
-            )}
+          <div className="text-sm text-gray-700 dark:text-gray-300">
+            <span className="mr-4">📅 {event.date} at {event.time}</span>
+            <span>📍 {event.location}</span>
           </div>
-          {event.description && (
-            <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
-              {event.description}
-            </p>
-          )}
         </div>
       )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Attendance Status */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-            Will you be attending this event? *
-          </label>
-          <div className="space-y-2">
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="attendance"
-                value="yes"
-                checked={formData.attendance === 'yes'}
-                onChange={handleChange}
-                className="mr-3 text-green-600 focus:ring-green-500"
-                disabled={isSubmitting}
-              />
-              <span className="text-sm text-gray-700 dark:text-gray-300">
-                Yes, I&apos;ll be there! 🎉
-              </span>
-            </label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="attendance"
-                value="no"
-                checked={formData.attendance === 'no'}
-                onChange={handleChange}
-                className="mr-3 text-red-600 focus:ring-red-500"
-                disabled={isSubmitting}
-              />
-              <span className="text-sm text-gray-700 dark:text-gray-300">
-                No, I can&apos;t make it 😔
-              </span>
-            </label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="attendance"
-                value="maybe"
-                checked={formData.attendance === 'maybe'}
-                onChange={handleChange}
-                className="mr-3 text-yellow-600 focus:ring-yellow-500"
-                disabled={isSubmitting}
-              />
-              <span className="text-sm text-gray-700 dark:text-gray-300">
-                Maybe, I&apos;m not sure yet 🤔
-              </span>
-            </label>
-          </div>
-        </div>
-
-        {/* Personal Information */}
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              First Name *
-            </label>
+            <label className="form-label text-gray-700 dark:text-gray-200 font-semibold">First Name</label>
             <input
               type="text"
-              id="firstName"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-              placeholder="Enter your first name"
-              disabled={isSubmitting}
-              aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+              className="form-input bg-white/80 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary-dark dark:focus:border-primary-dark transition"
+              autoComplete="given-name"
+              required
             />
-            {errors.firstName && (
-              <p id="firstName-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
-                {errors.firstName}
-              </p>
-            )}
+            {errors.firstName && <div className="form-error text-red-500 text-xs mt-1">{errors.firstName}</div>}
           </div>
-
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Last Name *
-            </label>
+            <label className="form-label text-gray-700 dark:text-gray-200 font-semibold">Last Name</label>
             <input
               type="text"
-              id="lastName"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-              placeholder="Enter your last name"
-              disabled={isSubmitting}
-              aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+              className="form-input bg-white/80 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary-dark dark:focus:border-primary-dark transition"
+              autoComplete="family-name"
+              required
             />
-            {errors.lastName && (
-              <p id="lastName-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
-                {errors.lastName}
-              </p>
-            )}
+            {errors.lastName && <div className="form-error text-red-500 text-xs mt-1">{errors.lastName}</div>}
           </div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Email Address *
-            </label>
+            <label className="form-label text-gray-700 dark:text-gray-200 font-semibold">Email</label>
             <input
               type="email"
-              id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-              placeholder="your.email@example.com"
-              disabled={isSubmitting}
-              aria-describedby={errors.email ? 'email-error' : undefined}
+              className="form-input bg-white/80 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary-dark dark:focus:border-primary-dark transition"
+              autoComplete="email"
+              required
             />
-            {errors.email && (
-              <p id="email-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
-                {errors.email}
-              </p>
-            )}
+            {errors.email && <div className="form-error text-red-500 text-xs mt-1">{errors.email}</div>}
           </div>
-
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Phone Number *
-            </label>
+            <label className="form-label text-gray-700 dark:text-gray-200 font-semibold">Phone</label>
             <input
               type="tel"
-              id="phone"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-              placeholder="+234-803-123-4567"
-              disabled={isSubmitting}
-              aria-describedby={errors.phone ? 'phone-error' : undefined}
+              className="form-input bg-white/80 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:focus:ring-primary-dark dark:focus:border-primary-dark transition"
+              autoComplete="tel"
+              required
             />
-            {errors.phone && (
-              <p id="phone-error" className="mt-1 text-red-600 dark:text-red-400 text-sm font-medium" role="alert">
-                {errors.phone}
-              </p>
-            )}
+            {errors.phone && <div className="form-error text-red-500 text-xs mt-1">{errors.phone}</div>}
           </div>
         </div>
-
         {/* Show additional fields only if attending */}
         {formData.attendance === 'yes' && (
           <>
