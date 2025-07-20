@@ -258,10 +258,6 @@ const Ministries = () => {
                   <span><strong>Location:</strong> {ministry.location}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-gray-500" />
-                  <span><strong>Members:</strong> {ministry.members}</span>
-                </div>
-                <div className="flex items-center gap-2">
                   <Baby className="h-5 w-5 text-gray-500" />
                   <span><strong>Age Group:</strong> {ministry.ageGroup}</span>
                 </div>
@@ -544,10 +540,6 @@ Ministries.propTypes = {
     meetingTime: PropTypes.string,
     location: PropTypes.string,
     ageGroup: PropTypes.string,
-    members: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
     activities: PropTypes.arrayOf(PropTypes.string).isRequired,
     upcomingEvents: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
