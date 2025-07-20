@@ -178,18 +178,23 @@ const Ministries = () => {
     const loadMinistries = async () => {
       try {
         setLoading(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setMinistries(mockMinistries);
+        const response = await fetch('/api/ministries');
+        let ministriesData = [];
+        if (response.ok) {
+          const result = await response.json();
+          ministriesData = result.data || [];
+        }
+        // If backend returns no ministries, use the mockMinistries as fallback
+        setMinistries(ministriesData.length > 0 ? ministriesData : mockMinistries);
       } catch (err) {
         setError('Failed to load ministries. Please try again later.');
+        setMinistries(mockMinistries); // fallback
       } finally {
         setLoading(false);
       }
     };
-
     loadMinistries();
-  }, [mockMinistries]);
+  }, []);
 
   // Filter ministries based on search and category
   const filteredMinistries = ministries.filter(ministry => {

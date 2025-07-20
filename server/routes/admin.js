@@ -349,4 +349,25 @@ router.delete('/activity-logs/:id', adminOnly, async (req, res) => {
   }
 });
 
+// Global search endpoint (demo)
+router.get('/search', async (req, res) => {
+  const { q } = req.query;
+  // TODO: Implement real search across collections
+  res.json({
+    message: 'Global search is not yet implemented',
+    query: q,
+    results: []
+  });
+});
+
+// Generic bulk-action endpoint (demo)
+router.post('/:contentType/:itemId/bulk-action', async (req, res) => {
+  const { contentType, itemId } = req.params;
+  const { action } = req.body;
+  // TODO: Implement real bulk action logic
+  res.json({
+    message: `Bulk action '${action}' on ${contentType} with ID ${itemId} is not yet implemented.`
+  });
+});
+
 module.exports = router; 

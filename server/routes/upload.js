@@ -5,6 +5,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const auth = require('../middleware/auth');
 const { uploadToCloudinary } = require('../utils/uploadFile');
+const sharp = require('sharp');
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -184,6 +185,28 @@ router.delete('/:publicId', auth, async (req, res) => {
       message: 'Error deleting file',
       error: error.message
     });
+  }
+});
+
+// Placeholder image endpoint
+router.get('/placeholder/:w/:h', async (req, res) => {
+  const width = parseInt(req.params.w) || 600;
+  const height = parseInt(req.params.h) || 400;
+  try {
+    const image = await sharp({
+      create: {
+        width,
+        height,
+        channels: 3,
+        background: { r: 220, g: 220, b: 220 }
+      }
+    })
+      .png()
+      .toBuffer();
+    res.set('Content-Type', 'image/png');
+    res.send(image);
+  } catch (err) {
+    res.status(500).send('Error generating placeholder image');
   }
 });
 
