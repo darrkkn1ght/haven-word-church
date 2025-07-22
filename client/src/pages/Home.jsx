@@ -83,7 +83,7 @@ const Home = () => {
           }}
         >
           {/* Overlay */}
-          <div className="absolute inset-0 bg-blue-900 bg-opacity-80 dark:bg-primary-900 dark:bg-opacity-80 backdrop-blur-sm z-0"></div>
+          <div className="absolute inset-0 bg-blue-900 bg-opacity-80 dark:bg-gray-950 dark:bg-opacity-90 backdrop-blur-sm z-0"></div>
           {/* Wave separator at bottom */}
           <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
             <svg viewBox="0 0 1440 100" className="w-full h-16" preserveAspectRatio="none">
