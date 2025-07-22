@@ -156,7 +156,6 @@ const Button = ({
         aria-describedby={ariaDescribedBy}
         aria-disabled={disabled || loading}
         aria-busy={loading}
-        role="link"
         tabIndex={disabled ? -1 : 0}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
@@ -195,7 +194,6 @@ const Button = ({
         aria-describedby={ariaDescribedBy}
         aria-disabled={disabled || loading}
         aria-busy={loading}
-        role="button"
         tabIndex={disabled ? -1 : 0}
         {...rest}
       >

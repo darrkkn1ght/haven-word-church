@@ -33,8 +33,10 @@ const adminRoutes = require('./routes/admin');
 const uploadRoutes = require('./routes/upload');
 const notificationRoutes = require('./routes/notifications');
 const prayerRequestRoutes = require('./routes/prayerRequests');
+const rsvpRoutes = require('./routes/rsvp');
 
 const app = express();
+app.set('trust proxy', 1);
 const server = http.createServer(app);
 
 // Socket.io setup
@@ -172,6 +174,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/prayer-requests', prayerRequestRoutes);
+app.use('/api/rsvp', rsvpRoutes);
 
 // Serve static files in production
 // if (process.env.NODE_ENV === 'production') {

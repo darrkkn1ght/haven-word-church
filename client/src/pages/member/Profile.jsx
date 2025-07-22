@@ -68,7 +68,7 @@ const Profile = () => {
    */
   useEffect(() => {
     fetchProfileData();
-  }, []);
+  }, [fetchProfileData]);
 
   /**
    * Fetch profile data from API

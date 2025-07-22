@@ -17,15 +17,32 @@ const Home = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
 
   // API calls for dynamic content
   const { data: upcomingEvents, loading: eventsLoading } = useApi('/api/events/upcoming?limit=3');
 
+  // Refactor serviceSchedule to merge Sunday services
   const serviceSchedule = [
-    { day: 'Sunday', service: 'First Service', time: '7:30 AM' },
-    { day: 'Sunday', service: 'Second Service', time: '10:00 AM' },
-    { day: 'Wednesday', service: 'Midweek Service', time: '5:30 PM' },
-    { day: 'Friday', service: 'Cell Meetings', time: '5:30 PM' }
+    {
+      day: 'Sunday',
+      services: [
+        { name: 'First Service', time: '7:30 AM' },
+        { name: 'Second Service', time: '10:00 AM' }
+      ]
+    },
+    {
+      day: 'Wednesday',
+      services: [
+        { name: 'Midweek Service', time: '5:30 PM' }
+      ]
+    },
+    {
+      day: 'Friday',
+      services: [
+        { name: 'Mission Group Meetings', time: '5:30 PM' }
+      ]
+    }
   ];
 
   const handleEventRSVP = (event) => {
@@ -156,18 +173,41 @@ const Home = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
               {serviceSchedule.map((schedule, index) => (
-                <div key={index} className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900 dark:to-purple-900 p-6 rounded-lg text-center hover:shadow-lg transition-shadow">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <div
+                  key={index}
+                  className="relative p-12 rounded-[2.5rem] text-center shadow-2xl hover:scale-105 transition-transform duration-300 min-h-[270px] flex flex-col justify-center items-center overflow-hidden cursor-pointer group"
+                  style={{
+                    background: `linear-gradient(135deg, var(--color-primary, #2563eb) 0%, #7f5af0 60%, #00c6fb 100%)`,
+                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                  }}
+                  onClick={() => {
+                    setSelectedService(schedule);
+                    setIsRSVPOpen(true);
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`RSVP for ${schedule.day}`}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { setSelectedService(schedule); setIsRSVPOpen(true); } }}
+                >
+                  {/* Glassmorphism overlay */}
+                  <div className="absolute inset-0 bg-white/20 dark:bg-gray-900/30 backdrop-blur-[6px] rounded-[2.5rem] pointer-events-none z-0 group-hover:bg-white/30 group-hover:dark:bg-gray-900/40 transition" />
+                  <h3 className="relative z-10 text-3xl md:text-4xl font-extrabold text-white mb-6 drop-shadow-xl">
                     {schedule.day}
                   </h3>
-                  <p className="text-lg text-blue-600 dark:text-blue-300 font-medium mb-1">
-                    {schedule.service}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-300 text-lg">
-                    {schedule.time}
-                  </p>
+                  {schedule.services.map((svc, i) => (
+                    <div key={i} className="relative z-10 mb-4 last:mb-0">
+                      <p className="text-xl md:text-2xl font-semibold text-white/90 mb-1 drop-shadow">
+                        {svc.name}
+                      </p>
+                      <p className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">
+                        {svc.time}
+                      </p>
+                    </div>
+                  ))}
+                  {/* 3D border highlight */}
+                  <div className="absolute inset-0 rounded-[2.5rem] border-2 border-white/30 dark:border-primary-900/40 pointer-events-none z-10" />
                 </div>
               ))}
             </div>
@@ -389,12 +429,18 @@ const Home = () => {
         <Modal
           isOpen={isRSVPOpen}
           onClose={() => setIsRSVPOpen(false)}
-          title={selectedEvent ? `RSVP for ${selectedEvent.title}` : "RSVP for Service"}
+          title={selectedService ? `RSVP for ${selectedService.day}` : "RSVP for Service"}
           size="md"
         >
-          <RSVPForm 
-            event={selectedEvent}
-            onSubmit={() => setIsRSVPOpen(false)} 
+          <RSVPForm
+            eventData={selectedService ? {
+              title: selectedService.day,
+              description: selectedService.services.map(svc => `${svc.name} at ${svc.time}`).join(' | '),
+              date: selectedService.day,
+              time: selectedService.services.map(svc => svc.time).join(' / '),
+              location: 'Haven Word Church',
+            } : null}
+            onSubmit={() => setIsRSVPOpen(false)}
           />
         </Modal>
       </div>

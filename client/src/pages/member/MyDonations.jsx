@@ -80,7 +80,7 @@ const MyDonations = () => {
    */
   useEffect(() => {
     fetchDonations();
-  }, [currentPage, filters]);
+  }, [currentPage, filters, fetchDonations]);
 
   /**
    * Fetch donations from API

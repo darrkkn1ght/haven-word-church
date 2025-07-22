@@ -30,33 +30,6 @@ const Blog = () => {
   const categories = ['all', 'Faith', 'Family', 'Prayer', 'Ministry', 'Grace', 'Youth'];
   const allTags = ['faith', 'biblical-characters', 'trust', 'family', 'parenting', 'marriage', 'prayer', 'spiritual-growth', 'hope', 'ministry', 'calling', 'service', 'grace', 'daily-life', 'transformation', 'youth', 'leadership', 'next-generation'];
 
-  // Fetch posts on component mount
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  // Filter posts when search/filter criteria change
-  useEffect(() => {
-    filterPosts();
-  }, [posts, searchTerm, selectedCategory, selectedTag]);
-
-  /**
-   * Fetch blog posts from API
-   */
-  const fetchPosts = async () => {
-    try {
-      setLoading(true);
-      // Uncomment when API is ready
-      // const response = await blogService.getPosts();
-      // setPosts(response.data);
-      setPosts([]);
-      setLoading(false);
-    } catch (err) {
-      setError('Failed to load blog posts. Please try again later.');
-      setLoading(false);
-    }
-  };
-
   /**
    * Filter posts based on search term, category, and tags
    */
@@ -84,6 +57,33 @@ const Blog = () => {
 
     setFilteredPosts(filtered);
     setCurrentPage(1); // Reset to first page when filtering
+  };
+
+  // Fetch posts on component mount
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  // Filter posts when search/filter criteria change
+  useEffect(() => {
+    filterPosts();
+  }, [posts, searchTerm, selectedCategory, selectedTag, filterPosts]);
+
+  /**
+   * Fetch blog posts from API
+   */
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      // Uncomment when API is ready
+      // const response = await blogService.getPosts();
+      // setPosts(response.data);
+      setPosts([]);
+      setLoading(false);
+    } catch (err) {
+      setError('Failed to load blog posts. Please try again later.');
+      setLoading(false);
+    }
   };
 
   /**

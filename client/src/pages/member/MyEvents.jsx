@@ -66,7 +66,7 @@ const MyEvents = () => {
    */
   useEffect(() => {
     fetchEvents();
-  }, [currentPage, filters]);
+  }, [currentPage, filters, fetchEvents]);
 
   /**
    * Fetch events from API

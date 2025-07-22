@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from '../../hooks/useAuth';
 import { useNotifications } from '../../context/NotificationContext';
 import { 
   getPrayerRequests, 
@@ -67,7 +66,7 @@ const PrayerRequests = () => {
    */
   useEffect(() => {
     fetchPrayerRequests();
-  }, [currentPage, filters]);
+  }, [currentPage, filters, fetchPrayerRequests]);
 
   /**
    * Fetch prayer requests from API

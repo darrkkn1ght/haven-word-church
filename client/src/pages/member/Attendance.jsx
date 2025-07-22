@@ -135,20 +135,6 @@ const Attendance = () => {
   };
 
   /**
-   * Extract service ID from QR code data
-   * @param {string} qrData - QR code data
-   * @returns {string|null} Service ID or null
-   */
-  const extractServiceIdFromQR = (qrData) => {
-    try {
-      const data = JSON.parse(qrData);
-      return data.serviceId || null;
-    } catch {
-      return null;
-    }
-  };
-
-  /**
    * Calculate attendance percentage
    * @param {number} attended - Number of services attended
    * @param {number} total - Total number of services

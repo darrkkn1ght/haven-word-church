@@ -443,15 +443,20 @@ const RSVPForm = ({
 
   return (
     <div className={`bg-white/90 dark:bg-gray-900/90 rounded-2xl shadow-2xl p-6 md:p-10 max-w-lg mx-auto backdrop-blur-md border border-gray-200 dark:border-gray-700 ${className}`}>
-      {/* Event Information */}
+      {/* Service Info Banner */}
       {event && (
-        <div className="mb-6 p-4 bg-blue-50/80 dark:bg-blue-900/60 rounded-xl border border-blue-200 dark:border-blue-800 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-            {event.title}
-          </h2>
-          <div className="text-sm text-gray-700 dark:text-gray-300">
-            <span className="mr-4">📅 {event.date} at {event.time}</span>
-            <span>📍 {event.location}</span>
+        <div className="mb-8 p-5 rounded-xl bg-gradient-to-r from-primary-500 via-primary-400 to-purple-500 dark:from-primary-800 dark:via-primary-600 dark:to-purple-900 text-white shadow-lg flex flex-col items-center">
+          <div className="flex items-center gap-3 mb-2">
+            <svg className="h-7 w-7 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            <span className="text-xl md:text-2xl font-bold drop-shadow">{event.title}</span>
+          </div>
+          <div className="text-base md:text-lg font-medium mb-1">
+            {event.description}
+          </div>
+          <div className="flex flex-wrap gap-4 justify-center text-sm md:text-base mt-2">
+            <span className="inline-flex items-center gap-1"><span role="img" aria-label="calendar">📅</span> {event.date}</span>
+            <span className="inline-flex items-center gap-1"><span role="img" aria-label="clock">⏰</span> {event.time}</span>
+            <span className="inline-flex items-center gap-1"><span role="img" aria-label="location">📍</span> {event.location}</span>
           </div>
         </div>
       )}

@@ -198,8 +198,8 @@ const Ministries = () => {
 
   // Filter ministries based on search and category
   const filteredMinistries = ministries.filter(ministry => {
-    const matchesSearch = ministry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         ministry.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = (ministry.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (ministry.description || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || ministry.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
