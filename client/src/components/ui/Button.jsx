@@ -62,22 +62,22 @@ const Button = ({
   // Variant styles (modern, blue/cyan, 3D)
   const variantClasses = {
     primary: `
-      bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-accent)] to-[var(--color-primary-dark)]
+      bg-gradient-to-r from-primary-500 via-accent-500 to-primary-600
       text-white
       shadow-[0_4px_24px_0_rgba(37,99,235,0.18)]
-      hover:from-[var(--color-primary-light)] hover:via-[var(--color-accent)] hover:to-[var(--color-primary)]
-      dark:bg-gradient-to-r dark:from-[var(--color-primary)] dark:via-[var(--color-accent)] dark:to-[var(--color-primary-dark)]
+      hover:from-primary-400 hover:via-accent-400 hover:to-primary-500
+      dark:bg-gradient-to-r dark:from-primary-600 dark:via-accent-700 dark:to-primary-800
       dark:text-white
-      dark:shadow-[0_4px_24px_0_rgba(5,150,105,0.18)]
+      dark:shadow-[0_4px_24px_0_rgba(6,182,212,0.18)]
     `,
     outline: `
-      bg-transparent border-2 border-[var(--color-primary)] text-[var(--color-primary)]
-      hover:bg-[var(--color-primary-light)] hover:text-[var(--color-primary-dark)]
-      dark:border-[var(--color-accent)] dark:text-[var(--color-accent)] dark:hover:bg-[var(--color-accent)]/20
+      bg-transparent border-2 border-primary-500 text-primary-600
+      hover:bg-primary-50 hover:text-primary-700
+      dark:border-accent-500 dark:text-accent-300 dark:hover:bg-accent-900/20
     `,
     ghost: `
-      bg-transparent text-[var(--color-primary)] hover:bg-[var(--color-primary-light)]
-      dark:text-[var(--color-accent)] dark:hover:bg-[var(--color-accent)]/20
+      bg-transparent text-primary-600 hover:bg-primary-50
+      dark:text-accent-300 dark:hover:bg-accent-900/20
     `,
     danger: `
       bg-error text-white border-error hover:bg-error/90

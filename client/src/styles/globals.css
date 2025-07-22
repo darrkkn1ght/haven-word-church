@@ -64,17 +64,11 @@
 
   /* Dark Theme Variables */
   [data-theme="dark"] {
-    --color-primary: #1e3a8a;
-    --color-primary-dark: #172554;
-    --color-primary-light: #223056;
-    --color-secondary: #b45309;
-    --color-secondary-light: #4b2e19;
-    --color-accent: #059669;
     --color-white: #1F2937;
-    --color-gray: #9CA3AF;
-    --color-gray-dark: #E5E7EB;
     --color-gray-light: #374151;
     --color-gray-lighter: #4B5563;
+    --color-gray: #9CA3AF;
+    --color-gray-dark: #E5E7EB;
   }
 
   /* HTML & Body Reset */
