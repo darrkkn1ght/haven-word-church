@@ -14,7 +14,6 @@ const Home = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isRSVPOpen, setIsRSVPOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
@@ -45,11 +44,6 @@ const Home = () => {
     }
   ];
 
-  const handleEventRSVP = (event) => {
-    setSelectedEvent(event);
-    setIsRSVPOpen(true);
-  };
-
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -71,7 +65,7 @@ const Home = () => {
         keywords="church, Ibadan, worship, fellowship, Christianity, Nigeria, spiritual growth"
       />
       
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="min-h-screen bg-gray-50 dark:bg-[var(--color-white)]">
         {/* Hero Section - Refined for Haven Word Church Theme */}
         <section
           className="relative overflow-hidden font-sans py-32 pt-48"
@@ -83,7 +77,7 @@ const Home = () => {
           }}
         >
           {/* Overlay */}
-          <div className="absolute inset-0 bg-blue-900 bg-opacity-80 dark:bg-primary-900 dark:bg-opacity-80 backdrop-blur-sm z-0"></div>
+          <div className="absolute inset-0 gradient-hero backdrop-blur-sm z-0"></div>
           {/* Wave separator at bottom */}
           <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none">
             <svg viewBox="0 0 1440 100" className="w-full h-16" preserveAspectRatio="none">
@@ -104,33 +98,13 @@ const Home = () => {
             {/* Modern Uiverse.io-inspired Button */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="relative group">
-              <Button 
-                  className="relative inline-block font-semibold leading-6 text-white bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 dark:from-blue-700 dark:via-cyan-600 dark:to-purple-700 shadow-2xl shadow-blue-400/40 dark:shadow-cyan-900/60 rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 text-base px-8 py-3 min-w-[160px] focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-cyan-800 before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-blue-400 before:via-cyan-300 before:to-purple-400 before:opacity-0 group-hover:before:opacity-30 before:transition-opacity before:duration-300 after:absolute after:inset-0 after:rounded-2xl after:shadow-[0_8px_30px_0_rgba(59,130,246,0.25)] after:opacity-80 after:pointer-events-none"
-                  style={{ boxShadow: '0 6px 24px 0 rgba(59,130,246,0.25), 0 1.5px 4px 0 rgba(59,130,246,0.15)' }}
+                <Button 
+                  className="relative inline-block font-semibold leading-6 text-white gradient-primary shadow-2xl shadow-blue-400/40 dark:shadow-[0_8px_30px_0_rgba(30,58,138,0.25)] rounded-2xl transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 text-base px-8 py-3 min-w-[160px] focus:outline-none focus:ring-4 focus:ring-primary-300 dark:focus:ring-[var(--color-accent)] before:absolute before:inset-0 before:rounded-2xl before:gradient-primary before:opacity-0 group-hover:before:opacity-30 before:transition-opacity before:duration-300 after:absolute after:inset-0 after:rounded-2xl after:shadow-[0_8px_30px_0_rgba(30,58,138,0.25)] after:opacity-80 after:pointer-events-none"
+                  style={{ boxShadow: '0 6px 24px 0 rgba(30,58,138,0.25), 0 1.5px 4px 0 rgba(30,58,138,0.15)' }}
                   onClick={() => setIsRSVPOpen(true)}
-                variant="primary" 
-                size="lg"
-                  icon={
-                    <svg
-                      className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 drop-shadow"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                        fillRule="evenodd"
-                      ></path>
-                    </svg>
-                  }
                 >
-                  <span className="relative z-10 flex items-center space-x-2">
-                    <span className="transition-all duration-500 group-hover:translate-x-1 text-sm md:text-base font-bold drop-shadow-lg">
-                Join Us This Sunday
-                    </span>
-                  </span>
-              </Button>
+                  RSVP Now
+                </Button>
               </div>
             </div>
           </div>
@@ -162,7 +136,7 @@ const Home = () => {
         </section>
 
         {/* Service Schedule */}
-        <section className="py-16 bg-white dark:bg-gray-900">
+        <section className="py-16 bg-white dark:bg-[var(--color-white)]">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -236,7 +210,7 @@ const Home = () => {
                   <EventCard 
                     key={event.id} 
                     event={event}
-                    onRSVP={() => handleEventRSVP(event)}
+                    onRSVP={() => { setSelectedService(event); setIsRSVPOpen(true); }}
                   />
                 ))}
               </div>
@@ -253,7 +227,7 @@ const Home = () => {
         </section>
 
         {/* Ministry Spotlight */}
-        <section className="py-16 bg-white dark:bg-gray-900">
+        <section className="py-16 bg-white dark:bg-[var(--color-white)]">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -313,7 +287,7 @@ const Home = () => {
         </section>
 
         {/* Community Impact */}
-        <section className="py-16 bg-white dark:bg-gray-900">
+        <section className="py-16 bg-white dark:bg-[var(--color-white)]">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

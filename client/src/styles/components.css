@@ -201,11 +201,36 @@
     @apply w-full h-full object-cover;
   }
 
+  /* Gradient Backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  }
+  .gradient-secondary {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+  }
+  .gradient-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  }
+
+  [data-theme="dark"] .gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  }
+  [data-theme="dark"] .gradient-secondary {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 100%);
+  }
+  [data-theme="dark"] .gradient-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  }
+
+  /* Hero overlay for dark mode */
   .hero-overlay {
     position: absolute;
     inset: 0;
     z-index: 10;
-    background: linear-gradient(to right, rgba(0,61,165,0.90), rgba(0,61,165,0.70), rgba(255,106,19,0.80));
+    background: linear-gradient(to right, rgba(30,58,138,0.90), rgba(30,58,138,0.70), rgba(180,83,9,0.80));
+  }
+  [data-theme="dark"] .hero-overlay {
+    background: linear-gradient(to right, rgba(30,58,138,0.90), rgba(30,58,138,0.70), rgba(180,83,9,0.80));
   }
 
   .hero-content {
